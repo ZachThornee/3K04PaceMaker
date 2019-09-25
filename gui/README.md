@@ -7,3 +7,8 @@ TODO:
         2. Function to check if space available for users (<10) and if free add new user otherwise prompt for admin to delete user
         3. Function to allow admin to delete user
         4. Integrate python with MS access database
+
+INFO:
+    Postgresql login -> jeff
+    Postgresql password -> jeff laptop password
+    Postgresql database_name = 3K03_Database
