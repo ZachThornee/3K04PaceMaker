@@ -219,7 +219,7 @@ BORDER-STYLE: outset;</string>
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Admin Priveleges:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="textBrowser_7">
+  <widget class="QTextBrowser" name="TB_Email">
    <property name="geometry">
     <rect>
      <x>170</x>
