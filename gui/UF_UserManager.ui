@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>User Manager</string>
   </property>
   <widget class="QTableWidget" name="TAB_Users">
    <property name="geometry">

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Login as Admin User</string>
   </property>
   <property name="styleSheet">
    <string notr="true">BACKGROUND-COLOR: rgb(255, 255, 255);</string>
