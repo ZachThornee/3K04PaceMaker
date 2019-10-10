@@ -23,7 +23,7 @@
   <property name="styleSheet">
    <string notr="true">BACKGROUND-COLOR: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QPushButton" name="PB_Cancel">
+  <widget class="QPushButton" name="PB_Disconnect">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -51,7 +51,7 @@ BORDER-STYLE: outset;
     <string>Disconnect</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="PB_Confirm">
+  <widget class="QPushButton" name="PB_ConfirmChanges">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -79,7 +79,7 @@ BORDER-STYLE: outset;
     <string>Confirm Changes</string>
    </property>
   </widget>
-  <widget class="QLabel" name="LAB_PacemakerConnected">
+  <widget class="QLabel" name="LAB_Title">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -87,6 +87,12 @@ BORDER-STYLE: outset;
      <width>201</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
    </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
@@ -110,6 +116,12 @@ BORDER-STYLE: outset;
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">BACKGROUND-COLOR: rgb(230, 230, 230)</string>
    </property>
@@ -117,7 +129,7 @@ BORDER-STYLE: outset;
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;ID: ___&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="GB_Parameters">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -136,7 +148,7 @@ BORDER-STYLE: outset;
    <property name="title">
     <string>Parameters</string>
    </property>
-   <widget class="QLabel" name="LAB_ARP_9">
+   <widget class="QLabel" name="LAB_VentricularPulseWidth_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -182,7 +194,7 @@ BORDER-STYLE: outset;</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vent. Amplitude:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_7">
+   <widget class="QLabel" name="LAB_VRP_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -202,7 +214,7 @@ BORDER-STYLE: outset;</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;s &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_3">
+   <widget class="QLabel" name="LAB_UpperRateLimit_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -222,7 +234,7 @@ BORDER-STYLE: outset;</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;units&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_2">
+   <widget class="QLabel" name="LAB_LowerRateLimit_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -259,7 +271,7 @@ BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_8">
+   <widget class="QLabel" name="LAB_ARP_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -296,7 +308,7 @@ BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_4">
+   <widget class="QLabel" name="LAB_AtrialAmplitude_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -358,7 +370,7 @@ BORDER-STYLE: outset;</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Amplitude:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_5">
+   <widget class="QLabel" name="LAB_AtrialPulseWidth_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -488,7 +500,7 @@ BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="LAB_ARP_6">
+   <widget class="QLabel" name="LAB_VentricularAmplitude_Units">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -542,7 +554,7 @@ BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="PB_Confirm_2">
+   <widget class="QPushButton" name="PB_EditValues">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -571,7 +583,7 @@ BORDER-STYLE: outset;
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBox_2">
+  <widget class="QGroupBox" name="GB_PatientInfo">
    <property name="geometry">
     <rect>
      <x>19</x>
@@ -590,7 +602,7 @@ BORDER-STYLE: outset;
    <property name="title">
     <string>Patient Info</string>
    </property>
-   <widget class="QPushButton" name="PB_Confirm_3">
+   <widget class="QPushButton" name="PB_EditInfo">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -619,7 +631,7 @@ BORDER-STYLE: outset;
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBox_3">
+  <widget class="QGroupBox" name="GB_PMInfo">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -639,7 +651,7 @@ BORDER-STYLE: outset;
     <string>Pacemaker Info</string>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox_4">
+  <widget class="QGroupBox" name="GB_PacingModes">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -658,7 +670,7 @@ BORDER-STYLE: outset;
    <property name="title">
     <string>Pacing Modes</string>
    </property>
-   <widget class="QPushButton" name="PB_Confirm_4">
+   <widget class="QPushButton" name="PB_VOO">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -686,7 +698,7 @@ BORDER-STYLE: outset;
      <string>VOO</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="PB_Confirm_5">
+   <widget class="QPushButton" name="PB_VVI">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -714,7 +726,7 @@ BORDER-STYLE: outset;
      <string>VVI</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="PB_Confirm_6">
+   <widget class="QPushButton" name="PB_AOO">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -742,7 +754,7 @@ BORDER-STYLE: outset;
      <string>AOO</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="PB_Confirm_7">
+   <widget class="QPushButton" name="PB_AAI">
     <property name="geometry">
      <rect>
       <x>30</x>
