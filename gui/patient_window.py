@@ -7,7 +7,7 @@ import psycopg2
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 import database_management as DBM
-#import patient_window as MAIN
+import main_window as MAIN
 
 # Global configuration
 DATABASE_NAME = "3K04_Database"
