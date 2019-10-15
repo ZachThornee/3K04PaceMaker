@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>User Manager</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">BACKGROUND-COLOR: rgb(255, 255, 255);</string>
+  </property>
   <widget class="QTableWidget" name="TAB_Users">
    <property name="geometry">
     <rect>
