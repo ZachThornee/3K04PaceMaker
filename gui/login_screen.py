@@ -7,13 +7,15 @@ import psycopg2
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
 import database_management as DBM
-import main_window as MAIN
+import connecting_screen as CONNECTING
+import forgot_password_screen as FORGOT_PASSWORD
+import login_as_admin as LOGIN_ADMIN
 
 # Global configuration
 DATABASE_NAME = "3K04_Database"
 USER = "jeff"
 LOGINS_TABLE = "user_logins"
-INFO_ARRAY = [
+LOGINS_TABLE_PARAMETERS = [
                 ["EMPLOYEE_NUMBER", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
                 ["USER_LOGIN", "TEXT", "NOT", "NULL"],
                 ["PASSWORD", "TEXT",  "NOT", "NULL"],
@@ -30,17 +32,21 @@ class login_screen(QMainWindow):
         self.ui = uic.loadUi(('ui_files/UF_Login.ui'),self)
         self.ui.show()
         self.title = 'Protect your heart'
-        self.PB_Confirm.clicked.connect(self.validate_user)
-        self.PB_ForgotPassword.clicked.connect(self.send_email)
-        self.PB_UserManager.clicked.connect(self.manage_users_window)
-        self.database = DBM.db_manager(USER, DATABASE_NAME, INFO_ARRAY)
-        self.logins_table = self.database.connect_to_table(LOGINS_TABLE)
+        self.PB_Confirm.clicked.connect(self.login_button)
+        self.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
+        self.PB_UserManager.clicked.connect(self.manage_users_button)
+        self.database = DBM.db_manager(USER, DATABASE_NAME)
+        self.logins_table = self.database.connect_to_table(LOGINS_TABLE, LOGINS_TABLE_PARAMETERS)
         self.ui.show()
 
-    def validate_user(self):
-        username = self.TB_Username.text()
-        password = self.TB_Password.text()
+    def login_button(self):
+        username = self.ui.TB_Username.toPlainText()
+        password = self.ui.TB_Password.toPlainText()
         user_list = self.logins_table.get_rows()
+        current_user=None
+        log.info("Connecting to DCM serial reader")
+        CONNECTING.connecting_screen(self.database, current_user)
+        self.ui.close()
         for user in user_list:
             username_bool = False
             password_bool = False
@@ -54,14 +60,17 @@ class login_screen(QMainWindow):
                 current_user = user
                 break
         if current_user is not None:
+            log.info("Connecting to DCM serial reader")
             self.ui.close()
-            MAIN.main_window(self.database, current_user)
 
-    def manage_users_window(self):
-        print("connected to window")
+    def manage_users_button(self):
+        LOGIN_ADMIN.login_as_admin(self.database, self.logins_table, self)
 
-    def send_email(self):
-        pass
+        self.ui.close()
+
+    def forgot_password_button(self):
+        FORGOT_PASSWORD.forgot_password_screen(self.database, self.logins_table, self)
+        self.ui.close()
 
 if __name__ == "__main__":
     APP = QApplication([])

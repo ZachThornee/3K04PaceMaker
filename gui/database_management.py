@@ -7,7 +7,7 @@ MAX_LOGINS = 10
 
 class db_manager:
 
-    def __init__(self, user, database_name, setup_table_array=None):
+    def __init__(self, user, database_name):
         self.user = user
         self.db_name = database_name
 
@@ -22,15 +22,14 @@ class db_manager:
         self.con.autocommit=True
         self.cur = self.con.cursor()
         log.info("Connected to database : {}".format(database_name))
-        self.info_array = setup_table_array
 
     def create_table(self, table_name, info_array):
         try:
             create_table_query = "CREATE TABLE {0}(".format(table_name)
 
-            for i in range(len(self.info_array)):
-                for j in range(len(self.info_array[i])):
-                    create_table_query += self.info_array[i][j] +" "
+            for i in range(len(info_array)):
+                for j in range(len(info_array[i])):
+                    create_table_query += info_array[i][j] +" "
                 create_table_query = create_table_query.strip()
                 create_table_query += ", "
 
@@ -52,9 +51,21 @@ class db_manager:
             self.con.close()
             log.info("Database connection closed")
 
-    def connect_to_table(self, table_name):
-        new_table = table(table_name, self.con, self.cur)
-        return new_table
+    def connect_to_table(self, table_name, table_array=None):
+        try:
+            new_table = table(table_name, self.con, self.cur)
+            return new_table
+        except (Exception, psycopg2.errors.UndefinedTable) as e:
+            error = "\n\nCannot connect to table {0} -> {1}\n".format(table_name, e)
+            log.error(error)
+            if table_array is not None:
+                log.info("Creating table {0}".format(table_name))
+                self.create_table(table_name, table_array)
+                new_table = table(table_name, self.con, self.cur)
+                return
+            else:
+                log.error("Cannot generate table {0}. Exiting".format(table_name))
+                sys.exit()
 
 class table:
 
@@ -62,16 +73,9 @@ class table:
         self.name=table_name
         self.connection = connection
         self.cursor = cursor
-
-        # Connect to user logins table
-        try:
-            self.columns = self.get_columns()
-            self.rows = self.get_rows()
-            log.info("Connected to table : {}".format(table_name))
-        except (Exception, psycopg2.errors.UndefinedTable) as e:
-            error = "\n\nCannot connect to table {0} -> {1}\n".format(self.name, e)
-            log.error(error)
-            sys.exit()
+        self.columns = self.get_columns()
+        self.rows = self.get_rows()
+        log.info("Connected to table : {}".format(table_name))
 
     def get_columns(self):
         self.cursor.execute('SELECT * FROM {0}'.format(self.name))
