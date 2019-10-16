@@ -288,12 +288,12 @@ BORDER-STYLE: outset;</string>
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;E-Mail:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="CB_Admin">
+  <widget class="QCheckBox" name="CB_Admin">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>470</y>
-     <width>101</width>
+     <x>180</x>
+     <y>469</y>
+     <width>311</width>
      <height>31</height>
     </rect>
    </property>
@@ -303,11 +303,13 @@ BORDER-STYLE: outset;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
+    <string notr="true">BORDER-COLOR: rgb(245, 245, 245);
 BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
+   </property>
+   <property name="text">
+    <string>Give User Administrative Permissions</string>
    </property>
   </widget>
  </widget>
