@@ -1,7 +1,7 @@
 import psycopg2
 import sys
 import logging as log
-log.basicConfig(format='Database - %(levelname)s: %(message)s', level=log.INFO)
+log.basicConfig(format="Database - %(levelname)s: %(message)s", level=log.INFO)
 
 MAX_LOGINS = 10
 
@@ -42,8 +42,7 @@ class db_manager:
             print ("Error while creating PostgreSQL table", error)
 
     def delete_table(self, table_name):
-        command = "DROP TABLE IF EXISTS " + str(table_name)
-        self.cur.execute(command)
+        self.cur.execute("DROP TABLE IF EXISTS {0}".format(table_name))
 
     def close_connection(self):
         if (self.con):
@@ -60,9 +59,9 @@ class db_manager:
             log.error(error)
             if table_array is not None:
                 log.info("Creating table {0}".format(table_name))
+                self.delete_table(table_name)
                 self.create_table(table_name, table_array)
-                new_table = table(table_name, self.con, self.cur)
-                return
+                return table(table_name, self.con, self.cur)
             else:
                 log.error("Cannot generate table {0}. Exiting".format(table_name))
                 sys.exit()
@@ -78,7 +77,7 @@ class table:
         log.info("Connected to table : {}".format(table_name))
 
     def get_columns(self):
-        self.cursor.execute('SELECT * FROM {0}'.format(self.name))
+        self.cursor.execute("SELECT * FROM {0}".format(self.name))
         columns= [cn[0] for cn in self.cursor.description]
         for i in range(len(columns)): # Display the column names
             log.debug("Column {0} : {1}".format(i, columns[i]))
@@ -92,41 +91,24 @@ class table:
             log.debug("Rows {0} : {1}".format(i, rows[i]))
         return rows
 
-    def display_table(self):
-        print("{:30}".format(self.name))
+    def get_table_dictionary(self):
+        """
+        A function which calls the postgresql database to create a dictionary of users which are dictionarys
 
-        string = ""
-        for column in self.columns:
-            string += "{:<20}".format(column)
-        print(string)
+        The calling method is a list of users enumarated at 0 for keys
 
-        for row in self.rows:
-            string = ""
-            for element in row:
-                string += "{:<20}".format(element)
-            print(string)
+        To call the relevant values to that user use the dictionary
 
-    def add_row(self, responses=None):
-        if len(self.rows) > MAX_LOGINS:
-            log.warning("Cannot add user because you already have {0} users.".format(MAX_LOGINS))
-        if responses is None:
-            responses = []
-            for i in range(len(self.columns)):
-                user_input = input("{0} : ".format(self.columns[i]))
-                if user_input.lower() in ["y", "yes", "true", "1"]:
-                    responses.append("TRUE")
-                elif user_input.lower() in ["n", "no", "false", "0"]:
-                    responses.append("FALSE")
-                else:
-                    try:
-                        user_input = int(user_input)
-                        responses.append(str(user_input))
-                    except ValueError:
-                        responses.append("'{}'".format(user_input))
+        """
+        temp_list = [] # Create a temporary empty list
+        for user in self.rows:
+            dictionary = dict(zip(self.columns, user)) #Create a tuple and then conver to a dictionary
+            temp_list.append(dictionary) # Append to the empty list
 
-        if len(responses) != len(self.columns):
-            log.warning("Incorrect response array. Please try again.")
-            return None
+        dict_of_users = {i : temp_list[i] for i in range(len(temp_list))}
+        return dict_of_users
+
+    def add_row(self, responses):
 
         query = "INSERT INTO {0}(".format(self.name)
 
@@ -140,20 +122,43 @@ class table:
             if i+1 != len(responses):
                 query += responses[i] + ", "
             else:
-                query +=responses[i] + ")"
+                query += responses[i] + ")"
+
         self.update_table(query)
 
     def delete_row(self, row_number=None):
         if row_number is None:
-            row_number = input('What user would you like to delete?')
+            row_number = input("What user would you like to delete? : ")
 
         query = "DELETE FROM {0} WHERE {1} = {2} ".format(self.name, self.columns[0], row_number)
         self.update_table(query)
 
-    def update_table(self, query, show_table=False):
+    def update_table(self, query, ):
         log.debug("Query : {}".format(query))
         self.cursor.execute(query)
         self.columns = self.get_columns()
         self.rows=self.get_rows()
-        if show_table:
-            self.display_table()
+        return self.get_table_dictionary()
+
+if __name__ == "__main__":
+    database = db_manager("jeff", "3K04_Database")
+    LOGINS_TABLE_PARAMETERS = [
+                    ["EMPLOYEE_NUMBER", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
+                    ["USER_LOGIN", "TEXT", "NOT", "NULL"],
+                    ["PASSWORD", "TEXT",  "NOT", "NULL"],
+                    ["EMAIL", "TEXT", "NOT", "NULL"],
+                    ["FIRST_NAME", "TEXT", "NOT", "NULL"],
+                    ["LAST_NAME", "TEXT", "NOT", "NULL"],
+                    ["ADMIN_PRIVELEGES", "BOOLEAN", "NOT", "NULL"],
+                ]
+    #database.delete_table("user_logins")
+    table_name = database.connect_to_table("user_logins", LOGINS_TABLE_PARAMETERS)
+    print(table_name.get_columns())
+    print(table_name.get_rows())
+    #table_name.add_row(["0", "'jeff'", "'jeff'", "'jeff@email.com'", "'jeff'", "'jeff'", "TRUE"])
+
+    # database = db_manager("jeff", "3K04_Database")
+    # table_name = database.connect_to_table("patient_info", PATIENT_LOOKUP_PARAMETERS)
+    # table_name.add_row(["0", "'jeff'", "'jeff'", "'N123N'", "'M'", "20", "123456789" ])
+    # print(table_name.get_columns())
+    # print(table_name.get_rows())

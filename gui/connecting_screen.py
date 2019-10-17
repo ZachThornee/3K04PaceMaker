@@ -19,6 +19,7 @@ PATIENT_LOOKUP_PARAMETERS = [
                 ["HEALTHCARD", "TEXT", "NOT", "NULL"],
                 ["SEX", "TEXT", "NOT", "NULL"],
                 ["AGE", "INT", "NOT", "NULL"],
+                ["PACEMAKER_ID", "INT", "NOT", "NULL"],
             ]
 
 log.basicConfig(format='%(levelname)s: %(message)s', level=log.INFO)
@@ -37,34 +38,18 @@ class connecting_screen(QMainWindow):
 
 
     def read_serial(self):
-        # while True:
-        #     for i in range(100):
-        #         port = "/dev/ttyACM" + str(i)
-        #         try:
-        #             self.serial = serial.Serial("/dev/ttyACM0")
-        #             break
-        #         except serial.serialutil.SerialException:
-        #             log.debug("Cannot connect to serial port {0}".format(i))
+        #TODO actually read the serial port
+        serial_num = 123456789
+        log.info("Searching for patient with unique id {0}".format(serial_num))
 
-        #     if self.serial is not None:
-        #         break
-        patient = self.find_patient()
-        if patient is not None:
-            log.info("Interfacing with patient : {0}, pacemaker id: {1}".format(patient, "123"))
-            self.ui.close()
-            HOME.home_screen(self.database, self.current_user, patient)
+        patient_table_dict = self.patient_table.get_table_dictionary()
 
+        for patient in patient_table_dict.values():
+            if patient['pacemaker_id'] == serial_num:
+                log.info("Interfacing with patient : {0}, pacemaker id: {1}".format(patient, "123"))
+                self.ui.close()
+                HOME.home_screen(self.database, self.current_user, patient)
+                return
         else:
             log.info("This patient does not exist in the database. Please add patient info")
 
-
-
-    def find_patient(self):
-        return True
-        #TODO query over serial to get patient info
-        #self.ui.close()
-        # while True:
-        #     response = self.serial.readline()
-        #     if response is not None:
-                # TODO : Add code for reading and looking up serial port value
-                # IF response is found move to next login screen

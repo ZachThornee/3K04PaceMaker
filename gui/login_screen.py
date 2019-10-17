@@ -22,7 +22,8 @@ LOGINS_TABLE_PARAMETERS = [
                 ["EMAIL", "TEXT", "NOT", "NULL"],
                 ["FIRST_NAME", "TEXT", "NOT", "NULL"],
                 ["LAST_NAME", "TEXT", "NOT", "NULL"],
-                ["ADMIN_PRIVELEGES", "BOOLEAN", "NOT", "NULL"]
+                ["ADMIN_PRIVELEGES", "BOOLEAN", "NOT", "NULL"],
+                ["EMAIL", "TEXT", "NOT", "NULL"]
             ]
 log.basicConfig(format='%(levelname)s: %(message)s', level=log.INFO)
 
@@ -40,32 +41,22 @@ class login_screen(QMainWindow):
         self.ui.show()
 
     def login_button(self):
-        username = self.ui.TB_Username.toPlainText()
-        password = self.ui.TB_Password.toPlainText()
-        user_list = self.logins_table.get_rows()
-        current_user=None
-        log.info("Connecting to DCM serial reader")
-        CONNECTING.connecting_screen(self.database, current_user)
-        self.ui.close()
-        for user in user_list:
-            username_bool = False
-            password_bool = False
-            current_user = None
-            for info in user:
-                if info == username:
-                    username_bool = True
-                if info == password:
-                    password_bool = True
-            if password_bool and username_bool:
-                current_user = user
-                break
-        if current_user is not None:
-            log.info("Connecting to DCM serial reader")
-            self.ui.close()
+        inputted_username = self.lineEdit.text()
+        inputted_password = self.lineEdit_2.text()
+        user_dictionary = self.logins_table.get_table_dictionary()
+
+        for user in user_dictionary.values():
+            if inputted_username == user['user_login'] and inputted_password == user['password']:
+                # If we have the correct password, username, allow connecting
+                self.ui.close()
+                log.info("Connecting to DCM serial reader")
+                CONNECTING.connecting_screen(self.database, user)
+                return
+        else:
+            log.info("Incorrect login")
 
     def manage_users_button(self):
         LOGIN_ADMIN.login_as_admin(self.database, self.logins_table, self)
-
         self.ui.close()
 
     def forgot_password_button(self):

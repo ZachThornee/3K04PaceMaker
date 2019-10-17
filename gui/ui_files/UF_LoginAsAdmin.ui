@@ -44,23 +44,6 @@ BORDER-STYLE: outset;
     <string>Return to General Login</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="TB_Password">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>160</y>
-     <width>421</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="PB_Confirm">
    <property name="geometry">
     <rect>
@@ -115,23 +98,6 @@ BORDER-STYLE: outset;
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="TB_Username">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>100</y>
-     <width>421</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="LAB_Login">
    <property name="geometry">
     <rect>
@@ -153,6 +119,40 @@ BORDER-STYLE: outset;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="TB_Username">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>90</y>
+     <width>431</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="TB_Password">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>160</y>
+     <width>431</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
    </property>
   </widget>
  </widget>

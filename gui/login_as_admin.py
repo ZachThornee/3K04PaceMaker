@@ -15,16 +15,25 @@ class login_as_admin(QMainWindow):
         self.database = database
         self.table = table
         self.home_screen = home_screen
-        self.current_user = None
         self.PB_UserManager.clicked.connect(self.return_to_login_screen)
         self.PB_Confirm.clicked.connect(self.validate_admin)
         self.ui.show()
 
     def validate_admin(self):
-        #TODO get text and check if user has admin priveleges
-        self.ui.close()
-        USER_MANAGER.user_manager_screen(self.database, self.table, self.current_user)
+        inputted_username = self.TB_Username.text()
+        inputted_password = self.TB_Password.text()
 
+        user_dictionary = self.table.get_table_dictionary()
+        for user in user_dictionary.values():
+            if (inputted_username == user['user_login'] and
+                inputted_password == user['password'] and
+                user['admin_priveleges'] is True):
+                # If we have the correct password, username, and priveleges manage users
+                self.ui.close()
+                USER_MANAGER.user_manager_screen(self.database, self.table, user)
+                return
+        else:
+            log.info("Incorrect login or insufficient priveleges")
 
     def return_to_login_screen(self):
         self.home_screen.ui.show()

@@ -144,7 +144,7 @@ BORDER-STYLE: outset;
     <string>Forgot Password</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="TB_Username">
+  <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -161,7 +161,7 @@ BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="TB_Password">
+  <widget class="QLineEdit" name="lineEdit_2">
    <property name="geometry">
     <rect>
      <x>140</x>
