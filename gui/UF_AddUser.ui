@@ -188,7 +188,7 @@ BORDER-STYLE: outset;
     <string>Confirm</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="TB_Admin">
+  <widget class="QLineEdit" name="TB_Email">
    <property name="geometry">
     <rect>
      <x>170</x>
