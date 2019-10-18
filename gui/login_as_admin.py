@@ -30,7 +30,7 @@ class login_as_admin(QMainWindow):
                 user['admin_priveleges'] is True):
                 # If we have the correct password, username, and priveleges manage users
                 self.ui.close()
-                USER_MANAGER.user_manager_screen(self.database, self.table, user)
+                USER_MANAGER.user_manager_screen(self.database, self.table)
                 return
         else:
             log.info("Incorrect login or insufficient priveleges")

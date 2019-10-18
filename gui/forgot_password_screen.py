@@ -21,13 +21,18 @@ class forgot_password_screen(QMainWindow):
         self.home_screen = home_screen
         self.logins_table = logins_table
         self.PB_Enter.clicked.connect(self.check_login)
-        self.PB_Back.clicked.connect(self.return_to_login_screen)
+        self.PB_Return.clicked.connect(self.return_to_login_screen)
 
     def check_login(self):
         self.ui.close()
-        pass
-        #TODO get the email text and compare it against the database
-        #TODO if email is valid create a new password and send it to the user
+        inputted_email = self.ui.TB_Email.text()
+        inputted_user_login = self.ui.TB_Username.text()
+        user_dictionary = self.logins_table.get_table_dictionary()
+
+        for user in user_dictionary.values():
+            if user['email'] == inputted_email and user['user_login'] == inputted_user_login:
+                log.info("Email is valid sending email")
+                self.return_to_login_screen()
 
     def return_to_login_screen(self):
         self.ui.close()
