@@ -48,7 +48,7 @@ BORDER-STYLE: outset;
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Error&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="PB_Login">
+  <widget class="QPushButton" name="PB_AddUser">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -76,7 +76,7 @@ BORDER-STYLE: outset;
     <string>Edit New User Info</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="PB_ManageUsers">
+  <widget class="QPushButton" name="PB_UserManager">
    <property name="geometry">
     <rect>
      <x>180</x>
