@@ -1,69 +1,48 @@
 import logging as log
-import random
-import sys
-import time
 
-import psycopg2
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import *
+from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow
 import database_management as DBM
-import connecting_screen as CONNECTING
-import forgot_password_screen as FORGOT_PASSWORD
+import con_screen as CON_SCREEN
+import forgot_pass_scrn as FORGT_PASS
 import login_as_admin as LOGIN_ADMIN
 
-# Global configuration
-DATABASE_NAME = "3K04_Database"
-USER = "jeff"
-LOGINS_TABLE = "user_logins"
-LOGINS_TABLE_PARAMETERS = [
-                ["EMPLOYEE_NUMBER", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
-                ["USER_LOGIN", "TEXT", "NOT", "NULL"],
-                ["PASSWORD", "TEXT",  "NOT", "NULL"],
-                ["EMAIL", "TEXT", "NOT", "NULL"],
-                ["FIRST_NAME", "TEXT", "NOT", "NULL"],
-                ["LAST_NAME", "TEXT", "NOT", "NULL"],
-                ["ADMIN_PRIVELEGES", "BOOLEAN", "NOT", "NULL"],
-                ["EMAIL", "TEXT", "NOT", "NULL"]
-            ]
-log.basicConfig(format='%(levelname)s: %(message)s', level=log.INFO)
 
 class login_screen(QMainWindow):
-    def __init__(self):
+    def __init__(self, db_user, db_name, table_name, table_dict):
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Login.ui'),self)
+        self.ui = uic.loadUi(('ui_files/UF_Login.ui'), self)
+        log.info("Showing main login screen")
         self.ui.show()
         self.title = 'Protect your heart'
+        self.table_dict = table_dict
         self.PB_Confirm.clicked.connect(self.login_button)
         self.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
         self.PB_UserManager.clicked.connect(self.manage_users_button)
-        self.database = DBM.db_manager(USER, DATABASE_NAME)
-        self.logins_table = self.database.connect_to_table(LOGINS_TABLE, LOGINS_TABLE_PARAMETERS)
+        self.db = DBM.db_manager(db_user, db_name)
+        self.table = self.db.con_table(table_name, table_dict[table_name])
         self.ui.show()
 
     def login_button(self):
-        inputted_username = self.lineEdit.text()
-        inputted_password = self.lineEdit_2.text()
-        user_dictionary = self.logins_table.get_table_dictionary()
+        inputted_username = self.ui.TB_Username.text()
+        inputted_password = self.ui.TB_Password.text()
+        user_dict = self.table.get_table_dict()
 
-        for user in user_dictionary.values():
-            if inputted_username == user['user_login'] and inputted_password == user['password']:
+        for user in user_dict.values():
+            if (inputted_username == user['user_login'] and
+               inputted_password == user['password']):
                 # If we have the correct password, username, allow connecting
                 self.ui.close()
                 log.info("Connecting to DCM serial reader")
-                CONNECTING.connecting_screen(self.database, user)
+                CON_SCREEN.con_screen(self.db, user, self.table_dict, self)
                 return
         else:
             log.info("Incorrect login")
 
     def manage_users_button(self):
-        LOGIN_ADMIN.login_as_admin(self.database, self.logins_table, self)
+        LOGIN_ADMIN.login_as_admin(self.db, self.table, self)
         self.ui.close()
 
     def forgot_password_button(self):
-        FORGOT_PASSWORD.forgot_password_screen(self.database, self.logins_table, self)
+        FORGT_PASS.forgot_pass_scrn(self.db, self.table, self.table_dict, self)
         self.ui.close()
-
-if __name__ == "__main__":
-    APP = QApplication([])
-    window  = login_screen()
-    sys.exit(APP.exec_())

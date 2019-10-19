@@ -1,20 +1,15 @@
 import logging as log
-import random
-import sys
-import time
 
-import psycopg2
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import *
+from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow
 import user_manager_screen as USER_MANAGER
 
-# Global Variables
-log.basicConfig(format='%(levelname)s: %(message)s', level=log.INFO)
 
 class add_user_screen(QMainWindow):
     def __init__(self, database, users_table):
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_AddUser.ui'),self)
+        self.ui = uic.loadUi(('ui_files/UF_AddUser.ui'), self)
+        log.info("Adding new user")
         self.ui.show()
         self.database = database
         self.users_table = users_table
@@ -35,7 +30,6 @@ class add_user_screen(QMainWindow):
         for user in user_dictionary.values():
             if user['employee_number'] == new_user['employee_number']:
                 log.warning("Invalid input -> same employee number")
-
 
         new_user['first_name'] = "'{0}'".format(self.ui.TB_FirstName.text())
         new_user['last_name'] = "'{0}'".format(self.ui.TB_LastName.text())
@@ -58,4 +52,3 @@ class add_user_screen(QMainWindow):
     def return_to_user_manager(self):
         self.ui.close()
         USER_MANAGER.user_manager_screen(self.database, self.users_table)
-

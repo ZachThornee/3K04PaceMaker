@@ -1,21 +1,14 @@
 import logging as log
-import random
-import sys
-import time
-
-import psycopg2
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import *
-import serial
+from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow
 import home_screen as HOME
 
-# Global Variables
-log.basicConfig(format='%(levelname)s: %(message)s', level=log.INFO)
 
-class forgot_password_screen(QMainWindow):
+class forgot_pass_scrn(QMainWindow):
     def __init__(self, database, logins_table, home_screen):
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_ForgotPassword.ui'),self)
+        self.ui = uic.loadUi(('ui_files/UF_ForgotPassword.ui'), self)
+        log.info("Showing forgot password screen")
         self.ui.show()
         self.database = database
         self.home_screen = home_screen
@@ -30,11 +23,11 @@ class forgot_password_screen(QMainWindow):
         user_dictionary = self.logins_table.get_table_dictionary()
 
         for user in user_dictionary.values():
-            if user['email'] == inputted_email and user['user_login'] == inputted_user_login:
+            if (user['email'] == inputted_email and
+               user['user_login'] == inputted_user_login):
                 log.info("Email is valid sending email")
                 self.return_to_login_screen()
 
     def return_to_login_screen(self):
         self.ui.close()
-        self.home_screen.ui.show()
-
+        HOME.ui.show()
