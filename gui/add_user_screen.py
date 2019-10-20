@@ -6,28 +6,27 @@ import user_manager_screen as USER_MANAGER
 
 
 class add_user_screen(QMainWindow):
-    def __init__(self, database, users_table):
+    def __init__(self, tables_dict):
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_AddUser.ui'), self)
         log.info("Adding new user")
         self.ui.show()
-        self.database = database
-        self.users_table = users_table
+        self.tables_dict = tables_dict
         self.ui.PB_Confirm.clicked.connect(self.add_new_user)
         self.ui.PB_Cancel.clicked.connect(self.return_to_user_manager)
 
     def add_new_user(self):
-        user_dictionary = self.users_table.get_table_dictionary()
-        new_user = user_dictionary[0]
+        user_dict = self.table_dict['users_table'].get_table_dict()
+        new_user = user_dict[0]
 
         try:
             valid_num = abs(int(self.ui.TB_ID.text()))
             new_user['employee_number'] = str(valid_num)
         except ValueError:
             log.warning("Invalid user input")
-            new_user['employee_number'] = str(len(user_dictionary) + 1)
+            new_user['employee_number'] = str(len(user_dict) + 1)
 
-        for user in user_dictionary.values():
+        for user in user_dict.values():
             if user['employee_number'] == new_user['employee_number']:
                 log.warning("Invalid input -> same employee number")
 
@@ -51,4 +50,4 @@ class add_user_screen(QMainWindow):
 
     def return_to_user_manager(self):
         self.ui.close()
-        USER_MANAGER.user_manager_screen(self.database, self.users_table)
+        USER_MANAGER.user_manager_screen(self.tables_dict)

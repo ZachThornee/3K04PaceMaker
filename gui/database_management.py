@@ -91,24 +91,28 @@ class table:
             log.debug("Rows {0} : {1}".format(i, rows[i]))
         return rows
 
-    def get_table_dictionary(self):
+    def get_table_dict(self):
         """
-        Generate a dictionary of users which are dictionarys
+        Generate a dict of users which are dictionarys
 
-        The calling method is a dictionary of users enumarated at 0 for keys
+        The calling method is a dict of users enumarated at 0 for keys
 
-        To call the relevant values to that user use the dictionary
+        To call the relevant values to that user use the dict
 
         """
         temp_list = []  # Create a temporary empty list
         for user in self.rows:
-            dictionary = dict(zip(self.columns, user))  # Create dictionary
-            temp_list.append(dictionary)  # Append to the empty list
+            dicttionary = dict(zip(self.columns, user))  # Create dictionary
+            temp_list.append(dicttionary)  # Append to the empty list
 
         dict_of_users = {i: temp_list[i] for i in range(len(temp_list))}
         return dict_of_users
 
     def add_row(self, responses):
+
+        if responses is None:
+            log.error("No entries to add to rows")
+            return False
 
         query = "INSERT INTO {0}(".format(self.name)
 
@@ -126,17 +130,30 @@ class table:
 
         self.update_table(query)
 
-    def delete_row(self, row_number=None):
-        if row_number is None:
-            row_number = input("What user would you like to delete? : ")
+    def delete_row(self, primary_key):
+        if primary_key is None:
+            log.error("No primary key for delete row")
+            return False
 
         query = "DELETE FROM {0} WHERE {1} = {2} " \
-                .format(self.name, self.columns[0], row_number)
+                .format(self.name, self.columns[0], primary_key)
         self.update_table(query)
 
-    def update_table(self, query, ):
+    def edit_row(self, data, primary_key):
+        # TODO actually select instead of just deleting
+        if data is None:
+            log.error("No data to insert into table")
+            return False
+
+        if primary_key is None:
+            log.error("No primary_key to delete row")
+            return False
+
+        self.delete_row(primary_key)
+        self.add_row(data)
+
+    def update_table(self, query):
         log.debug("Query : {}".format(query))
         self.cursor.execute(query)
         self.columns = self.get_columns()
         self.rows = self.get_rows()
-        return self.get_table_dictionary()

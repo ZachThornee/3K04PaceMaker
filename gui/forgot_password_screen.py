@@ -20,9 +20,9 @@ class forgot_pass_scrn(QMainWindow):
         self.ui.close()
         inputted_email = self.ui.TB_Email.text()
         inputted_user_login = self.ui.TB_Username.text()
-        user_dictionary = self.logins_table.get_table_dictionary()
+        user_dict = self.logins_table.get_table_dictionary()
 
-        for user in user_dictionary.values():
+        for user in user_dict.values():
             if (user['email'] == inputted_email and
                user['user_login'] == inputted_user_login):
                 log.info("Email is valid sending email")
