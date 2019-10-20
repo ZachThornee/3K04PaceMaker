@@ -1,148 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UF_UserManager</class>
- <widget class="QWidget" name="UF_UserManager">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1172</width>
-    <height>691</height>
+    <width>1170</width>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>User Manager</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">BACKGROUND-COLOR: rgb(255, 255, 255);</string>
+   <string notr="true">BACKGROUND-COLOR: rgb(255,255,255);</string>
   </property>
-  <widget class="QTableWidget" name="TAB_Users">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>90</y>
-     <width>1131</width>
-     <height>521</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="editTriggers">
-    <set>QAbstractItemView::NoEditTriggers</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="LAB_Title">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>20</y>
-     <width>1171</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <underline>false</underline>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
+  <widget class="QWidget" name="UF_UserManageridget">
+   <widget class="QPushButton" name="PB_AddUser">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>630</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Confirm username and password to log in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">BACKGROUND-COLOR: rgb(170, 255, 127);
+BORDER-COLOR: rgb(170, 255, 127);
+BORDER-RADIUS: 10px;
+BORDER-STYLE: outset;
 </string>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="PB_Back">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>630</y>
-     <width>211</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change your password, create new users, and delete existing users&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(160, 238, 252);
+    </property>
+    <property name="text">
+     <string>Add User</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_Back">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>630</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change your password, create new users, and delete existing users&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">BACKGROUND-COLOR: rgb(160, 238, 252);
 BORDER-COLOR: rgb(160, 238. 252);
 BORDER-RADIUS: 10px;
 BORDER-STYLE: outset;
 </string>
-   </property>
-   <property name="text">
-    <string>Return to Login</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="PB_AddUser">
-   <property name="geometry">
-    <rect>
-     <x>940</x>
-     <y>630</y>
-     <width>211</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Confirm username and password to log in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(170, 255, 127);
+    </property>
+    <property name="text">
+     <string>Return to Login</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_EditUser">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>630</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Confirm username and password to log in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">BACKGROUND-COLOR: rgb(255, 238, 0);
 BORDER-COLOR: rgb(170, 255, 127);
 BORDER-RADIUS: 10px;
 BORDER-STYLE: outset;
 </string>
-   </property>
-   <property name="text">
-    <string>Add User</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="PB_EditUser">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>630</y>
-     <width>211</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Confirm username and password to log in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(255, 238, 0);
-BORDER-COLOR: rgb(170, 255, 127);
-BORDER-RADIUS: 10px;
-BORDER-STYLE: outset;
+    </property>
+    <property name="text">
+     <string>Edit User</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LAB_Title">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>20</y>
+      <width>1171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
 </string>
-   </property>
-   <property name="text">
-    <string>Edit User</string>
-   </property>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="TAB_Users">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>1131</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PB_DeleteUser">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>630</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Confirm username and password to log in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">BACKGROUND-COLOR: rgb(255, 175, 177);
+BORDER-COLOR: rgb(255, 175. 177);
+BORDER-RADIUS: 10px;
+BORDER-STYLE: outset;</string>
+    </property>
+    <property name="text">
+     <string>Delete User</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
