@@ -9,7 +9,7 @@ class edit_user_screen(QMainWindow):
     def __init__(self, tables_dict, user):
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_EditUser.ui'), self)
-        log.info("editing user : {0}".format(user['employee_number']))
+        log.info("editing employee : {0}".format(user['employee_number']))
         self.ui.TB_FirstName.insert(user['first_name'])
         self.ui.TB_LastName.insert(user['last_name'])
         self.ui.TB_ID.insert(str(user['employee_number']))
@@ -30,6 +30,7 @@ class edit_user_screen(QMainWindow):
         self.edit_user_list = []
 
     def edit_user(self):
+        #TODO update to match add user
         old_employee_num = self.user['employee_number']
 
         try:

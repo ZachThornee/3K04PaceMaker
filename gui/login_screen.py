@@ -25,6 +25,7 @@ class login_screen(QMainWindow):
         inputted_password = self.ui.TB_Password.text()
 
         user_dict = self.tables_dict['users_table'].get_table_dict()
+        print(user_dict)
 
         for user in user_dict.values():
             if (inputted_username == user['user_login'] and
@@ -32,7 +33,7 @@ class login_screen(QMainWindow):
                 # If we have the correct password, username, allow connecting
                 self.ui.close()
                 log.info("Connecting to DCM serial reader")
-                CON_SCREEN.con_screen(self.db, user, self.table_dict, self)
+                CON_SCREEN.con_screen(self.tables_dict, self)
                 return
         else:
             log.info("Incorrect login")

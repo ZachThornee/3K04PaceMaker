@@ -5,13 +5,14 @@ import serial
 
 
 class home_screen(QMainWindow):
-    def __init__(self, database, current_user, patient_table):
+
+    def __init__(self, tables_dict, patient):
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_PMConnected.ui'), self)
         self.ui.show()
-        self.database = database
-        self.table = patient_table
-        self.current_user = current_user
+        self.tables_dict = tables_dict
+        self.table = self.tables_dict['patients_table']
+        self.patient = patient
         # self.serial = serial.Serial("/dev/ttyACM0")
         self.ui.show()
 
