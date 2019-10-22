@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UF_PMConnecting</class>
- <widget class="QWidget" name="UF_PMConnecting">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>945</width>
+    <width>938</width>
     <height>120</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Connecting to PaceMaker</string>
+   <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">BACKGROUND-COLOR: rgb(255, 255, 255);</string>
+   <string notr="true">BACKGROUND-COLOR: rgb(255,255,255);</string>
   </property>
-  <widget class="QLabel" name="LAB_Title">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>901</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <underline>false</underline>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
+  <widget class="QWidget" name="UF_PMConnecting">
+   <widget class="QLabel" name="LAB_Title">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>901</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
 BORDER-COLOR: rgb(208, 248, 255);
 BORDER-RADIUS: 10px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Waiting for Pacemaker connection...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Waiting for Pacemaker connection...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

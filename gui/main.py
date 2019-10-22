@@ -9,6 +9,7 @@ import database_management as DBM
 DB_NAME = "3K04_Database"
 USER = "jeff"
 
+# User Logins Table Information
 LOGINS_TABLE = "user_logins"
 LOGINS_PARAMETERS = [
                 ["EMPLOYEE_NUMBER", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
@@ -20,6 +21,7 @@ LOGINS_PARAMETERS = [
                 ["ADMIN_PRIVELEGES", "BOOLEAN", "NOT", "NULL"],
             ]
 
+# Patient Table Information
 PATIENT_TABLE = "patient_info"
 PATIENT_PARAMETERS = [
                 ["PATIENT_NUMBER", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
@@ -31,18 +33,31 @@ PATIENT_PARAMETERS = [
                 ["PACEMAKER_ID", "INT", "NOT", "NULL"],
             ]
 
+# Setup log style
 log.basicConfig(format='%(filename)s-%(levelname)s: %(message)s',
                 level=log.INFO)
 
 
 def main():
-    APP = QApplication([])
-    database = DBM.db_manager(USER, DB_NAME)
+    """
+    Main applicaiton loop
+
+    """
+    APP = QApplication([])  # Create the app
+    database = DBM.db_manager(USER, DB_NAME)  # Connect to the database
+
+    # Connect to all tables
     users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS)
     patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS)
+
+    # Create a dictionary of all relevant tables
     table_dict = {"users_table": users_table,
                   "patients_table": patient_table}
+
+    # Login to main screen
     MAIN_SCREEN.login_screen(table_dict)
+
+    # Allow the application to run seperately
     sys.exit(APP.exec_())
 
 

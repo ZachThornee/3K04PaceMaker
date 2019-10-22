@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow
 import serial
 import home_screen as HOME
 import time
+import threading
 
 
 class con_screen(QMainWindow):
@@ -32,8 +33,8 @@ class con_screen(QMainWindow):
         # TODO actually read the serial port
         serial_num = 123456789
         log.info("Searching for patient with unique id {0}".format(serial_num))
-
         for patient in self.patient_dict.values():
+            # If ID matches the serial num then show home screen and populate
             if patient['pacemaker_id'] == serial_num:
                 log.info("Patient : {0}".format(patient))
                 self.ui.close()
@@ -42,5 +43,4 @@ class con_screen(QMainWindow):
                 return
         else:
             log.info("Patient does not exist please add patient info.")
-            HOME.home_screen(self.tables_dict, serial_num)
-
+            HOME.home_screen(self.tables_dict, serial_num, None)

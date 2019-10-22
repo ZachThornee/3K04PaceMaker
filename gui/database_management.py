@@ -273,7 +273,7 @@ class table:
         """
         Method to delete a row from a table
 
-        :param primary_key :w[TODO:type]: [TODO:description]
+        :param primary_key int: Key that identifies table row
         """
         if primary_key is None:
             log.error("No primary key for delete row")
@@ -284,7 +284,44 @@ class table:
         self.update_table(query)
 
     def edit_row(self, data, primary_key):
-        # TODO actually select instead of just deleting
+        """
+        Method to edit a row in the table
+
+        :param data array_diff_types: Array containing new row data
+        :param primary_key type_of_primary_key: A primary key which to look in the table to change the row
+
+        v = value   c = column  N = an arbitrary number
+        -------------------------------------------------------
+
+        CURRENT_QUERY_STRUCTURE: Before first iteration
+
+        UPDATE table_name SET
+
+        -------------------------------------------------------
+
+        CURRENT_QUERY_STRUCTURE: After first iteration
+
+        UPDATE table_name SET c1=v1,
+
+        -------------------------------------------------------
+
+        BCURRENT_QUERY_STRUCTURE: After second iteration
+
+        UPDATE table_name SET c1=v1, c2=v2,
+
+        -------------------------------------------------------
+
+        CURRENT_QUERY_STRUCTURE: After all iterations
+
+        UPDATE table_name SET c1=v1, c2=v2, cN=vN
+
+        -------------------------------------------------------
+
+        CURRENT_QUERY_STRUCTURE: Finished query
+
+        UPDATE table_name SET c1=v1, c2=v2, cN=vN WHERE c0=primary_key;
+        """
+
         if data is None:
             log.error("No data to insert into table")
             return False
@@ -293,10 +330,23 @@ class table:
             log.error("No primary_key to delete row")
             return False
 
-        self.delete_row(primary_key)
-        self.add_row(data)
+        query = "UPDATE {0} SET".format(self.name)
+
+        for i in range(len(self.columns)):
+            if i+1 == len(self.columns):
+                query += " {0}={1} ".format(self.columns[i], data[i])
+            else:
+                query += " {0}={1},".format(self.columns[i], data[i])
+
+        query += "WHERE {0}={1};".format(self.columns[0], primary_key)
+        self.update_table(query)
 
     def update_table(self, query):
+        """
+        Method to execute a query and update the self.rows and self.columns
+
+        :param query string: The SQL query which to perform
+        """
         log.debug("Query : {}".format(query))
         self.cursor.execute(query)
         self.columns = self.get_columns()

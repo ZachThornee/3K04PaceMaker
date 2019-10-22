@@ -9,23 +9,31 @@ import login_as_admin as LOGIN_ADMIN
 
 class login_screen(QMainWindow):
     def __init__(self, tables_dict):
+        """
+        Constructor for the initial doctor login screen
+
+        :param tables_dict dictionary: A dictionary containing all tables
+        """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_Login.ui'), self)
+        qss_file = open("QSS/MaterialDark.qss").read()
+        self.ui.setStyleSheet(qss_file)
         log.info("Showing main login screen")
-        self.ui.show()
-        self.title = 'Protect your heart'
         self.tables_dict = tables_dict
-        self.PB_Confirm.clicked.connect(self.login_button)
-        self.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
-        self.PB_UserManager.clicked.connect(self.manage_users_button)
+        self.ui.PB_Confirm.clicked.connect(self.login_button)
+        self.ui.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
+        self.ui.PB_UserManager.clicked.connect(self.manage_users_button)
         self.ui.show()
 
     def login_button(self):
+        """
+        Method to validate a user name and password to allow a user to login
+
+        """
         inputted_username = self.ui.TB_Username.text()
         inputted_password = self.ui.TB_Password.text()
 
         user_dict = self.tables_dict['users_table'].get_table_dict()
-        print(user_dict)
 
         for user in user_dict.values():
             if (inputted_username == user['user_login'] and
@@ -39,9 +47,17 @@ class login_screen(QMainWindow):
             log.info("Incorrect login")
 
     def manage_users_button(self):
+        """
+        Method to open the login as admin screen before opening the user manager
+
+        """
         LOGIN_ADMIN.login_as_admin(self.tables_dict, self)
         self.ui.close()
 
     def forgot_password_button(self):
+        """
+        Method to open the forgot password screen
+
+        """
         FORGT_PASS.forgot_pass_scrn(self.tables_dict, self)
         self.ui.close()
