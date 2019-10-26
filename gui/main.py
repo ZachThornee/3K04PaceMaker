@@ -31,6 +31,20 @@ PATIENT_PARAMETERS = [
                 ["SEX", "TEXT", "NOT", "NULL"],
                 ["AGE", "INT", "NOT", "NULL"],
                 ["PACEMAKER_ID", "INT", "NOT", "NULL"],
+                ]
+
+PACEMAKER_TABLE = "pacemaker_info"
+PACEMAKER_PARAMS = [
+                ["ID", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
+                ["MODE", "TEXT",  "NOT", "NULL"],
+                ["VRP", "INT",  "NOT", "NULL"],
+                ["ARP", "INT",  "NOT", "NULL"],
+                ["VENT_PULSE_WIDTH", "INT",  "NOT", "NULL"],
+                ["VENT_AMPLITUDE", "INT",  "NOT", "NULL"],
+                ["ATRIAL_PULSE_WIDTH", "INT",  "NOT", "NULL"],
+                ["ATRIAL_AMPLITUDE", "INT", "NOT", "NULL"],
+                ["UPPER_RATE", "INT",  "NOT", "NULL"],
+                ["LOWER_RATE", "INT",  "NOT", "NULL"],
             ]
 
 # Setup log style
@@ -49,10 +63,12 @@ def main():
     # Connect to all tables
     users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS)
     patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS)
+    pacemaker_table = database.con_table(PACEMAKER_TABLE, PACEMAKER_PARAMS)
 
     # Create a dictionary of all relevant tables
     table_dict = {"users_table": users_table,
-                  "patients_table": patient_table}
+                  "patients_table": patient_table,
+                  "pacemaker_table": pacemaker_table}
 
     # Login to main screen
     MAIN_SCREEN.login_screen(table_dict)
