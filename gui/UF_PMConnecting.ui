@@ -17,33 +17,17 @@
    <string notr="true">BACKGROUND-COLOR: rgb(255,255,255);</string>
   </property>
   <widget class="QWidget" name="UF_PMConnecting">
-   <widget class="QLabel" name="LAB_Title">
+   <widget class="QPushButton" name="PB_Title">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>901</width>
-      <height>81</height>
+      <x>10</x>
+      <y>10</y>
+      <width>921</width>
+      <height>101</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <underline>false</underline>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
-BORDER-COLOR: rgb(208, 248, 255);
-BORDER-RADIUS: 10px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Waiting for Pacemaker connection...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <string>PushButton</string>
     </property>
    </widget>
   </widget>
