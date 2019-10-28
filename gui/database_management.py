@@ -160,6 +160,7 @@ class table:
         self.cursor = cursor
         self.columns = self.get_columns()  # Get columns
         self.rows = self.get_rows()  # Get rows
+        self.changed_data = None
         log.info("Connected to table : {}".format(table_name))
 
     def get_columns(self):

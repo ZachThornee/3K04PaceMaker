@@ -16,8 +16,6 @@ class login_screen(QMainWindow):
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_Login.ui'), self)
-        qss_file = open("QSS/MaterialDark.qss").read()
-        self.ui.setStyleSheet(qss_file)
         log.info("Showing main login screen")
         self.tables_dict = tables_dict
         self.ui.PB_Confirm.clicked.connect(self.login_button)

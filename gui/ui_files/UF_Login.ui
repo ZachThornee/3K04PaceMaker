@@ -18,8 +18,8 @@
   </property>
   <widget class="QWidget" name="UF_Login">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="10" column="4">
-     <spacer name="horizontalSpacer_2">
+    <item row="6" column="2">
+     <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -31,8 +31,14 @@
       </property>
      </spacer>
     </item>
-    <item row="6" column="2" colspan="4">
-     <widget class="QLineEdit" name="TB_Password">
+    <item row="2" column="1" colspan="5">
+     <widget class="QLineEdit" name="TB_Username">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
 BORDER-COLOR: rgb(245, 245, 245);
@@ -40,43 +46,39 @@ BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
       </property>
-      <property name="text">
-       <string/>
-      </property>
      </widget>
     </item>
-    <item row="9" column="1">
-     <spacer name="verticalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="6" column="3">
+     <widget class="QPushButton" name="PB_ForgotPassword">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="0" colspan="6">
-     <widget class="QLabel" name="LAB_Login">
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
+       <string notr="true">BACKGROUND-COLOR: rgb(160, 238, 252);
+BORDER-COLOR: rgb(160, 238. 252);
+BORDER-RADIUS: 10px;
+BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Login&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <string>Forgot Password</string>
       </property>
      </widget>
     </item>
-    <item row="10" column="5">
+    <item row="6" column="5">
      <widget class="QPushButton" name="PB_Confirm">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -97,35 +99,47 @@ BORDER-STYLE: outset;
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QLabel" name="LAB_Password">
+    <item row="4" column="1" colspan="5">
+     <widget class="QLineEdit" name="TB_Password">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string/>
       </property>
      </widget>
     </item>
-    <item row="10" column="2">
-     <spacer name="horizontalSpacer">
+    <item row="3" column="1">
+     <spacer name="verticalSpacer_2">
       <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+       <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>20</width>
+        <height>40</height>
        </size>
       </property>
      </spacer>
     </item>
-    <item row="3" column="1">
-     <widget class="QLabel" name="LAB_Username">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
+    <item row="6" column="0" colspan="2">
      <widget class="QPushButton" name="PB_UserManager">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -146,48 +160,69 @@ BORDER-STYLE: outset;
       </property>
      </widget>
     </item>
-    <item row="3" column="2" colspan="4">
-     <widget class="QLineEdit" name="TB_Username">
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="3">
-     <widget class="QPushButton" name="PB_ForgotPassword">
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(160, 238, 252);
-BORDER-COLOR: rgb(160, 238. 252);
-BORDER-RADIUS: 10px;
-BORDER-STYLE: outset;
-</string>
-      </property>
-      <property name="text">
-       <string>Forgot Password</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="2">
-     <spacer name="verticalSpacer_2">
+    <item row="5" column="0">
+     <spacer name="verticalSpacer_3">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>20</height>
+        <height>40</height>
        </size>
       </property>
      </spacer>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="0">
+     <widget class="QLabel" name="LAB_Username">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="6">
+     <widget class="QLabel" name="LAB_Login">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Login&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="LAB_Password">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -196,6 +231,19 @@ BORDER-STYLE: outset;
        <size>
         <width>20</width>
         <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="6" column="4">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
        </size>
       </property>
      </spacer>

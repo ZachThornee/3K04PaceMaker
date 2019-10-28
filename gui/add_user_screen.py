@@ -35,7 +35,7 @@ class add_user_screen(QMainWindow):
 
         try:
             # Confirm input is an int and make unsigned else raise ValueError
-            valid_num = abs(int(self.ui.TB_ID.text()))
+            valid_num = abs(int(self.ui.TB_EmployeeID.text()))
 
             for user in user_dict.values():
                 # If our new employee number already exists in database
