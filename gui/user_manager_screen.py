@@ -41,8 +41,8 @@ class user_manager_screen(QMainWindow):
         """
         # VITALL user_dict is recalled so that if the table is updated it is reflected
         self.user_dict = self.table.get_table_dict()
-        self.columns = self.table.get_columns()
-        self.rows = self.table.get_rows()
+        self.columns = self.table._get_columns()
+        self.rows = self.table._get_rows()
 
         # Dynamically set the table information
         self.ui.TAB_Users.setColumnCount(len(self.columns))

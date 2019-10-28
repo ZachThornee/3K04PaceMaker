@@ -28,52 +28,35 @@ class add_user_screen(QMainWindow):
         Method to add a new user when add user button is clicked
 
         """
-        user_dict = self.table.get_table_dict()  # Get the users dictionary
-        new_user = user_dict[0]  # Use the first user as a template
+        employee_num = self.ui.TB_EmployeeID.text()
+        first_name = self.ui.TB_FirstName.text()
+        last_name = self.ui.TB_LastName.text()
+        password = self.ui.TB_Password.text()
+        user_login = self.ui.TB_UserLogin.text()
+        email = self.ui.TB_Email.text()
 
-        # VITAL: New user does change old user due to table regen on class call
+        # Ensure that the employee number is unique
+        unique = self.table.check_unique("employee_number", employee_num, int)
+        if not unique:
+            ERRORS.employee_number_already_used(self.tables_dict, self)
+        elif unique:
+            self.table.change_data("employee_num", employee_num, int)
 
-        try:
-            # Confirm input is an int and make unsigned else raise ValueError
-            valid_num = abs(int(self.ui.TB_EmployeeID.text()))
+        # Change the data in the table
+        self.table.change_data("first_name", first_name, str)
+        self.table.change_data("last_name",  last_name,  str)
+        self.table.change_data("password",   password,   str)
+        self.table.change_data("user_login", user_login, str)
+        self.table.change_data("email",      email,      str)
 
-            for user in user_dict.values():
-                # If our new employee number already exists in database
-                if user['employee_number'] == valid_num:
-                    log.warning("Invalid input -> same employee number")
-                    # Show error dialogue for employee number already used
-                    ERRORS.employee_number_already_used(self.tables_dict, self)
-                    return
-            else:
-                new_user['employee_number'] = valid_num
+        # Get the value of the checkbox
+        if self.CB_Admin.isChecked():  # If check box is ticked
+            admin_priveleges = True
+        else:
+            admin_priveleges = False
 
-            # Get TEXT type params.
-            # VITAL: TEXT params in PostgreSQL require surrounding apostrophes
-            new_user['first_name'] = "'{0}'".format(self.ui.TB_FirstName.text())
-            new_user['last_name'] = "'{0}'".format(self.ui.TB_LastName.text())
-            new_user['password'] = "'{0}'".format(self.ui.TB_Password.text())
-            new_user['user_login'] = "'{0}'".format(self.ui.TB_UserLogin.text())
-            new_user['email'] = "'{0}'".format(self.ui.TB_Email.text())
-
-            if self.CB_Admin.isChecked():  # If check box is ticked
-                new_user['admin_priveleges'] = True
-            else:
-                new_user['admin_priveleges'] = False
-
-            new_user_list = []
-            for value in new_user.values():
-                if value == "''":  # If a TEXT type param has no entry
-                    raise ValueError
-                else:
-                    new_user_list.append(str(value))
-
-        except ValueError:
-            # Show invalid input dialogue
-            ERRORS.invalid_input(self.tables_dict, self)
-            return
-
-        # Call table method to add new row
-        self.table.add_row(new_user_list)
+        self.table.change_data("admin_priveleges", admin_priveleges, bool)
+        self.table.add_row()  # Call table method to add new row
         self.return_to_user_manager()
 
     def return_to_user_manager(self):

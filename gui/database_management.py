@@ -145,7 +145,7 @@ class table:
 
     # Parameters to create an initial user.
     # VITAL: Does create in patient table. Only the doctor (user) database.
-    admin_creds = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE"]
+    admin_creds = None
 
     def __init__(self, table_name, connection, cursor):
         """
@@ -156,43 +156,51 @@ class table:
         :param cursor psyvcopg2_cursor_object: database cursor object
         """
         self.name = table_name
-        self.connection = connection
-        self.cursor = cursor
-        self.columns = self.get_columns()  # Get columns
-        self.rows = self.get_rows()  # Get rows
-        self.changed_data = None
+        self._connection = connection
+        self._cursor = cursor
+        self.create_admin_creds()
+        self._table_dict = self._get_table_dict()
+        print(self._table_dict)
+        self._selected_row = self._table_dict[0]
         log.info("Connected to table : {}".format(table_name))
 
-    def get_columns(self):
+    def create_admin_creds(self):
+        columns = self._get_columns()
+        admin_creds = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE"]
+        dictionary = dict(zip(columns, admin_creds))  # Create dictionary
+        table.admin_creds = dictionary
+
+    def _get_columns(self):
         """
-        Method to get the columns from the table
+        Method to get the columns from the table. Returns it as a 2d array
 
         """
         # Retrieve all data from the table
-        self.cursor.execute("SELECT * FROM {0}".format(self.name))
+        self._cursor.execute("SELECT * FROM {0}".format(self.name))
 
         # Retrieve only the column titles
-        columns = [cn[0] for cn in self.cursor.description]
+        columns = [cn[0] for cn in self._cursor.description]
 
         for i in range(len(columns)):  # Log the column names
             log.debug("Column {0} : {1}".format(i, columns[i]))
 
         return columns
 
-    def get_rows(self):
+    def _get_rows(self):
         """
         Method to get the rows from the table
 
         """
-        self.cursor.execute("SELECT * FROM {0}".format(self.name))
-        rows = self.cursor.fetchall()
+        self._cursor.execute("SELECT * FROM {0}".format(self.name))
+        rows = self._cursor.fetchall()
 
         # If we have no row and we are in the user_logins table
         if len(rows) == 0 and self.name == 'user_logins':
             log.warning("No row data found in {0}".format(self.name))
             log.info("Generating base admin user")
-            self.add_row(self.admin_creds)  # Add new row
-            rows = self.cursor.fetchall()  # Refetch rows
+            self._selected_row = self.admin_creds
+            self.add_row()  # Add new row
+            rows = self._cursor.fetchall()  # Refetch rows
 
         for i in range(len(rows)):  # Log rows
             log.debug("Rows {0} : {1}".format(i, rows[i]))
@@ -201,24 +209,26 @@ class table:
         rows = sorted(rows, key=lambda x: x[:][0])
         return rows
 
-    def get_table_dict(self):
+    def _get_table_dict(self):
         """
-        Generate a dict of users which are dictionarys
+        Generate a dict of rows which are dictionarys
 
-        The calling method is a dict of users enumarated at 0 for keys
+        The calling method is a dict of rows enumarated at 0 for keys
 
-        To call the relevant values to that user use the dict
+        To call the relevant values to that row use the dict
 
         """
         temp_list = []  # Create a temporary empty list
-        for user in self.rows:
-            dictionary = dict(zip(self.columns, user))  # Create dictionary
+        rows = self._get_rows()
+        columns = self._get_columns()
+        for row in rows:
+            dictionary = dict(zip(columns, row))  # Create dictionary
             temp_list.append(dictionary)  # Append to the empty list
 
-        dict_of_users = {i: temp_list[i] for i in range(len(temp_list))}
-        return dict_of_users
+        dict_of_rows = {i: temp_list[i] for i in range(len(temp_list))}
+        return dict_of_rows
 
-    def add_row(self, responses):
+    def add_row(self):
         """
         Method to add a row to a database table
 
@@ -250,23 +260,25 @@ class table:
         INSERT INTO table_name(c1, c2, cN) VALUES(v1, v2, vN);
         """
 
-        if responses is None:  # If is no array of values
+        columns = self._get_columns()
+
+        if self._selected_row is None:  # If is no array of values
             log.error("No entries to add to rows")
             return False
 
         query = "INSERT INTO {0}(".format(self.name)
 
-        for i in range(len(self.columns)):
-            if i+1 != len(self.columns):
-                query += self.columns[i] + ", "
+        for i in range(len(columns)):
+            if i+1 != len(columns):
+                query += columns[i] + ", "
             else:
-                query += self.columns[i] + ") VALUES("
+                query += columns[i] + ") VALUES("
 
-        for i in range(len(responses)):
-            if i+1 != len(responses):
-                query += responses[i] + ", "
+        for i, value in enumerate(self._selected_row.values()):
+            if i+1 != len(columns):
+                query += value + ", "
             else:
-                query += responses[i] + ");"
+                query += value + ");"
 
         self.update_table(query)
 
@@ -349,6 +361,41 @@ class table:
         :param query string: The SQL query which to perform
         """
         log.debug("Query : {}".format(query))
-        self.cursor.execute(query)
-        self.columns = self.get_columns()
-        self.rows = self.get_rows()
+        self._cursor.execute(query)
+        self._table_dict = self._get_table_dict()
+
+    def check_unique(self, column_name, entry, entry_type):
+        try:
+            if entry_type == str:
+                entry = "'{}'".format(entry)
+            elif entry_type == int:
+                entry = str(abs(int(entry)))
+
+            for row in self._table_dict.values():
+                if entry == row[column_name]:
+                    return False
+            else:
+                return True
+
+        except ValueError("Incorrect entry type"):
+            return None
+
+    def change_data(self, column_name, entry, entry_type, row_identifier=None):
+        if row_identifier is not None:
+            pass
+
+        try:
+            if entry_type == str:
+                entry = "'{}'".format(entry)
+            elif entry_type == int:
+                entry = str(abs(int(entry)))
+
+            self._selected_row[column_name] = entry
+
+        except ValueError("Incorrect entry type"):
+            return None
+
+
+
+
+
