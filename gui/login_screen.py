@@ -39,7 +39,7 @@ class login_screen(QMainWindow):
         if self.table.validate_entry(column_names, entries, entry_types):
             self.ui.close()
             log.info("Connecting to DCM serial reader")
-            CON_SCREEN.con_screen(self.tables_dict, self)
+            CON_SCREEN.con_screen(self.tables_dict)
             return
         else:
             log.info("Incorrect login")

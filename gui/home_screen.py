@@ -6,18 +6,13 @@ import errors as ERRORS
 
 class home_screen(QMainWindow):
 
-    def __init__(self, patient_table, patient, pacemaker_table, pacemaker):
+    def __init__(self, tables_dict, patient_num):
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_PMConnected.ui'), self)
         log.info("Showing home screen")
-
-        # Tables
-        self.patient_table = patient_table
-        self.pacemaker_table = pacemaker_table
-
-        # Patient info
-        self.patient = patient
-        self.pacemaker = pacemaker
+        self.patient_num = patient_num
+        self.pacemaker_table = tables_dict['pacemaker_table']
+        self.patient_table = tables_dict['patients_table']
 
         # Buttons
         self.ui.PB_VVI.clicked.connect(lambda: self.change_mode("VVI"))
@@ -30,7 +25,7 @@ class home_screen(QMainWindow):
         self.ui.show()
 
     def change_mode(self, mode):
-        self.patient['pacing_mode'] = mode
+        self.pacemaker_table.change_data("mode", mode, str)
         log.info('Pacing mode set to {}'.format(mode))
 
     def disconnect(self):
@@ -42,22 +37,29 @@ class home_screen(QMainWindow):
     def confirm_changes(self):
 
         try:
-            self.pacemaker["vrp"] = abs(int(self.ui.TB_VRP.text()))
-            self.pacemaker["arp"] = abs(int(self.ui.TB_ARP.text()))
-            self.pacemaker["vent_pulse_width"] = abs(int(self.ui.TB_VentricularPulseWidth.text()))
-            self.pacemaker["vent_pulse_amplitude"] = abs(int(self.ui.TB_VentricularAmplitude.text()))
-            self.pacemaker["atrial_pulse_width"] = abs(int(self.ui.TB_AtrialPulseWidth.text()))
-            self.pacemaker["atrial_pulse_amplitude"] = abs(int(self.ui.TB_AtrialAmplitude.text()))
-            self.pacemaker["atrial_pulse_amplitude"] = abs(int(self.ui.TB_AtrialAmplitude.text()))
-            self.pacemaker["upper_rate"] = abs(int(self.ui.TB_UpperRateLimit.text()))
-            self.pacemaker["lower_rate"] = abs(int(self.ui.TB_LowerrateLimit.text()))
+            vrp = self.ui.TB_VRP.text()
+            arp = self.ui.TB_ARP.text()
+            vent_pulse_width = self.ui.TB_VentricularPulseWidth.text()
+            vent_pulse_amplitude = self.ui.TB_VentricularAmplitude.text()
+            atrial_pulse_width = self.ui.TB_AtrialPulseWidth.text()
+            atrial_pulse_amplitude = self.ui.TB_AtrialAmplitude.text()
+            atrial_pulse_amplitude = self.ui.TB_AtrialAmplitude.text()
+            upper_rate = self.ui.TB_UpperRateLimit.text()
+            lower_rate = self.ui.TB_LowerrateLimit.text()
+
+            self.pacemaker_table.change_data("vrp", vrp, int)
+
         except ValueError:
             # Show invalid input dialogue
             ERRORS.invalid_input(self.tables_dict, self)
             return
 
-        self.pacemaker_table.edit_row(self.edit_pacemaker_list, serial_num)
-        self.return_to_user_manager()
+        if self.patient_num is None:
+            self.pacemaker_table.add_row()
+
+        else:
+            self.pacemaker_table.edit_row(self.patient_num)
+            self.return_to_user_manager()
 
 
         log.info("Confirming changes to patient")

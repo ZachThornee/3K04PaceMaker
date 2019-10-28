@@ -144,10 +144,6 @@ class db_manager:
 
 class table:
 
-    # Parameters to create an initial user.
-    # VITAL: Does create in patient table. Only the doctor (user) database.
-    admin_creds = None
-
     def __init__(self, table_name, connection, cursor):
         """
         Method to initialize a table object
@@ -156,10 +152,11 @@ class table:
         :param connection psycopg2_connection_object: database connection
         :param cursor psyvcopg2_cursor_object: database cursor object
         """
+        self._default_profile = None
         self.name = table_name
         self._connection = connection
         self._cursor = cursor
-        self.create_admin_creds()
+        self._create_default_profile()
         self._table_dict = self._get_table_dict()
         try:
             self._selected_row = self._table_dict[0]
@@ -168,11 +165,21 @@ class table:
 
         log.info("Connected to table : {}".format(table_name))
 
-    def create_admin_creds(self):
+    def _create_default_profile(self):
         columns = self._get_columns()
-        admin_creds = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE"]
-        dictionary = dict(zip(columns, admin_creds))  # Create dictionary
-        table.admin_creds = dictionary
+        print(self.name)
+        if self.name == "user_logins":
+
+            default_profile = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE"]
+
+        elif self.name == "patient_info":
+            default_profile = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "0", "0"]
+
+        elif self.name == "pacemaker_info":
+            default_profile = ["0", "'admin'", "0", "0", "0", "0", "0", "0", "0", "0"]
+
+        dictionary = dict(zip(columns, default_profile))  # Create dictionary
+        self.default_profile = dictionary
 
     def _get_columns(self):
         """
@@ -202,7 +209,7 @@ class table:
         if len(rows) == 0 and self.name == 'user_logins':
             log.warning("No row data found in {0}".format(self.name))
             log.info("Generating base admin user")
-            self._selected_row = self.admin_creds
+            self._selected_row = self.default_profile
             self.add_row()  # Add new row
             rows = self._cursor.fetchall()  # Refetch rows
 
@@ -453,7 +460,7 @@ class table:
             return any(elem in self._get_columns() for elem in column_names)
         else:
             column_name = column_names
-            for column in self._get_columns:
+            for column in self._get_columns():
                 if column_name == column:
                     return True
             else:

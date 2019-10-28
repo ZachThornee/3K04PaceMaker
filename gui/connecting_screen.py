@@ -22,19 +22,16 @@ class con_screen(QMainWindow):
         self.tables_dict = tables_dict
         self.serial = None
         self.ui.show()
-        self.read_serial()
+        self.ui.PB_Title.clicked.connect(self.read_serial)
 
     def read_serial(self):
         """
         Method to read serial port and look for unique id. Also check connectivity.
 
         """
+        self.ui.close()
         # TODO actually read the serial port
-        patient_num = 123456789
+        patient_num = None
         # Call the main DCM screen
         HOME.home_screen(self.tables_dict, patient_num)
         return
-
-        else:
-            log.info("Patient does not exist please add patient info.")
-            HOME.home_screen(self.tables_dict, patient_num)
