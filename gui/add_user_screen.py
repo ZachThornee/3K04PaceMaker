@@ -28,7 +28,7 @@ class add_user_screen(QMainWindow):
         Method to add a new user when add user button is clicked
 
         """
-        employee_num = self.ui.TB_EmployeeID.text()
+        employee_number = self.ui.TB_EmployeeID.text()
         first_name = self.ui.TB_FirstName.text()
         last_name = self.ui.TB_LastName.text()
         password = self.ui.TB_Password.text()
@@ -36,11 +36,11 @@ class add_user_screen(QMainWindow):
         email = self.ui.TB_Email.text()
 
         # Ensure that the employee number is unique
-        unique = self.table.check_unique("employee_number", employee_num, int)
+        unique = self.table.check_unique("employee_number", employee_number, int)
         if not unique:
             ERRORS.employee_number_already_used(self.tables_dict, self)
         elif unique:
-            self.table.change_data("employee_num", employee_num, int)
+            self.table.change_data("employee_number", employee_number, int)
 
         # Change the data in the table
         self.table.change_data("first_name", first_name, str)

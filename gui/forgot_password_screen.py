@@ -26,17 +26,17 @@ class forgot_pass_scrn(QMainWindow):
         Method to validate a user's email address and email a new password
 
         """
-        #TODO Add the email verification and password sending
         self.ui.close()
-        inputted_email = self.ui.TB_Email.text()
-        inputted_user_login = self.ui.TB_Username.text()
-        user_dict = self.table.get_table_dict()
+        email = self.ui.TB_Email.text()
+        user_login = self.ui.TB_Username.text()
 
-        for user in user_dict.values():
-            if (user['email'] == inputted_email and
-               user['user_login'] == inputted_user_login):
-                log.info("Email is valid sending email")
-                self.return_to_login_screen()
+        column_names = ["email", "user_login"]
+        entries = [email, user_login]
+        entry_types = [str, str]
+
+        if self.table.validate_entry(column_names, entries, entry_types):
+            log.info("Email is valid sending email")
+            self.return_to_login_screen()
 
     def return_to_login_screen(self):
         """

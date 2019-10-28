@@ -18,6 +18,7 @@ class login_screen(QMainWindow):
         self.ui = uic.loadUi(('ui_files/UF_Login.ui'), self)
         log.info("Showing main login screen")
         self.tables_dict = tables_dict
+        self.table = self.tables_dict['users_table']
         self.ui.PB_Confirm.clicked.connect(self.login_button)
         self.ui.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
         self.ui.PB_UserManager.clicked.connect(self.manage_users_button)
@@ -28,19 +29,18 @@ class login_screen(QMainWindow):
         Method to validate a user name and password to allow a user to login
 
         """
-        inputted_username = self.ui.TB_Username.text()
-        inputted_password = self.ui.TB_Password.text()
+        user_login = self.ui.TB_Username.text()
+        password = self.ui.TB_Password.text()
 
-        user_dict = self.tables_dict['users_table'].get_table_dict()
+        column_names = ["user_login", "password"]
+        entries = [user_login, password]
+        entry_types = [str, str]
 
-        for user in user_dict.values():
-            if (inputted_username == user['user_login'] and
-               inputted_password == user['password']):
-                # If we have the correct password, username, allow connecting
-                self.ui.close()
-                log.info("Connecting to DCM serial reader")
-                CON_SCREEN.con_screen(self.tables_dict, self)
-                return
+        if self.table.validate_entry(column_names, entries, entry_types):
+            self.ui.close()
+            log.info("Connecting to DCM serial reader")
+            CON_SCREEN.con_screen(self.tables_dict, self)
+            return
         else:
             log.info("Incorrect login")
 

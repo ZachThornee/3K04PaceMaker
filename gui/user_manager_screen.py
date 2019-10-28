@@ -24,7 +24,6 @@ class user_manager_screen(QMainWindow):
         self.ui = uic.loadUi(('ui_files/UF_UserManager.ui'), self)
         self.tables_dict = tables_dict
         self.table = tables_dict['users_table']
-        self.user_dict = self.table.get_table_dict()
 
         # Buttons
         self.PB_Back.clicked.connect(self.return_to_login_screen)
@@ -32,28 +31,13 @@ class user_manager_screen(QMainWindow):
         self.PB_EditUser.clicked.connect(self.edit_user_button)
         self.PB_DeleteUser.clicked.connect(self.delete_user_button)
 
-        self.populate_table()
+        self.update_table()
 
-    def populate_table(self):
+    def update_table(self):
         """
-        Method to populate the QWidgetTable
-
+        Method to update the QWidgetTable
         """
-        # VITALL user_dict is recalled so that if the table is updated it is reflected
-        self.user_dict = self.table.get_table_dict()
-        self.columns = self.table._get_columns()
-        self.rows = self.table._get_rows()
-
-        # Dynamically set the table information
-        self.ui.TAB_Users.setColumnCount(len(self.columns))
-        self.ui.TAB_Users.setHorizontalHeaderLabels(self.columns)
-        self.ui.TAB_Users.setRowCount(len(self.user_dict))
-
-        for i in range(len(self.rows)):
-            for j in range(len(self.columns)):
-                self.ui.TAB_Users.setItem(
-                        i, j, QTableWidgetItem(str(self.rows[i][j])))
-
+        self.table.populate(self.ui.TAB_Users)
         self.ui.show()
 
     def add_user_button(self):
@@ -61,8 +45,7 @@ class user_manager_screen(QMainWindow):
         Method to validate user count and if valid open add user screen
 
         """
-
-        if len(self.user_dict) >= self.max_users:
+        if not self.table.check_max_user(10):
             ERRORS.maximum_number_of_users(self.tables_dict, self)
         else:
             self.ui.close()
@@ -70,7 +53,7 @@ class user_manager_screen(QMainWindow):
 
     def edit_user_button(self):
         """
-        Method to open the edit user screen and to populate with user information
+        Method to open the edit user screen and to update with user information
 
         """
 
@@ -80,9 +63,8 @@ class user_manager_screen(QMainWindow):
 
         selected = self.ui.TAB_Users.selectedRanges()[0]
         row_number = selected.topRow()
-        user_to_edit = self.user_dict[row_number]
         self.ui.close()
-        EDIT_USER.edit_user_screen(self.tables_dict, user_to_edit)
+        EDIT_USER.edit_user_screen(self.tables_dict, row_number)
 
     def delete_user_button(self):
         """
@@ -96,10 +78,10 @@ class user_manager_screen(QMainWindow):
 
         selected = self.ui.TAB_Users.selectedRanges()[0]
         row_number = selected.topRow()
-        employee_number = self.user_dict[row_number]['employee_number']
+        employee_number = self.table.get_value(row_number, "employee_number")
         self.table.delete_row(employee_number)
         self.ui.close()
-        self.populate_table()
+        self.update_table()
 
     def return_to_login_screen(self):
         """
@@ -108,3 +90,4 @@ class user_manager_screen(QMainWindow):
         """
         LOGIN.login_screen(self.tables_dict)
         self.ui.close()
+

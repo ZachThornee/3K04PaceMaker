@@ -1,6 +1,7 @@
 import psycopg2
 import sys
 import logging as log
+from PyQt5.QtWidgets import QTableWidgetItem
 
 
 class db_manager:
@@ -160,8 +161,11 @@ class table:
         self._cursor = cursor
         self.create_admin_creds()
         self._table_dict = self._get_table_dict()
-        print(self._table_dict)
-        self._selected_row = self._table_dict[0]
+        try:
+            self._selected_row = self._table_dict[0]
+        except KeyError:
+            self._selected_row = None
+
         log.info("Connected to table : {}".format(table_name))
 
     def create_admin_creds(self):
@@ -276,9 +280,9 @@ class table:
 
         for i, value in enumerate(self._selected_row.values()):
             if i+1 != len(columns):
-                query += value + ", "
+                query += "{}, ".format(value)
             else:
-                query += value + ");"
+                query += "{});".format(value)
 
         self.update_table(query)
 
@@ -293,10 +297,10 @@ class table:
             return False
 
         query = "DELETE FROM {0} WHERE {1} = {2} " \
-                .format(self.name, self.columns[0], primary_key)
+                .format(self.name, self._get_columns()[0], primary_key)
         self.update_table(query)
 
-    def edit_row(self, data, primary_key):
+    def edit_row(self, primary_key):
         """
         Method to edit a row in the table
 
@@ -335,23 +339,17 @@ class table:
         UPDATE table_name SET c1=v1, c2=v2, cN=vN WHERE c0=primary_key;
         """
 
-        if data is None:
-            log.error("No data to insert into table")
-            return False
-
-        if primary_key is None:
-            log.error("No primary_key to delete row")
-            return False
+        columns = self._get_columns()
 
         query = "UPDATE {0} SET".format(self.name)
 
-        for i in range(len(self.columns)):
-            if i+1 == len(self.columns):
-                query += " {0}={1} ".format(self.columns[i], data[i])
+        for i, value in enumerate(self._selected_row.values()):
+            if i+1 == len(columns):
+                query += " {0}={1} ".format(columns[i], value)
             else:
-                query += " {0}={1},".format(self.columns[i], data[i])
+                query += " {0}={1},".format(columns[i], value)
 
-        query += "WHERE {0}={1};".format(self.columns[0], primary_key)
+        query += "WHERE {0}={1};".format(columns[0], primary_key)
         self.update_table(query)
 
     def update_table(self, query):
@@ -365,10 +363,10 @@ class table:
         self._table_dict = self._get_table_dict()
 
     def check_unique(self, column_name, entry, entry_type):
+        if not self._validate_column_name(column_name):
+            raise AttributeError("{} is not a column name".format(column_name))
         try:
-            if entry_type == str:
-                entry = "'{}'".format(entry)
-            elif entry_type == int:
+            if entry_type == int:
                 entry = str(abs(int(entry)))
 
             for row in self._table_dict.values():
@@ -380,22 +378,83 @@ class table:
         except ValueError("Incorrect entry type"):
             return None
 
-    def change_data(self, column_name, entry, entry_type, row_identifier=None):
-        if row_identifier is not None:
-            pass
+    def change_data(self, column_name, entry, entry_type):
+        if not self._validate_column_name(column_name):
+            raise AttributeError("{} is not a column name".format(column_name))
 
         try:
-            if entry_type == str:
-                entry = "'{}'".format(entry)
-            elif entry_type == int:
+            if entry_type == int:
                 entry = str(abs(int(entry)))
+            elif entry_type == str:
+                entry = "'{}'".format(entry)
+            if entry_type == bool:
+                entry = "{}".format(entry)
 
-            self._selected_row[column_name] = entry
+            self._selected_row[column_name] = str(entry)
 
         except ValueError("Incorrect entry type"):
             return None
 
+    def validate_entry(self, column_names, entries, entry_types):
+        if not self._validate_column_name(column_names):
+            raise AttributeError("{} contains an invalid column name".format(column_names))
+        try:
 
+            for i in range(len(entries)):
+                if entry_types[i] == int:
+                    entries[i] = str(abs(int(entries[i])))
 
+            for row in self._table_dict.values():
+                valid_values = []
+                for entry in entries:
+                    for column_name in column_names:
+                        if entry == row[column_name]:
+                            valid_values.append(True)
+                            break
+                if len(valid_values) == len(entries):
+                    return True
 
+            else:
+                return False
 
+        except ValueError("Incorrect entry type"):
+            return None
+
+    def get_value(self, row, column=None):
+        if column is None:
+            return self._table_dict[row]
+        else:
+            return self._table_dict[row][column]
+
+    def populate(self, qt_table):
+
+        # VITAL user_dict is recalled so that if the table is updated it is reflected
+        columns = self._get_columns()
+        rows = self._get_rows()
+
+        # Dynamically set the table information
+        qt_table.setColumnCount(len(columns))
+        qt_table.setHorizontalHeaderLabels(columns)
+        qt_table.setRowCount(len(rows))
+
+        for i in range(len(rows)):
+            for j in range(len(columns)):
+                qt_table.setItem(
+                        i, j, QTableWidgetItem(str(rows[i][j])))
+
+    def check_max_user(self, max_users):
+        if len(self._table_dict) >= max_users:
+            return False
+        else:
+            return True
+
+    def _validate_column_name(self, column_names):
+        if isinstance(column_names, list):
+            return any(elem in self._get_columns() for elem in column_names)
+        else:
+            column_name = column_names
+            for column in self._get_columns:
+                if column_name == column:
+                    return True
+            else:
+                return False
