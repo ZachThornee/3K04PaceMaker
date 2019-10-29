@@ -29,13 +29,16 @@ class login_screen(QMainWindow):
         Method to validate a user name and password to allow a user to login
 
         """
+        # Get the fields from the text boxes
         user_login = self.ui.TB_Username.text()
         password = self.ui.TB_Password.text()
 
+        # Create the column_names, entries, and entry_types lists
         column_names = ["user_login", "password"]
         entries = [user_login, password]
         entry_types = [str, str]
 
+        # If the user_login and password is valid
         if self.table.validate_entry(column_names, entries, entry_types):
             self.ui.close()
             log.info("Connecting to DCM serial reader")

@@ -12,18 +12,16 @@ class edit_user_screen(QMainWindow):
         Constructor for edit user screen
 
         :param tables_dict dict: A dictionary containing all tables used in application
-        :param user dictionary: A dictionary object of the current user
+        :param row_number int: The current row of the table from which to get data
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_EditUser.ui'), self)
-
-        # Args
         self.row_number = row_number
         self.tables_dict = tables_dict
         self.table = self.tables_dict['users_table']
 
-        # Populate the form
 
+        # Get the values from the table
         first_name = self.table.get_value(row_number, "first_name")
         last_name = self.table.get_value(row_number, "last_name")
         employee_number = self.table.get_value(row_number, "employee_number")
@@ -34,6 +32,7 @@ class edit_user_screen(QMainWindow):
 
         log.info("editing employee : {0}".format(employee_number))
 
+        # Insert the values into the form
         self.ui.TB_FirstName.insert(first_name)
         self.ui.TB_LastName.insert(last_name)
         self.ui.TB_ID.insert(str(employee_number))
@@ -41,6 +40,7 @@ class edit_user_screen(QMainWindow):
         self.ui.TB_UserLogin.insert(user_login)
         self.ui.TB_Password.insert(password)
 
+        # Determine if check box is checked or not
         if bool(admin_priveleges):
             self.ui.CB_Admin.setChecked(True)
         else:
@@ -54,7 +54,16 @@ class edit_user_screen(QMainWindow):
 
 
     def edit_user(self):
+        """
+        Method to edit an existing user.
+        The old employee number is used to determine which row in the databse to edit.
+
+        """
+
+        # Retrieve the old employee number
         old_employee_num = self.table.get_value(self.row_number, "employee_number")
+
+        # Get all fields from text boxes
         employee_number = self.ui.TB_ID.text()
         first_name = self.ui.TB_FirstName.text()
         last_name = self.ui.TB_LastName.text()

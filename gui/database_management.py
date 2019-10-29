@@ -362,9 +362,10 @@ class table:
             raise AttributeError("{} is not a column name".format(column_name))
         try:
             if entry_type == int:
-                entry = str(abs(int(entry)))
+                entry = abs(int(entry))
 
             for row in self._table_dict.values():
+                print(entry, row[column_name])
                 if entry == row[column_name]:
                     return False
             else:

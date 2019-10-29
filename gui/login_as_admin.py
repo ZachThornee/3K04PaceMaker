@@ -27,12 +27,17 @@ class login_as_admin(QMainWindow):
         """
         Method to validate that a user is admin to allow access to user manager screen
 
-        """
+        """\
+        # Get values from text fields
         username = self.TB_Username.text().strip()
         password = self.TB_Password.text().strip()
+
+        # Create the column_names, entries, and entry_types lists
         column_names = ["user_login", "password"]
         entries = [username, password]
         entry_types = [str, str]
+
+        # If the username and password are valid
         if self.table.validate_entry(column_names, entries, entry_types):
             self.ui.close()
             USER_MANAGER.user_manager_screen(self.tables_dict)

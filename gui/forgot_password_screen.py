@@ -18,6 +18,8 @@ class forgot_pass_scrn(QMainWindow):
         self.tables_dict = tables_dict
         self.table = self.tables_dict['users_table']
         self.login_screen = login_screen
+
+        # Buttons
         self.PB_Enter.clicked.connect(self.validate_email)
         self.PB_Return.clicked.connect(self.return_to_login_screen)
 
@@ -27,13 +29,16 @@ class forgot_pass_scrn(QMainWindow):
 
         """
         self.ui.close()
+        # Get all the fields from the text boxes
         email = self.ui.TB_Email.text()
         user_login = self.ui.TB_Username.text()
 
+        # Create the column_names, entries, and entry_types lists
         column_names = ["email", "user_login"]
         entries = [email, user_login]
         entry_types = [str, str]
 
+        # If the entries are valid
         if self.table.validate_entry(column_names, entries, entry_types):
             log.info("Email is valid sending email")
             self.return_to_login_screen()

@@ -1,10 +1,7 @@
 import logging as log
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
-import serial
 import home_screen as HOME
-import time
-import threading
 
 
 class con_screen(QMainWindow):
@@ -13,7 +10,7 @@ class con_screen(QMainWindow):
         """
         Initialization method for connection screen
 
-        :param tables_dict 2D_dictionary: contains both the user and patient tables
+        :param tables_dict 2D_dictionary: contains all tables defined in main.py
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_PMConnecting.ui'), self)

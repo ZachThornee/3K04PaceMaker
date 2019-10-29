@@ -11,9 +11,6 @@ import login_screen as LOGIN
 
 class user_manager_screen(QMainWindow):
 
-    # Class variable with maximum number of users
-    max_users = 10
-
     def __init__(self, tables_dict):
         """
         Constructor for user manager screen
@@ -79,6 +76,8 @@ class user_manager_screen(QMainWindow):
         selected = self.ui.TAB_Users.selectedRanges()[0]
         row_number = selected.topRow()
         employee_number = self.table.get_value(row_number, "employee_number")
+
+        # Delete the row with the corresponding employee number
         self.table.delete_row(employee_number)
         self.ui.close()
         self.update_table()
