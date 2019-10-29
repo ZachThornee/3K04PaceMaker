@@ -2,6 +2,7 @@ import logging as log
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 import home_screen as HOME
+import errors as ERRORS
 
 
 class con_screen(QMainWindow):
@@ -19,7 +20,8 @@ class con_screen(QMainWindow):
         self.tables_dict = tables_dict
         self.serial = None
         self.ui.show()
-        self.ui.PB_Title.clicked.connect(self.read_serial)
+        self.ui.PB_HomeScreen.clicked.connect(self.read_serial)
+        self.ui.PB_ConnectionError.clicked.connect(self.connection_error)
 
     def read_serial(self):
         """
@@ -32,3 +34,7 @@ class con_screen(QMainWindow):
         # Call the main DCM screen
         HOME.home_screen(self.tables_dict, patient_num)
         return
+
+    def connection_error(self):
+        ERRORS.connection_error(self.tables_dict, self)
+

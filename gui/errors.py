@@ -114,3 +114,31 @@ class employee_number_already_used(QMainWindow):
         self.ui.close()
         self.add_user_screen.ui.close()
         USER_MANAGER.user_manager_screen(self.tables_dict)
+
+
+class connection_error(QMainWindow):
+
+    def __init__(self, tables_dict, connecting_screen):
+        """
+        Constructor for employee number alrady in use error
+
+        :param tables_dict dictionary: dictionary containing all tables
+        :param add_user_screen class add_user_screen: add_user_screen object
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_PMConnection.ui'), self)
+        log.warning("Employee number already exists. Showing popup")
+        self.ui.show()
+        self.tables_dict = tables_dict
+        self.connecting_screen = connecting_screen
+
+        # Buttons
+        self.ui.PB_TryAgain.clicked.connect(self.return_to_connecting_screen)
+
+    def return_to_connecting_screen(self):
+        """
+        Method to return to the add user screen
+
+        """
+        self.ui.close()
+

@@ -74,10 +74,14 @@ class edit_user_screen(QMainWindow):
         # Ensure that the employee number is unique
         if str(employee_number) != str(old_employee_num):
             unique = self.table.check_unique("employee_number", employee_number, int)
-            self.log.warning("Invalid input -> same employee number")
-            if not unique:
+            log.warning("Invalid input -> same employee number")
+            if unique is None:
+                ERRORS.invalid_input(self.tables_dict, self)
+                return
+            elif not unique:
                 ERRORS.employee_number_already_used(self.tables_dict, self)
-            elif unique:
+                return
+            else:
                 self.table.change_data("employee_number", employee_number, int)
         else:
             self.table.change_data("employee_number", employee_number, int)

@@ -114,6 +114,7 @@ class db_manager:
 
         :param table_name string: name of table to connect to
         :param table_array 2D_string_array: parameters list for desired table
+        :param default_profile string_array: array containing parameters for default profile
         """
         try:
             # Try to create a new table object
@@ -151,6 +152,7 @@ class table:
         :param table_name string: name of current table
         :param connection psycopg2_connection_object: database connection
         :param cursor psyvcopg2_cursor_object: database cursor object
+        :param default_profile string_array: array containing parameters for default profile
         """
         self.name = table_name
         self._connection = connection
@@ -165,13 +167,18 @@ class table:
         log.info("Connected to table : {}".format(table_name))
 
     def _create_default_profile(self, default_profile):
+        """
+        Hidden method to convert the default profile into a dctionary
+
+        :param default_profile string_array: array containing parameters for default profile
+        """
         columns = self._get_columns()
         dictionary = dict(zip(columns, default_profile))  # Create dictionary
         return dictionary
 
     def _get_columns(self):
         """
-        Method to get the columns from the table. Returns it as a 2d array
+        Hidden method to get the columns from the table. Returns it as a 2d array
 
         """
         # Retrieve all data from the table
@@ -187,7 +194,7 @@ class table:
 
     def _get_rows(self):
         """
-        Method to get the rows from the table
+        Hidden method to get the rows from the table
 
         """
         self._cursor.execute("SELECT * FROM {0}".format(self.name))
@@ -204,13 +211,13 @@ class table:
         for i in range(len(rows)):  # Log rows
             log.debug("Rows {0} : {1}".format(i, rows[i]))
 
-        # Sort the rows based on employee number
+        # Sort the rows based on primary key
         rows = sorted(rows, key=lambda x: x[:][0])
         return rows
 
     def _get_table_dict(self):
         """
-        Generate a dict of rows which are dictionarys
+        Hidden method to generate a dict of rows which are dictionarys
 
         The calling method is a dict of rows enumarated at 0 for keys
 
@@ -299,7 +306,6 @@ class table:
         """
         Method to edit a row in the table
 
-        :param data array_diff_types: Array containing new row data
         :param primary_key type_of_primary_key: A primary key which to look in the table to change the row
 
         v = value   c = column  N = an arbitrary number
@@ -358,6 +364,14 @@ class table:
         self._table_dict = self._get_table_dict()
 
     def check_unique(self, column_name, entry, entry_type):
+        """
+        Method to check if parameter is unique
+
+        :param column_name string: column name to check for uniqueness
+        :param entry various: value to check for uniqueness
+        :param entry_type various: type of entry
+        """
+        # Check if column name is valid
         if not self._validate_column_name(column_name):
             raise AttributeError("{} is not a column name".format(column_name))
         try:
@@ -365,16 +379,24 @@ class table:
                 entry = abs(int(entry))
 
             for row in self._table_dict.values():
-                print(entry, row[column_name])
+                # If the value is not unique
                 if entry == row[column_name]:
                     return False
             else:
                 return True
 
-        except ValueError("Incorrect entry type"):
+        except ValueError:
             return None
 
     def change_data(self, column_name, entry, entry_type):
+        """
+        Method to change the data in the selected row
+
+        :param column_name string: name of the column to edit
+        :param entry various: value to insert into the column
+        :param entry_type various: type of entry
+        """
+        # Validate the column name
         if not self._validate_column_name(column_name):
             raise AttributeError("{} is not a column name".format(column_name))
 
@@ -388,10 +410,18 @@ class table:
 
             self._selected_row[column_name] = str(entry)
 
-        except ValueError("Incorrect entry type"):
+        except ValueError:
             return None
 
     def validate_entry(self, column_names, entries, entry_types):
+        """
+        Method to ensure that entered values are valid
+
+        :param column_names list: list of the column names
+        :param entries list: list of the entries to validate
+        :param entry_types list: list of the types of entries
+        """
+        # Validate all column names
         if not self._validate_column_name(column_names):
             raise AttributeError("{} contains an invalid column name".format(column_names))
         try:
@@ -407,24 +437,35 @@ class table:
                         if entry == row[column_name]:
                             valid_values.append(True)
                             break
+                # If all desired values are valid for a user
                 if len(valid_values) == len(entries):
                     return True
 
             else:
                 return False
 
-        except ValueError("Incorrect entry type"):
+        except ValueError("Uniqueness: incorrect entry type"):
             return None
 
     def get_value(self, row, column=None):
+        """
+        Method to return values from the table
+
+        :param row string: the row to retrieve from the table
+        :param column string: optional variable to specify the column
+        """
         if column is None:
             return self._table_dict[row]
         else:
             return self._table_dict[row][column]
 
     def populate(self, qt_table):
+        """
+        Method to populate a QTableWidget with all values for the table
 
-        # VITAL user_dict is recalled so that if the table is updated it is reflected
+        :param qt_table QTableWidet: table to populate
+        """
+
         columns = self._get_columns()
         rows = self._get_rows()
 
@@ -439,12 +480,22 @@ class table:
                         i, j, QTableWidgetItem(str(rows[i][j])))
 
     def check_max_user(self, max_users):
+        """
+        Method to check if max users is exceeded
+
+        :param max_users int: maximum number of users
+        """
         if len(self._table_dict) >= max_users:
             return False
         else:
             return True
 
     def _validate_column_name(self, column_names):
+        """
+        Hidden method to validate column names
+
+        :param column_names list or string: column name(s) to validate
+        """
         if isinstance(column_names, list):
             return any(elem in self._get_columns() for elem in column_names)
         else:

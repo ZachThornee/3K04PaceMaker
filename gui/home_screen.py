@@ -19,7 +19,7 @@ class home_screen(QMainWindow):
         log.info("Showing home screen")
         self.patient_num = patient_num
         self.tables_dict = tables_dict
-        self.pacemaker_table = tables_dict['pacemaker_table']
+        self.pace_table = tables_dict['pacemaker_table']
         self.patient_table = tables_dict['patients_table']
 
         # Buttons
@@ -73,22 +73,32 @@ class home_screen(QMainWindow):
         upper_rate = self.ui.TB_UpperRateLimit.text()
         lower_rate = self.ui.TB_LowerRateLimit.text()
 
+        results = []
+
         # Make the changes to the pacemaker table
-        self.pacemaker_table.change_data("vrp", vrp, int)
-        self.pacemaker_table.change_data("arp", arp, int)
-        self.pacemaker_table.change_data("vent_pulse_width", vent_pulse_width, int)
-        self.pacemaker_table.change_data("vent_amplitude", vent_amplitude, int)
-        self.pacemaker_table.change_data("atrial_pulse_width", atrial_pulse_width, int)
-        self.pacemaker_table.change_data("atrial_amplitude", atrial_amplitude, int)
-        self.pacemaker_table.change_data("upper_rate", upper_rate, int)
-        self.pacemaker_table.change_data("lower_rate", lower_rate, int)
+        results.append(self.pace_table.change_data("vrp", vrp, int))
+        results.append(self.pace_table.change_data("arp", arp, int))
+        results.append(self.pace_table.change_data("vent_pulse_width", vent_pulse_width, int))
+        results.append(self.pace_table.change_data("vent_amplitude", vent_amplitude, int))
+        results.append(self.pace_table.change_data("atrial_pulse_width", atrial_pulse_width, int))
+        results.append(self.pace_table.change_data("atrial_amplitude", atrial_amplitude, int))
+        results.append(self.pace_table.change_data("upper_rate", upper_rate, int))
+        results.append(self.pace_table.change_data("lower_rate", lower_rate, int))
+
+        # If any of our results are None because they couldn't be entered
+        for val in results:
+            print(results)
+            if val is None:
+                self.ui.close()
+                ERRORS.invalid_input(self.tables_dict, self)
+                return
 
         # If this is a new patient add a new patient
         if self.patient_num is None:
-            self.pacemaker_table.add_row()
+            self.pace_table.add_row()
 
         else:
-            self.pacemaker_table.edit_row(self.patient_num)
+            self.pace_table.edit_row(self.patient_num)
             self.return_to_user_manager()
 
         log.info("Confirming changes to patient")
