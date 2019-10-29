@@ -20,6 +20,9 @@ LOGINS_PARAMETERS = [
                 ["LAST_NAME", "TEXT", "NOT", "NULL"],
                 ["ADMIN_PRIVELEGES", "BOOLEAN", "NOT", "NULL"],
             ]
+ADMIN_CREDS = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE"]
+
+
 
 # Patient Table Information
 PATIENT_TABLE = "patient_info"
@@ -32,6 +35,8 @@ PATIENT_PARAMETERS = [
                 ["AGE", "INT", "NOT", "NULL"],
                 ["PACEMAKER_ID", "INT", "NOT", "NULL"],
                 ]
+DEFAULT_PATIENT = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "0", "0"]
+
 
 PACEMAKER_TABLE = "pacemaker_info"
 PACEMAKER_PARAMS = [
@@ -46,6 +51,7 @@ PACEMAKER_PARAMS = [
                 ["UPPER_RATE", "INT",  "NOT", "NULL"],
                 ["LOWER_RATE", "INT",  "NOT", "NULL"],
             ]
+DEFAULT_PACEMAKER = ["0", "'admin'", "0", "0", "0", "0", "0", "0", "0", "0"]
 
 # Setup log style
 log.basicConfig(format='%(filename)s-%(levelname)s: %(message)s',
@@ -61,9 +67,9 @@ def main():
     database = DBM.db_manager(USER, DB_NAME)  # Connect to the database
 
     # Connect to all tables
-    users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS)
-    patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS)
-    pacemaker_table = database.con_table(PACEMAKER_TABLE, PACEMAKER_PARAMS)
+    users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS, ADMIN_CREDS)
+    patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS, DEFAULT_PATIENT)
+    pacemaker_table = database.con_table(PACEMAKER_TABLE, PACEMAKER_PARAMS, DEFAULT_PACEMAKER)
 
     # Create a dictionary of all relevant tables
     table_dict = {"users_table": users_table,

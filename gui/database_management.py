@@ -108,7 +108,7 @@ class db_manager:
             self.con.close()
             log.info("Database connection closed")
 
-    def con_table(self, table_name, table_array=None):
+    def con_table(self, table_name, table_array=None, default_profile=None):
         """
         Method to connect to a table in database and crete table object
 
@@ -117,7 +117,7 @@ class db_manager:
         """
         try:
             # Try to create a new table object
-            new_table = table(table_name, self.con, self.cur)
+            new_table = table(table_name, self.con, self.cur, default_profile)
             return new_table
 
         except (Exception, psycopg2.errors.UndefinedTable) as e:
@@ -135,7 +135,7 @@ class db_manager:
                 log.info("Creating table {0}".format(table_name))
                 self.delete_table(table_name)  # Delete database table
                 self.create_table(table_name, table_array)  # Gen new table
-                return table(table_name, self.con, self.cur)
+                return table(table_name, self.con, self.cur, default_profile)
 
             else:
                 log.error("Cannot generate table {0}.".format(table_name))
@@ -144,7 +144,7 @@ class db_manager:
 
 class table:
 
-    def __init__(self, table_name, connection, cursor):
+    def __init__(self, table_name, connection, cursor, default_profile):
         """
         Method to initialize a table object
 
@@ -152,11 +152,10 @@ class table:
         :param connection psycopg2_connection_object: database connection
         :param cursor psyvcopg2_cursor_object: database cursor object
         """
-        self._default_profile = None
         self.name = table_name
         self._connection = connection
         self._cursor = cursor
-        self._create_default_profile()
+        self._default_profile = self._create_default_profile(default_profile)
         self._table_dict = self._get_table_dict()
         try:
             self._selected_row = self._table_dict[0]
@@ -165,21 +164,10 @@ class table:
 
         log.info("Connected to table : {}".format(table_name))
 
-    def _create_default_profile(self):
+    def _create_default_profile(self, default_profile):
         columns = self._get_columns()
-        print(self.name)
-        if self.name == "user_logins":
-
-            default_profile = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE"]
-
-        elif self.name == "patient_info":
-            default_profile = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "0", "0"]
-
-        elif self.name == "pacemaker_info":
-            default_profile = ["0", "'admin'", "0", "0", "0", "0", "0", "0", "0", "0"]
-
         dictionary = dict(zip(columns, default_profile))  # Create dictionary
-        self.default_profile = dictionary
+        return dictionary
 
     def _get_columns(self):
         """
@@ -206,10 +194,10 @@ class table:
         rows = self._cursor.fetchall()
 
         # If we have no row and we are in the user_logins table
-        if len(rows) == 0 and self.name == 'user_logins':
+        if len(rows) == 0:
             log.warning("No row data found in {0}".format(self.name))
             log.info("Generating base admin user")
-            self._selected_row = self.default_profile
+            self._selected_row = self._default_profile
             self.add_row()  # Add new row
             rows = self._cursor.fetchall()  # Refetch rows
 

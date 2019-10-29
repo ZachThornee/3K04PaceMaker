@@ -32,7 +32,7 @@ class home_screen(QMainWindow):
         log.info("Disconnecting")
 
     def edit_patient_info(self):
-        log.info("Editing info for patient {}".format(self.patient['name']))
+        log.info("Editing info for patient")
 
     def confirm_changes(self):
 
@@ -43,11 +43,17 @@ class home_screen(QMainWindow):
             vent_pulse_amplitude = self.ui.TB_VentricularAmplitude.text()
             atrial_pulse_width = self.ui.TB_AtrialPulseWidth.text()
             atrial_pulse_amplitude = self.ui.TB_AtrialAmplitude.text()
-            atrial_pulse_amplitude = self.ui.TB_AtrialAmplitude.text()
             upper_rate = self.ui.TB_UpperRateLimit.text()
-            lower_rate = self.ui.TB_LowerrateLimit.text()
+            lower_rate = self.ui.TB_LowerRateLimit.text()
 
             self.pacemaker_table.change_data("vrp", vrp, int)
+            self.pacemaker_table.change_data("arp", arp, int)
+            self.pacemaker_table.change_data("vent_pulse_width", vent_pulse_width, int)
+            self.pacemaker_table.change_data("vent_pulse_amplitude", vent_pulse_amplitude, int)
+            self.pacemaker_table.change_data("atrial_pulse_width", atrial_pulse_width, int)
+            self.pacemaker_table.change_data("atrial_pulse_amplitude", atrial_pulse_amplitude, int)
+            self.pacemaker_table.change_data("upper_rate", upper_rate, int)
+            self.pacemaker_table.change_data("lower_rate", lower_rate, int)
 
         except ValueError:
             # Show invalid input dialogue
