@@ -1,8 +1,12 @@
+
+
 import logging as log
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
-import home_screen as HOME
+
 import errors as ERRORS
+import home_screen as HOME
 
 
 class con_screen(QMainWindow):
@@ -36,5 +40,8 @@ class con_screen(QMainWindow):
         return
 
     def connection_error(self):
-        ERRORS.connection_error(self.tables_dict, self)
+        """
+        Temporary method to display connection error
 
+        """
+        ERRORS.connection_error(self.tables_dict, self)

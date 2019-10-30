@@ -2,8 +2,9 @@ import logging as log
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
-import user_manager_screen as USER_MANAGER
+
 import errors as ERRORS
+import user_manager_screen as USER_MANAGER
 
 
 class add_user_screen(QMainWindow):

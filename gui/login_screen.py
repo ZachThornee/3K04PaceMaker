@@ -1,13 +1,17 @@
+
+
 import logging as log
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
+
 import connecting_screen as CON_SCREEN
 import forgot_password_screen as FORGT_PASS
 import login_as_admin as LOGIN_ADMIN
 
 
 class login_screen(QMainWindow):
+
     def __init__(self, tables_dict):
         """
         Constructor for the initial doctor login screen

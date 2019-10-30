@@ -1,25 +1,27 @@
-import psycopg2
-import sys
+
+
 import logging as log
+import sys
+
+import psycopg2
 from PyQt5.QtWidgets import QTableWidgetItem
 
 
 class db_manager:
 
-    def __init__(self, user, database_name):
+    def __init__(self, db_user, db_name):
         """
         Database initialization method
 
-        :param user string: name of the user for the database
-        :param database_name string: name of the database to connect to
+        :param db_user string: name of the user for the database
+        :param db_name string: name of the database to connect to
         """
         # VITAL: The database has no password in its current implementation
-        self.user = user
-        self.db_name = database_name
 
         # Try to connect to database
         try:
-            self.con = psycopg2.connect(user=self.user, database=self.db_name)
+            self.con = psycopg2.connect(user=db_user, dbname=db_name)
+
         except (Exception, psycopg2.OperationalError) as e:
             error = "DATABASE error: {}".format(e)
             log.error(error)  # Report connection error
@@ -28,7 +30,7 @@ class db_manager:
         # Execute commands are automatically committed to the database
         self.con.autocommit = True
         self.cur = self.con.cursor()  # Create a cursor
-        log.info("Connected to database : {}".format(database_name))
+        log.info("Connected to database : {}".format(db_name))
 
     def create_table(self, table_name, info_array):
         """
@@ -405,10 +407,9 @@ class table:
                 entry = str(abs(int(entry)))
             elif entry_type == str:
                 entry = "'{}'".format(entry)
-            if entry_type == bool:
-                entry = "{}".format(entry)
 
             self._selected_row[column_name] = str(entry)
+            return True
 
         except ValueError:
             return None
@@ -422,6 +423,9 @@ class table:
         :param entry_types list: list of the types of entries
         """
         # Validate all column names
+        if len(column_names) != len(entries) or len(entry_types) != len(column_names):
+            raise IndexError("Arrays are not of same length")
+
         if not self._validate_column_name(column_names):
             raise AttributeError("{} contains an invalid column name".format(column_names))
         try:
@@ -432,11 +436,10 @@ class table:
 
             for row in self._table_dict.values():
                 valid_values = []
-                for entry in entries:
-                    for column_name in column_names:
-                        if entry == row[column_name]:
-                            valid_values.append(True)
-                            break
+                for i in range(len(column_names)):
+                    if entries[i] == row[column_names[i]]:
+                        valid_values.append(True)
+
                 # If all desired values are valid for a user
                 if len(valid_values) == len(entries):
                     return True

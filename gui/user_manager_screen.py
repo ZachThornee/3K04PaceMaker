@@ -1,7 +1,7 @@
 import logging as log
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow
 
 import add_user_screen as ADD_USER
 import edit_user_screen as EDIT_USER
@@ -89,4 +89,3 @@ class user_manager_screen(QMainWindow):
         """
         LOGIN.login_screen(self.tables_dict)
         self.ui.close()
-

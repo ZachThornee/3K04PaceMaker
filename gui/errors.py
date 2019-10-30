@@ -1,6 +1,8 @@
 import logging as log
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
+
 import login_screen as LOGIN_SCREEN
 import user_manager_screen as USER_MANAGER
 
@@ -141,4 +143,3 @@ class connection_error(QMainWindow):
 
         """
         self.ui.close()
-

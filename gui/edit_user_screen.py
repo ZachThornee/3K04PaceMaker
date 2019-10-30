@@ -1,12 +1,19 @@
+
+
+
+
+
 import logging as log
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
-import user_manager_screen as USER_MANAGER
+
 import errors as ERRORS
+import user_manager_screen as USER_MANAGER
 
 
 class edit_user_screen(QMainWindow):
+
     def __init__(self, tables_dict, row_number):
         """
         Constructor for edit user screen
@@ -19,7 +26,6 @@ class edit_user_screen(QMainWindow):
         self.row_number = row_number
         self.tables_dict = tables_dict
         self.table = self.tables_dict['users_table']
-
 
         # Get the values from the table
         first_name = self.table.get_value(row_number, "first_name")
@@ -51,7 +57,6 @@ class edit_user_screen(QMainWindow):
         # Buttons
         self.ui.PB_Confirm.clicked.connect(self.edit_user)
         self.ui.PB_Cancel.clicked.connect(self.return_to_user_manager)
-
 
     def edit_user(self):
         """

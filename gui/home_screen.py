@@ -1,6 +1,11 @@
+
+
+
 import logging as log
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
+
 import errors as ERRORS
 import login_screen as LOGIN
 
@@ -38,7 +43,7 @@ class home_screen(QMainWindow):
 
         :param mode string: mode to set the pacemaker to
         """
-        self.pacemaker_table.change_data("mode", mode, str)
+        self.pace_table.change_data("mode", mode, str)
         log.info('Pacing mode set to {}'.format(mode))
 
     def disconnect(self):
@@ -87,7 +92,6 @@ class home_screen(QMainWindow):
 
         # If any of our results are None because they couldn't be entered
         for val in results:
-            print(results)
             if val is None:
                 self.ui.close()
                 ERRORS.invalid_input(self.tables_dict, self)

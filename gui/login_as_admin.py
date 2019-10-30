@@ -1,10 +1,13 @@
 import logging as log
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
+
 import user_manager_screen as USER_MANAGER
 
 
 class login_as_admin(QMainWindow):
+
     def __init__(self, tables_dict, login_screen):
         """
         Constructor for login as admin screen
