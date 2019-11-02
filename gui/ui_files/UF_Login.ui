@@ -39,6 +39,11 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
 BORDER-COLOR: rgb(245, 245, 245);
@@ -55,6 +60,11 @@ BORDER-STYLE: outset;</string>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
       </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
@@ -81,7 +91,7 @@ BORDER-STYLE: outset;
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>16</pointsize>
        </font>
       </property>
       <property name="toolTip">
@@ -106,6 +116,11 @@ BORDER-STYLE: outset;
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
@@ -142,7 +157,7 @@ BORDER-STYLE: outset;</string>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>16</pointsize>
        </font>
       </property>
       <property name="toolTip">
@@ -182,7 +197,7 @@ BORDER-STYLE: outset;
        </sizepolicy>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -194,6 +209,11 @@ BORDER-STYLE: outset;
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>26</pointsize>
+       </font>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -202,7 +222,7 @@ BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Login&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;Login&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -217,8 +237,13 @@ BORDER-STYLE: outset;
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -249,8 +274,23 @@ BORDER-STYLE: outset;
      </spacer>
     </item>
    </layout>
+   <zorder>TB_Username</zorder>
+   <zorder>PB_ForgotPassword</zorder>
+   <zorder>PB_Confirm</zorder>
+   <zorder>PB_UserManager</zorder>
+   <zorder>LAB_Username</zorder>
+   <zorder>LAB_Login</zorder>
+   <zorder>LAB_Password</zorder>
+   <zorder>TB_Password</zorder>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>TB_Username</tabstop>
+  <tabstop>TB_Password</tabstop>
+  <tabstop>PB_Confirm</tabstop>
+  <tabstop>PB_ForgotPassword</tabstop>
+  <tabstop>PB_UserManager</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

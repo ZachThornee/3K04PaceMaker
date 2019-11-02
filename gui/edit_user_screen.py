@@ -1,8 +1,3 @@
-
-
-
-
-
 import logging as log
 
 from PyQt5 import uic

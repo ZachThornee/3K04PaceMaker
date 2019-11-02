@@ -407,6 +407,8 @@ class table:
                 entry = str(abs(int(entry)))
             elif entry_type == str:
                 entry = "'{}'".format(entry)
+            elif entry_type == float:
+                entry = str(abs(float(entry)))
 
             self._selected_row[column_name] = str(entry)
             return True

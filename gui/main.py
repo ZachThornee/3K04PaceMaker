@@ -42,14 +42,14 @@ PACEMAKER_TABLE = "pacemaker_info"
 PACEMAKER_PARAMS = [
                 ["ID", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
                 ["MODE", "TEXT",  "NOT", "NULL"],
-                ["VRP", "INT",  "NOT", "NULL"],
-                ["ARP", "INT",  "NOT", "NULL"],
-                ["VENT_PULSE_WIDTH", "INT",  "NOT", "NULL"],
-                ["VENT_AMPLITUDE", "INT",  "NOT", "NULL"],
-                ["ATRIAL_PULSE_WIDTH", "INT",  "NOT", "NULL"],
-                ["ATRIAL_AMPLITUDE", "INT", "NOT", "NULL"],
-                ["UPPER_RATE", "INT",  "NOT", "NULL"],
-                ["LOWER_RATE", "INT",  "NOT", "NULL"],
+                ["VRP", "FLOAT",  "NOT", "NULL"],
+                ["ARP", "FLOAT",  "NOT", "NULL"],
+                ["VENT_PULSE_WIDTH", "FLOAT",  "NOT", "NULL"],
+                ["VENT_AMPLITUDE", "FLOAT",  "NOT", "NULL"],
+                ["ATRIAL_PULSE_WIDTH", "FLOAT",  "NOT", "NULL"],
+                ["ATRIAL_AMPLITUDE", "FLOAT", "NOT", "NULL"],
+                ["UPPER_RATE", "FLOAT",  "NOT", "NULL"],
+                ["LOWER_RATE", "FLOAT",  "NOT", "NULL"],
             ]
 DEFAULT_PACEMAKER = ["0", "'admin'", "0", "0", "0", "0", "0", "0", "0", "0"]
 
