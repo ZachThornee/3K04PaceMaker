@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">BACKGROUND-COLOR: rgb(255,255,255);</string>
   </property>
-  <widget class="QWidget" name="UF_LoginAsAdmin">
+  <widget class="QWidget" name="UF_SpecificLogin">
    <layout class="QGridLayout" name="gridLayout">
     <item row="4" column="0">
      <widget class="QLabel" name="LAB_Password">
@@ -44,7 +44,7 @@
      </widget>
     </item>
     <item row="2" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_Username">
+     <widget class="QLineEdit" name="TB_Field_1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -61,7 +61,7 @@ BORDER-STYLE: outset;</string>
      </widget>
     </item>
     <item row="4" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_Password">
+     <widget class="QLineEdit" name="TB_Field_2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -119,7 +119,7 @@ BORDER-STYLE: outset;
      </spacer>
     </item>
     <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="LAB_Login">
+     <widget class="QLabel" name="LAB_Title">
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -128,7 +128,7 @@ BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;Login as Admin&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -162,7 +162,7 @@ BORDER-STYLE: outset;
      </spacer>
     </item>
     <item row="6" column="0">
-     <widget class="QPushButton" name="PB_UserManager">
+     <widget class="QPushButton" name="PB_GeneralLogin">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>

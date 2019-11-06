@@ -3,8 +3,7 @@ import logging as log
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 
-import login_screen as LOGIN_SCREEN
-import user_manager_screen as USER_MANAGER
+from management_screen import manager
 
 
 class maximum_number_of_users(QMainWindow):
@@ -17,7 +16,7 @@ class maximum_number_of_users(QMainWindow):
         :param user_manager class user_manager_screen: instance of user_manager_screen class
         """
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Error_MaxUsers.ui'), self)
+        self.ui = uic.loadUi(('ui_files/UF_Error_2_Option.ui'), self)
         log.warning("Maximum number of users exceeded. Showing popup")
         self.ui.show()
         self.tables_dict = tables_dict
@@ -54,7 +53,7 @@ class invalid_input(QMainWindow):
         :param add_user_screen class add_user_screen: add_user_screen object
         """
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Error_InvalidInput.ui'), self)
+        self.ui = uic.loadUi(('ui_files/UF_Error_2_Options.ui'), self)
         log.warning("Invalid input. Showing popup")
         self.ui.show()
         self.tables_dict = tables_dict
@@ -91,7 +90,7 @@ class employee_number_already_used(QMainWindow):
         :param add_user_screen class add_user_screen: add_user_screen object
         """
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Error_ProfileExists.ui'), self)
+        self.ui = uic.loadUi(('ui_files/UF_Error_2_Options.ui'), self)
         log.warning("Employee number already exists. Showing popup")
         self.ui.show()
         self.tables_dict = tables_dict
@@ -128,7 +127,7 @@ class connection_error(QMainWindow):
         :param add_user_screen class add_user_screen: add_user_screen object
         """
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Error_PMConnection.ui'), self)
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
         log.warning("Employee number already exists. Showing popup")
         self.ui.show()
         self.tables_dict = tables_dict

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>777</width>
-    <height>338</height>
+    <width>698</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,16 @@
   <property name="styleSheet">
    <string notr="true">BACKGROUND-COLOR: rgb(255,255,255);</string>
   </property>
-  <widget class="QWidget" name="UF_Error_MaxUsers">
+  <widget class="QWidget" name="UF_Error_InvalidInput">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="LAB_Title">
+     <widget class="QLabel" name="LAB_ErrorTitle">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>28</pointsize>
@@ -32,27 +38,7 @@ BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Error&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QLabel" name="LAB_ErrorMessage">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;The maximum number of users allowed on this device has been reached (10).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -70,24 +56,20 @@ BORDER-STYLE: outset;
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="PB_Login">
+     <widget class="QLabel" name="LAB_ErrorMessage">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>16</pointsize>
        </font>
       </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Confirm username and password to log in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(160, 238, 252);
-BORDER-COLOR: rgb(160, 238. 252);
-BORDER-RADIUS: 10px;
-BORDER-STYLE: outset;
-</string>
-      </property>
       <property name="text">
-       <string>Login as Existing User</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -105,10 +87,16 @@ BORDER-STYLE: outset;
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="PB_ManageUsers">
+     <widget class="QPushButton" name="PB_Option1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>18</pointsize>
        </font>
       </property>
       <property name="toolTip">
@@ -122,7 +110,7 @@ BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>Manage User Profiles</string>
+       <string/>
       </property>
      </widget>
     </item>

@@ -1,7 +1,7 @@
 import logging as log
 import sys
 
-import login_screen as MAIN_SCREEN
+import initial_login as LOGIN
 from PyQt5.QtWidgets import QApplication
 import database_management as DBM
 
@@ -77,7 +77,7 @@ def main():
                   "pacemaker_table": pacemaker_table}
 
     # Login to main screen
-    MAIN_SCREEN.login_screen(table_dict)
+    LOGIN.login_screen(table_dict)
 
     # Allow the application to run seperately
     sys.exit(APP.exec_())

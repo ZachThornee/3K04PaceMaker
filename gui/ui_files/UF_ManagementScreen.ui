@@ -31,7 +31,7 @@
 </string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -39,7 +39,7 @@
      </widget>
     </item>
     <item row="1" column="0" colspan="4">
-     <widget class="QTableWidget" name="TAB_Users">
+     <widget class="QTableWidget" name="TAB_Table">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -91,7 +91,7 @@ BORDER-STYLE: outset;
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QPushButton" name="PB_DeleteUser">
+     <widget class="QPushButton" name="PB_Delete">
       <property name="font">
        <font>
         <pointsize>18</pointsize>
@@ -107,12 +107,12 @@ BORDER-RADIUS: 10px;
 BORDER-STYLE: outset;</string>
       </property>
       <property name="text">
-       <string>Delete User</string>
+       <string/>
       </property>
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QPushButton" name="PB_EditUser">
+     <widget class="QPushButton" name="PB_Edit">
       <property name="font">
        <font>
         <pointsize>18</pointsize>
@@ -129,12 +129,12 @@ BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>Edit User</string>
+       <string/>
       </property>
      </widget>
     </item>
     <item row="2" column="3">
-     <widget class="QPushButton" name="PB_AddUser">
+     <widget class="QPushButton" name="PB_Add">
       <property name="font">
        <font>
         <pointsize>18</pointsize>
@@ -151,7 +151,7 @@ BORDER-STYLE: outset;
 </string>
       </property>
       <property name="text">
-       <string>Add User</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -159,10 +159,10 @@ BORDER-STYLE: outset;
   </widget>
  </widget>
  <tabstops>
-  <tabstop>TAB_Users</tabstop>
-  <tabstop>PB_AddUser</tabstop>
-  <tabstop>PB_EditUser</tabstop>
-  <tabstop>PB_DeleteUser</tabstop>
+  <tabstop>TAB_Table</tabstop>
+  <tabstop>PB_Add</tabstop>
+  <tabstop>PB_Edit</tabstop>
+  <tabstop>PB_Delete</tabstop>
   <tabstop>PB_Back</tabstop>
  </tabstops>
  <resources/>

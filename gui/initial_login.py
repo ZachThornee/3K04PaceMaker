@@ -1,13 +1,10 @@
-
-
 import logging as log
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 
 import connecting_screen as CON_SCREEN
-import forgot_password_screen as FORGT_PASS
-import login_as_admin as LOGIN_ADMIN
+from specific_login import specific_login
 
 
 class login_screen(QMainWindow):
@@ -19,13 +16,14 @@ class login_screen(QMainWindow):
         :param tables_dict dictionary: A dictionary containing all tables
         """
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Login.ui'), self)
+        self.ui = uic.loadUi(('ui_files/UF_LoginScreen.ui'), self)
         log.info("Showing main login screen")
         self.tables_dict = tables_dict
         self.table = self.tables_dict['users_table']
         self.ui.PB_Confirm.clicked.connect(self.login_button)
         self.ui.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
         self.ui.PB_UserManager.clicked.connect(self.manage_users_button)
+        self.ui.PB_PatientManager.clicked.connect(self.manage_patients_button)
         self.ui.show()
 
     def login_button(self):
@@ -56,7 +54,15 @@ class login_screen(QMainWindow):
         Method to open the login as admin screen before opening the user manager
 
         """
-        LOGIN_ADMIN.login_as_admin(self.tables_dict, self)
+        specific_login(self.tables_dict, "admin")
+        self.ui.close()
+
+    def manage_patients_button(self):
+        """
+        Method to open the login as a doctor before opening the patient manager
+
+        """
+        specific_login(self.tables_dict, "doctor")
         self.ui.close()
 
     def forgot_password_button(self):
@@ -64,5 +70,5 @@ class login_screen(QMainWindow):
         Method to open the forgot password screen
 
         """
-        FORGT_PASS.forgot_pass_scrn(self.tables_dict, self)
+        specific_login(self.tables_dict, "forgot_password")
         self.ui.close()

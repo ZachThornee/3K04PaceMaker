@@ -4,7 +4,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 
 import errors as ERRORS
-import login_screen as LOGIN
+import initial_login as LOGIN
 import random
 
 
