@@ -19,16 +19,17 @@ class manager(QMainWindow):
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_ManagementScreen.ui'), self)
         self.tables_dict = tables_dict
+        self.management_type = management_type
 
         # User Manager setup
-        if management_type == "users":
+        if self.management_type == "users":
             self.PB_Add.setText("Add User")
             self.PB_Edit.setText("Edit User")
             self.PB_Delete.setText("Delete User")
             self.table = tables_dict['users_table']
             self.ui.LAB_Title.setText("User Manager")
 
-        elif management_type == "patients":
+        elif self.management_type == "patients":
             self.PB_Add.setText("Add Patients")
             self.PB_Edit.setText("Edit Patients")
             self.PB_Delete.setText("Delete Patients")
@@ -92,10 +93,15 @@ class manager(QMainWindow):
 
         selected = self.ui.TAB_Table.selectedRanges()[0]
         row_number = selected.topRow()
-        employee_number = self.table.get_value(row_number, "employee_number")
+        if self.management_type == "users":
+            employee_number = self.table.get_value(row_number, "employee_number")
+            self.table.delete_row(employee_number)
 
-        # Delete the row with the corresponding employee number
-        self.table.delete_row(employee_number)
+        elif self.management_type == "patients":
+            patient_id = self.table.get_value(row_number, "patient_id")
+            self.table.delete_row(patient_id)
+            self.tables['pacemaker_table'].delete_row(patient_id)
+
         self.ui.close()
         self.update_table()
 
