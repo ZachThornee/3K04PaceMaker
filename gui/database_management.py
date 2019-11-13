@@ -1,5 +1,3 @@
-
-
 import logging as log
 import sys
 
@@ -452,13 +450,15 @@ class table:
         except ValueError("Uniqueness: incorrect entry type"):
             return None
 
-    def get_value(self, row, column=None):
+    def get_value(self, row, column=None, is_row_number=False):
         """
         Method to return values from the table
 
         :param row string: the row to retrieve from the table
         :param column string: optional variable to specify the column
+        :param row_number string: optional variable to specify the column
         """
+
         if column is None:
             return self._table_dict[row]
         else:

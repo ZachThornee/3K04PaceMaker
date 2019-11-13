@@ -27,7 +27,7 @@ ADMIN_CREDS = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "'admin'", "TRUE
 # Patient Table Information
 PATIENT_TABLE = "patient_info"
 PATIENT_PARAMETERS = [
-                ["PATIENT_NUMBER", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
+                ["PATIENT_ID", "INT", "PRIMARY", "KEY", "NOT", "NULL"],
                 ["FIRST_NAME", "TEXT", "NOT", "NULL"],
                 ["LAST_NAME", "TEXT",  "NOT", "NULL"],
                 ["HEALTHCARD", "TEXT", "NOT", "NULL"],
@@ -67,6 +67,7 @@ def main():
     database = DBM.db_manager(USER, DB_NAME)  # Connect to the database
 
     # Connect to all tables
+    database.delete_table(PATIENT_TABLE)
     users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS, ADMIN_CREDS)
     patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS, DEFAULT_PATIENT)
     pacemaker_table = database.con_table(PACEMAKER_TABLE, PACEMAKER_PARAMS, DEFAULT_PACEMAKER)

@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMainWindow
 import errors as ERRORS
 import initial_login as LOGIN_SCREEN
 import user_form as USER_FORM
+import patient_form as PATIENT_FORM
 
 
 class manager(QMainWindow):
@@ -60,11 +61,17 @@ class manager(QMainWindow):
         Method to validate user count and if valid open add user screen
 
         """
-        if not self.table.check_max_user(10):
-            ERRORS.maximum_number_of_users(self.tables_dict, self)
-        else:
+
+        if self.management_type == "users":
+            if not self.table.check_max_user(10):
+                ERRORS.maximum_number_of_users(self.tables_dict, self)
+            else:
+                self.ui.close()
+                USER_FORM.user_form(self.tables_dict, "add", self.management_type)
+
+        elif self.management_type == "patients":
             self.ui.close()
-            USER_FORM.user_form(self.tables_dict, "add")
+            PATIENT_FORM.patient_form(self.tables_dict, "add", self.management_type)
 
     def edit_button(self):
         """
@@ -79,7 +86,12 @@ class manager(QMainWindow):
         selected = self.ui.TAB_Table.selectedRanges()[0]
         row_number = selected.topRow()
         self.ui.close()
-        USER_FORM.user_form(self.tables_dict, "edit")
+
+        if self.management_type == "users":
+            USER_FORM.user_form(self.tables_dict, "edit", self.management_type, row_number)
+
+        elif self.management_type == "patients":
+            PATIENT_FORM.patient_form(self.tables_dict, "edit", self.management_type, row_number)
 
     def delete_button(self):
         """
@@ -93,14 +105,16 @@ class manager(QMainWindow):
 
         selected = self.ui.TAB_Table.selectedRanges()[0]
         row_number = selected.topRow()
+
         if self.management_type == "users":
             employee_number = self.table.get_value(row_number, "employee_number")
             self.table.delete_row(employee_number)
 
         elif self.management_type == "patients":
             patient_id = self.table.get_value(row_number, "patient_id")
+            pacemaker_id = self.table.get_value(row_number, "pacemaker_id")
             self.table.delete_row(patient_id)
-            self.tables['pacemaker_table'].delete_row(patient_id)
+            self.tables_dict['pacemaker_table'].delete_row(pacemaker_id)
 
         self.ui.close()
         self.update_table()
@@ -110,5 +124,5 @@ class manager(QMainWindow):
         Method to return to the login screen
 
         """
-        LOGIN.login_screen(self.tables_dict)
+        LOGIN_SCREEN.login_screen(self.tables_dict)
         self.ui.close()

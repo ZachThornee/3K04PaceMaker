@@ -3,7 +3,7 @@ import logging as log
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 
-from management_screen import manager
+import management_screen as MANAGER
 
 
 class maximum_number_of_users(QMainWindow):
@@ -77,7 +77,7 @@ class invalid_input(QMainWindow):
         """
         self.ui.close()
         self.add_user_screen.ui.close()
-        USER_MANAGER.user_manager_screen(self.tables_dict)
+        MANAGER.manager(self.tables_dict)
 
 
 class employee_number_already_used(QMainWindow):
@@ -114,7 +114,7 @@ class employee_number_already_used(QMainWindow):
         """
         self.ui.close()
         self.add_user_screen.ui.close()
-        USER_MANAGER.user_manager_screen(self.tables_dict)
+        MANAGER.manager(self.tables_dict)
 
 
 class connection_error(QMainWindow):

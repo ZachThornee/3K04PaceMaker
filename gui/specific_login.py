@@ -89,8 +89,8 @@ class specific_login(QMainWindow):
         """
         self.ui.close()
         # Get all the fields from the text boxes
-        email = self.ui.TB_Email.text()
-        user_login = self.ui.TB_Username.text()
+        user_login = self.ui.TB_Field_1.text()
+        email = self.ui.TB_Field_2.text()
 
         # Create the column_names, entries, and entry_types lists
         column_names = ["email", "user_login"]
