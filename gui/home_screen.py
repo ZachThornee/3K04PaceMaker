@@ -26,13 +26,15 @@ class home_screen(QMainWindow):
         self.patient_table = tables_dict['patients_table']
         self.mode = None
 
-        # Buttons
+        # When a mode is selected, call the internal change_mode method to perform the functionality of the PushButton
         self.ui.PB_VVI.clicked.connect(lambda: self.change_mode("VVI"))
         self.ui.PB_AOO.clicked.connect(lambda: self.change_mode("AOO"))
         self.ui.PB_AAI.clicked.connect(lambda: self.change_mode("AAI"))
         self.ui.PB_VOO.clicked.connect(lambda: self.change_mode("VOO"))
+        self.ui.PB_DOO.clicked.connect(lambda: self.change_mode("DOO"))
+
+        # Functionality for all other PushButtons on the form
         self.ui.PB_Disconnect.clicked.connect(self.disconnect)
-        self.ui.PB_EditInfo.clicked.connect(self.edit_patient_info)
         self.ui.PB_ConfirmChanges.clicked.connect(self.confirm_changes)
         self.ui.show()
 
@@ -45,53 +47,150 @@ class home_screen(QMainWindow):
         self.pace_table.change_data("mode", mode, str)
         log.info('Pacing mode set to {}'.format(mode))
         self.mode = mode
+        self.reset_screen()
+        self.set_button_colour(mode)
+
+        if self.mode == "VVI" or mode == "VOO":
+            # Entries
+            log.info("Entered VVI")
+            self.ui.TB_AtrialPulseWidth.hide()
+            self.ui.TB_AtrialAmplitude.hide()
+            self.ui.TB_ARP.hide()
+            # Labels
+            self.ui.LAB_AtrialAmplitude.hide()
+            self.ui.LAB_AtrialAmplitude_Units.hide()
+            self.ui.LAB_AtrialPulseWidth.hide()
+            self.ui.LAB_AtrialPulseWidth_Units.hide()
+            self.ui.LAB_ARP.hide()
+            self.ui.LAB_ARP_Units.hide()
+            self.rate_adaptive_hiding()
+            log.info("Updated")
+
+            if mode == "VOO":
+                self.ui.TB_VRP.hide()
+                self.ui.LAB_VRP.hide()
+                self.ui.LAB_VRP_Units.hide()
+                log.info("VOO mode initialized successfully")
+            else:
+                log.info("VVI mode initialized successfully")
+
+
+        if mode == "AAI" or mode == "AOO":
+            # Entries
+            self.ui.TB_VentricularAmplitude.hide()
+            self.ui.TB_VentricularPulseWidth.hide()
+            self.ui.TB_VRP.hide()
+            # Labels
+            self.ui.LAB_VentricularAmplitude.hide()
+            self.ui.LAB_VentricularPulseWidth.hide()
+            self.ui.LAB_VentricularAmplitude_Units.hide()
+            self.ui.LAB_VentricularPulseWidth_Units.hide()
+            self.ui.LAB_VRP.hide()
+            self.ui.LAB_VRP_Units.hide()
+            self.rate_adaptive_hiding()
+
+            if self.mode == "AOO":
+                log.info("AOO mode initialized correctly")
+                self.ui.TB_ARP.hide()
+                self.ui.LAB_ARP.hide()
+                self.ui.LAB_ARP_Units.hide()
+            else:
+                log.info("AAI mode initialized successfully")
+
+
+        if mode == "DOO":
+            self.ui.TB_ARP.hide()
+            self.ui.TB_VRP.hide()
+            self.ui.LAB_ARP.hide()
+            self.ui.LAB_VRP.hide()
+            self.ui.LAB_ARP_Units.hide()
+            self.ui.LAB_VRP_Units.hide()
+            self.rate_adaptive_hiding()
+            self.ui.TB_AV_Delay.hide()
+            self.ui.LAB_AV_Delay_Units.hide()
+            log.info("VOO mode initialized successfully")
+
+        self.update()
+
+    def reset_screen(self):
+        # Text Boxes
+        self.ui.TB_VentricularPulseWidth.show()
+        self.ui.TB_VentricularAmplitude.show()
+        self.ui.TB_ARP.show()
+        self.ui.TB_VRP.show()
+        self.ui.TB_AV_Delay.show()
+        self.ui.TB_ActivityThreshold.show()
+        self.ui.TB_ResponseFactor.show()
+        self.ui.TB_RecoveryTime.show()
+        self.ui.TB_ReactionTime.show()
+        # Labels
+        self.ui.LAB_VentricularAmplitude.show()
+        self.ui.LAB_VentricularAmplitude_Units.show()
+        self.ui.LAB_VentricularPulseWidth.show()
+        self.ui.LAB_VentricularPulseWidth_Units.show()
+        self.ui.LAB_ARP.show()
+        self.ui.LAB_ARP_Units.show()
+        self.ui.LAB_VRP.show()
+        self.ui.LAB_VRP_Units.show()
+        self.ui.LAB_AV_Delay_Units.show()
+        self.ui.LAB_ActivityThreshold_Units.show()
+        self.ui.LAB_RecoveryTime_Units.show()
+        self.ui.LAB_ReactionTime_Units.show()
+        self.ui.LAB_ResponseFactor_Units.show()
+        self.ui.LAB_AV_Delay.show()
+        self.ui.LAB_ActivityThreshold.show()
+        self.ui.LAB_RecoveryTime.show()
+        self.ui.LAB_ReactionTime.show()
+        self.ui.LAB_ResponseFactor.show()
+
+        self.update()
+        log.info("Resetting Screen Successful")
+
+    def rate_adaptive_hiding(self):
+        # Labels
+        self.ui.LAB_AV_Delay_Units.hide()
+        self.ui.LAB_ActivityThreshold_Units.hide()
+        self.ui.LAB_RecoveryTime_Units.hide()
+        self.ui.LAB_ReactionTime_Units.hide()
+        self.ui.LAB_ResponseFactor_Units.hide()
+        self.ui.LAB_AV_Delay.hide()
+        self.ui.LAB_ActivityThreshold.hide()
+        self.ui.LAB_RecoveryTime.hide()
+        self.ui.LAB_ReactionTime.hide()
+        self.ui.LAB_ResponseFactor.hide()
+
+        # Entries
+        self.ui.TB_AV_Delay.hide()
+        self.ui.TB_ActivityThreshold.hide()
+        self.ui.TB_ResponseFactor.hide()
+        self.ui.TB_RecoveryTime.hide()
+        self.ui.TB_ReactionTime.hide()
+        log.debug("Rate adaptive hiding complete")
+
+    def set_button_colour(self, mode):
+        normal_style = "BACKGROUND-COLOR: rgb(160, 238, 252); \
+                        BORDER-COLOR: rgb(160, 238. 252); \
+                        BORDER-RADIUS: 10px; \
+                        BORDER-STYLE: outset;"
+
+        selected_style = "BACKGROUND-COLOR: rgb(170, 255, 127); \
+                          BORDER-COLOR: rgb(160, 238. 252); \
+                          BORDER-RADIUS: 10px; \
+                          BORDER-STYLE: outset;"
+
+        self.ui.PB_VVI.setStyleSheet(normal_style)
+        self.ui.PB_AAI.setStyleSheet(normal_style)
+        self.ui.PB_AOO.setStyleSheet(normal_style)
+        self.ui.PB_VOO.setStyleSheet(normal_style)
 
         if mode == "VVI":
-            self.restore_boxes()
-            atrial_pulse_width = self.ui.TB_AtrialPulseWidth.setReadOnly(True)
-            atrial_amplitude = self.ui.TB_AtrialAmplitude.setReadOnly(True)
-            arp = self.ui.TB_ARP.setReadOnly(True)
-
-        if mode == "AOO":
-            self.restore_boxes()
-            vrp = self.ui.TB_VRP.setReadOnly(True)
-            arp = self.ui.TB_ARP.setReadOnly(True)
-            vent_pulse_width = self.ui.TB_VentricularPulseWidth.setReadOnly(True)
-            vent_amplitude = self.ui.TB_VentricularAmplitude.setReadOnly(True)
-
-        if mode == "AAI":
-            self.restore_boxes()
-            vrp = self.ui.TB_VRP.setReadOnly(True)
-            vent_pulse_width = self.ui.TB_VentricularPulseWidth.setReadOnly(True)
-            vent_amplitude = self.ui.TB_VentricularAmplitude.setReadOnly(True)
-
-        if mode == "VOO":
-            self.restore_boxes()
-            vrp = self.ui.TB_VRP.setReadOnly(True)
-            arp = self.ui.TB_ARP.setReadOnly(True)
-            atrial_pulse_width = self.ui.TB_AtrialPulseWidth.setReadOnly(True)
-            atrial_amplitude = self.ui.TB_AtrialAmplitude.setReadOnly(True)
-
-
-    def restore_boxes(self):
-        vrp = self.ui.TB_VRP.setReadOnly(False)
-        arp = self.ui.TB_ARP.setReadOnly(False)
-        vent_pulse_width = self.ui.TB_VentricularPulseWidth.setReadOnly(False)
-        vent_amplitude = self.ui.TB_VentricularAmplitude.setReadOnly(False)
-        atrial_pulse_width = self.ui.TB_AtrialPulseWidth.setReadOnly(False)
-        atrial_amplitude = self.ui.TB_AtrialAmplitude.setReadOnly(False)
-        upper_rate = self.ui.TB_UpperRateLimit.setReadOnly(False)
-        lower_rate = self.ui.TB_LowerRateLimit.setReadOnly(False)
-
-        vrp = self.ui.TB_VRP.setText("")
-        arp = self.ui.TB_ARP.setText("")
-        vent_pulse_width = self.ui.TB_VentricularPulseWidth.setText("")
-        vent_amplitude = self.ui.TB_VentricularAmplitude.setText("")
-        atrial_pulse_width = self.ui.TB_AtrialPulseWidth.setText("")
-        atrial_amplitude = self.ui.TB_AtrialAmplitude.setText("")
-        upper_rate = self.ui.TB_UpperRateLimit.setText("")
-        lower_rate = self.ui.TB_LowerRateLimit.setText("")
-
+            self.ui.PB_VVI.setStyleSheet(selected_style)
+        elif mode == "AAI":
+            self.ui.PB_AAI.setStyleSheet(selected_style)
+        elif mode == "AOO":
+            self.ui.PB_AOO.setStyleSheet(selected_style)
+        elif mode == "VOO":
+            self.ui.PB_VOO.setStyleSheet(selected_style)
 
     def disconnect(self):
         """
