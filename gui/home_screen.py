@@ -52,7 +52,6 @@ class home_screen(QMainWindow):
 
         if self.mode == "VVI" or mode == "VOO":
             # Entries
-            log.info("Entered VVI")
             self.ui.TB_AtrialPulseWidth.hide()
             self.ui.TB_AtrialAmplitude.hide()
             self.ui.TB_ARP.hide()
@@ -64,7 +63,6 @@ class home_screen(QMainWindow):
             self.ui.LAB_ARP.hide()
             self.ui.LAB_ARP_Units.hide()
             self.rate_adaptive_hiding()
-            log.info("Updated")
 
             if mode == "VOO":
                 self.ui.TB_VRP.hide()
@@ -75,7 +73,7 @@ class home_screen(QMainWindow):
                 log.info("VVI mode initialized successfully")
 
 
-        if mode == "AAI" or mode == "AOO":
+        elif mode == "AAI" or mode == "AOO":
             # Entries
             self.ui.TB_VentricularAmplitude.hide()
             self.ui.TB_VentricularPulseWidth.hide()
@@ -98,7 +96,7 @@ class home_screen(QMainWindow):
                 log.info("AAI mode initialized successfully")
 
 
-        if mode == "DOO":
+        elif mode == "DOO":
             self.ui.TB_ARP.hide()
             self.ui.TB_VRP.hide()
             self.ui.LAB_ARP.hide()
@@ -116,6 +114,8 @@ class home_screen(QMainWindow):
         # Text Boxes
         self.ui.TB_VentricularPulseWidth.show()
         self.ui.TB_VentricularAmplitude.show()
+        self.ui.TB_AtrialPulseWidth.show()
+        self.ui.TB_AtrialAmplitude.show()
         self.ui.TB_ARP.show()
         self.ui.TB_VRP.show()
         self.ui.TB_AV_Delay.show()
@@ -128,6 +128,10 @@ class home_screen(QMainWindow):
         self.ui.LAB_VentricularAmplitude_Units.show()
         self.ui.LAB_VentricularPulseWidth.show()
         self.ui.LAB_VentricularPulseWidth_Units.show()
+        self.ui.LAB_AtrialAmplitude.show()
+        self.ui.LAB_AtrialAmplitude_Units.show()
+        self.ui.LAB_AtrialPulseWidth.show()
+        self.ui.LAB_AtrialPulseWidth_Units.show()
         self.ui.LAB_ARP.show()
         self.ui.LAB_ARP_Units.show()
         self.ui.LAB_VRP.show()
