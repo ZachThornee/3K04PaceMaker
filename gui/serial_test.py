@@ -6,9 +6,6 @@ try:
    serial_con = serial.Serial(port="/dev/ttyACM0",
                                baudrate=115200,
                                timeout=1,
-                               parity=serial.PARITY_NONE,
-                               stopbits=serial.STOPBITS_ONE,
-                               bytesize=serial.EIGHTBITS,
                                )
 except:
     try:
@@ -27,8 +24,6 @@ def read():
 
 def write(byte_array):
     while True:
-        print(byte_array)
-        byte_array = bytes(array)
         print(byte_array)
         result = serial_con.write(byte_array)
         print(result)
@@ -91,5 +86,8 @@ array.append(pace_mode)
 # array.append(recovery_time)
 # array.append(rate_toggle)
 
-write(array[0])
+response = struct.pack("B", 22)
+response = [bytes([22])]
+response = b'\x16'
+write(response)
 # print(int.from_bytes(string, "big"))
