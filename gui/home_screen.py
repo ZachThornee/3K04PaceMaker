@@ -17,6 +17,7 @@ class home_screen(QMainWindow):
         :param tables_dict dictionary: dictionary containg all tables
         :param patient_num int: patient id number
         """
+
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_PMConnected.ui'), self)
         log.info("Showing home screen")
@@ -25,6 +26,7 @@ class home_screen(QMainWindow):
         self.pace_table = tables_dict['pacemaker_table']
         self.patient_table = tables_dict['patients_table']
         self.mode = None
+        self.hide_all()
 
         # When a mode is selected, call the internal change_mode method to perform the functionality of the PushButton
         self.ui.PB_VVI.clicked.connect(lambda: self.change_mode("VVI"))
@@ -32,10 +34,16 @@ class home_screen(QMainWindow):
         self.ui.PB_AAI.clicked.connect(lambda: self.change_mode("AAI"))
         self.ui.PB_VOO.clicked.connect(lambda: self.change_mode("VOO"))
         self.ui.PB_DOO.clicked.connect(lambda: self.change_mode("DOO"))
+        self.ui.PB_AOOR.clicked.connect(lambda: self.change_mode("AOOR"))
+        self.ui.PB_AAIR.clicked.connect(lambda: self.change_mode("AAIR"))
+        self.ui.PB_VOOR.clicked.connect(lambda: self.change_mode("VOOR"))
+        self.ui.PB_VVIR.clicked.connect(lambda: self.change_mode("VVIR"))
+        self.ui.PB_DOOR.clicked.connect(lambda: self.change_mode("DOOR"))
 
         # Functionality for all other PushButtons on the form
         self.ui.PB_Disconnect.clicked.connect(self.disconnect)
         self.ui.PB_ConfirmChanges.clicked.connect(self.confirm_changes)
+        self.ui.PB_ConfirmPatient.clicked.connect(self.confirm_patient_changes)
         self.ui.show()
 
     def change_mode(self, mode):
@@ -176,7 +184,7 @@ class home_screen(QMainWindow):
             self.ui.LAB_AV_Delay.hide()
             self.ui.LAB_AV_Delay_Units.hide()
 
-            if self.mode == "VOOR"
+            if self.mode == "VOOR":
                 # In addition to VVIR, hide the VRP entry box
                 self.ui.TB_VRP.hide()
 
@@ -232,6 +240,46 @@ class home_screen(QMainWindow):
         self.update()
         log.info("Resetting Screen Successful")
 
+    def hide_all(self):
+        """
+
+        This method will hide all labels and TextBoxes in the parameters groupBox
+
+        """
+
+        # Hide TextBoxes (QLineEdit widgets)
+        self.ui.TB_LowerRateLimit.hide()
+        self.ui.TB_UpperRateLimit.hide()
+        self.ui.TB_AtrialAmplitude.hide()
+        self.ui.TB_AtrialPulseWidth.hide()
+        self.ui.TB_VentricularAmplitude.hide()
+        self.ui.TB_VentricularPulseWidth.hide()
+        self.ui.TB_VRP.hide()
+        self.ui.TB_ARP.hide()
+
+        # Hide labels
+        self.ui.LAB_LowerRateLimit.hide()
+        self.ui.LAB_UpperRateLimit.hide()
+        self.ui.LAB_AtrialAmplitude.hide()
+        self.ui.LAB_AtrialPulseWidth.hide()
+        self.ui.LAB_VentricularAmplitude.hide()
+        self.ui.LAB_VentricularPulseWidth.hide()
+        self.ui.LAB_VRP.hide()
+        self.ui.LAB_ARP.hide()
+
+        # Hide labels which display units
+        self.ui.LAB_LowerRateLimit_Units.hide()
+        self.ui.LAB_UpperRateLimit_Units.hide()
+        self.ui.LAB_AtrialAmplitude_Units.hide()
+        self.ui.LAB_AtrialPulseWidth_Units.hide()
+        self.ui.LAB_VentricularAmplitude_Units.hide()
+        self.ui.LAB_VentricularPulseWidth_Units.hide()
+        self.ui.LAB_VRP.hide()
+        self.ui.LAB_ARP.hide()
+
+        # hide all rate-adaptive field widgets
+        self.rate_adaptive_hiding()
+
     def rate_adaptive_hiding(self):
         # Labels
         self.ui.LAB_AV_Delay_Units.hide()
@@ -254,21 +302,40 @@ class home_screen(QMainWindow):
         log.debug("Rate adaptive hiding complete")
 
     def set_button_colour(self, mode):
+        """
+
+        This method will change the colour of the QPushButton selected by the user to identify that it's been selected.
+        Which button is selected is determined by the mode parameter.
+
+        """
+
+        # Creates the string for the normal-style StyleSheet
         normal_style = "BACKGROUND-COLOR: rgb(160, 238, 252); \
-                        BORDER-COLOR: rgb(160, 238. 252); \
+                        BORDER-COLOR: rgb(160, 238, 252); \
                         BORDER-RADIUS: 10px; \
-                        BORDER-STYLE: outset;"
+                        BORDER-STYLE: outset; \
+                        FONT-SIZE: 20px;"
 
+        # Creates the string for the selected-style StyleSheet
         selected_style = "BACKGROUND-COLOR: rgb(170, 255, 127); \
-                          BORDER-COLOR: rgb(160, 238. 252); \
+                          BORDER-COLOR: rgb(160, 238, 252); \
                           BORDER-RADIUS: 10px; \
-                          BORDER-STYLE: outset;"
+                          BORDER-STYLE: outset; \
+                          FONT-SIZE: 20px;"
 
+        # Reset all buttons to the normal StyleSheet
         self.ui.PB_VVI.setStyleSheet(normal_style)
         self.ui.PB_AAI.setStyleSheet(normal_style)
         self.ui.PB_AOO.setStyleSheet(normal_style)
         self.ui.PB_VOO.setStyleSheet(normal_style)
+        self.ui.PB_DOO.setStyleSheet(normal_style)
+        self.ui.PB_AOOR.setStyleSheet(normal_style)
+        self.ui.PB_AAIR.setStyleSheet(normal_style)
+        self.ui.PB_VOOR.setStyleSheet(normal_style)
+        self.ui.PB_VVIR.setStyleSheet(normal_style)
+        self.ui.PB_DOOR.setStyleSheet(normal_style)
 
+        # Change the selected button to the selected StyleSheet
         if mode == "VVI":
             self.ui.PB_VVI.setStyleSheet(selected_style)
         elif mode == "AAI":
@@ -277,6 +344,16 @@ class home_screen(QMainWindow):
             self.ui.PB_AOO.setStyleSheet(selected_style)
         elif mode == "VOO":
             self.ui.PB_VOO.setStyleSheet(selected_style)
+        elif mode == "DOO":
+            self.ui.PB_DOO.setStyleSheet(selected_style)
+        elif mode == "AOOR":
+            self.ui.PB_AOOR.setStyleSheet(selected_style)
+        elif mode == "AAIR":
+            self.ui.PB_AAIR.setStyleSheet(selected_style)
+        elif mode == "VOOR":
+            self.ui.PB_VOOR.setStyleSheet(selected_style)
+        elif mode == "VVIR":
+            self.ui.PB_VVIR.setStyleSheet(selected_style)
 
     def disconnect(self):
         """
@@ -309,7 +386,6 @@ class home_screen(QMainWindow):
         atrial_amplitude = self.ui.TB_AtrialAmplitude.text()
         upper_rate = self.ui.TB_UpperRateLimit.text()
         lower_rate = self.ui.TB_LowerRateLimit.text()
-
 
         results = []
 
@@ -347,6 +423,7 @@ class home_screen(QMainWindow):
 
         if self.mode == "AOO":
 
+            # Check that the values entered are valid
             try:
                 if float(lower_rate) > float(upper_rate):
                     log.warning("Lower rate > upper rate")
@@ -444,8 +521,6 @@ class home_screen(QMainWindow):
             results.append(self.pace_table.change_data("upper_rate", upper_rate, int))
             results.append(self.pace_table.change_data("lower_rate", lower_rate, int))
 
-
-
         # If any of our results are None because they couldn't be entered
         results.append(self.pace_table.change_data("id", random.randint(1, 10000), int))
         print(results)
@@ -466,3 +541,46 @@ class home_screen(QMainWindow):
             self.return_to_user_manager()
 
         log.info("Confirming changes to patient")
+
+    def confirm_patient_changes(self):
+
+        log.info("entered")
+
+        # Assign values from TextBoxes to variables
+        patientNum = self.ui.TB_PatientNum.text()
+        log.info("1")
+        firstName = self.ui.TB_FirstName.text()
+        log.info("2")
+        lastName = self.ui.TB_LastName.text()
+        log.info("3")
+        healthCard = self.ui.TB_HealthCard.text()
+        log.info("4")
+        sex = self.ui.TB_Sex.text()
+        log.info("5")
+        age = self.ui.TB_Age.text()
+        log.info("6")
+        pacemakerID = self.ui.TB_PacemakerID.text()
+        log.info("7")
+
+        log.info("1")
+
+        # Create array to store results
+        patientResults = []
+        log.info("2")
+
+        # Append new values to the results array
+        patientResults.append(self.patient_table.change_data("patient_number", patientNum, str))
+        log.info("3")
+        patientResults.append(self.patient_table.change_data("first_name", firstName, str))
+        log.info("4")
+        patientResults.append(self.patient_table.change_data("last_name", lastName, str))
+        log.info("5")
+        patientResults.append(self.patient_table.change_data("healthcard", healthCard, str))
+        log.info("6")
+        patientResults.append(self.patient_table.change_data("sex", sex, str))
+        log.info("7")
+        patientResults.append(self.patient_table.change_data("age", age, str))
+        log.info("8")
+        patientResults.append(self.patient_table.change_data("pacemaker_id", pacemakerID, str))
+        log.info("9")
+
