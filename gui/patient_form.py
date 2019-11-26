@@ -86,38 +86,41 @@ class patient_form(QMainWindow):
         healthcard = self.ui.TB_Healthcard.text()
 
         # Change the data in the table
-        self.table.change_data("first_name",    first_name,     str)
-        self.table.change_data("last_name",     last_name,      str)
-        self.table.change_data("patient_id",    patient_id,     int)
-        self.table.change_data("pacemaker_id",  pacemaker_id,   int)
-        self.table.change_data("healthcard",    healthcard,     str)
-        self.table.change_data("age",           age,            int)
+        try:
+            self.table.change_data("first_name",    first_name,     str)
+            self.table.change_data("last_name",     last_name,      str)
+            self.table.change_data("pacemaker_id",  pacemaker_id,   int)
+            self.table.change_data("healthcard",    healthcard,     str)
+            self.table.change_data("age",           age,            int)
 
-        # Get the value of the checkbox
-        if self.ui.RB_Male.isChecked():  # If check box is ticked
-            sex = "male"
-        else:
-            sex = "female"
-
-        self.table.change_data("sex", sex, str)
-
-        # Verify employee number and changes
-        if self.edit_type == "edit":
-            # Retrieve the old employee number
-            old_patient_id = self.table.get_value(self.rn, "patient_id")
-            if str(patient_id) != str(old_patient_id):
-                valid_num = self.validate_patient_id(patient_id)
-                if not valid_num:
-                    return
+            # Get the value of the checkbox
+            if self.ui.RB_Male.isChecked():  # If check box is ticked
+                sex = "male"
             else:
-                self.table.change_data("patient_id", patient_id, int)
+                sex = "female"
 
-            self.table.edit_row(abs(int(old_patient_id)))
+            self.table.change_data("sex", sex, str)
 
-        elif self.edit_type == "add":
-            valid_num = self.validate_patient_id(patient_id)
-            if valid_num:
-                self.table.add_row()
+            # Verify employee number and changes
+            if self.edit_type == "edit":
+                # Retrieve the old employee number
+                old_patient_id = self.table.get_value(self.rn, "patient_id")
+                if str(patient_id) != str(old_patient_id):
+                    valid_num = self.validate_patient_id(patient_id)
+                    if not valid_num:
+                        return
+                else:
+                    self.table.change_data("patient_id", patient_id, int)
+
+                self.table.edit_row(abs(int(old_patient_id)))
+
+            elif self.edit_type == "add":
+                valid_num = self.validate_patient_id(patient_id)
+                if valid_num:
+                    self.table.change_data("patient_id", patient_id, int)
+                    self.table.add_row()
+        except ValueError:
+            ERRORS.invalid_input(self.tables_dict, self)
 
         self.return_to_user_manager()
 

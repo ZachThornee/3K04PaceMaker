@@ -5,6 +5,9 @@ from PyQt5.QtWidgets import QMainWindow
 
 import errors as ERRORS
 import home_screen as HOME
+import struct
+import serial_connect
+import threading
 
 
 class con_screen(QMainWindow):
@@ -20,26 +23,36 @@ class con_screen(QMainWindow):
         log.info("Waiting for device connection")
         self.ui.show()
         self.tables_dict = tables_dict
-        self.serial = None
-        self.ui.show()
-        self.ui.PB_HomeScreen.clicked.connect(self.read_serial)
-        self.ui.PB_ConnectionError.clicked.connect(self.connection_error)
+        self.serial = serial_connect.serial_reader("/dev/ttyACM0", 115200)
+        self.table = self.tables_dict['patients_table']
+        self.received_bytes = False
+        t1 = threading.Thread(target=self.read_serial)
+        t1.start()
 
     def read_serial(self):
         """
         Method to read serial port and look for unique id. Also check connectivity.
 
         """
+
+        start_byte = 22
+        send_bool = 34  # 85 is receive, 34 is echo
+        echo_msg = [0] * 17
+        echo_msg.insert(0, send_bool)
+        echo_msg.insert(0, start_byte)
+
+        log.info(echo_msg)
+
+        value_sent = False
+        while value_sent is False:
+            value_sent = self.serial.send("4B13H2B", echo_msg)
+
+        params_dict = self.serial.get_params_dict(32, "13H6B")
+
         self.ui.close()
-        # TODO actually read the serial port
-        patient_num = None
+
+        patient_rn = self.table.find_row_number(params_dict["pacemaker_id"], "pacemaker_id")
+
         # Call the main DCM screen
-        HOME.home_screen(self.tables_dict, patient_num)
-        return
-
-    def connection_error(self):
-        """
-        Temporary method to display connection error
-
-        """
-        ERRORS.connection_error(self.tables_dict, self)
+        HOME.home_screen(self.tables_dict, patient_rn, params_dict)
+        self.received_bytes = True

@@ -165,3 +165,65 @@ class connection_error(QMainWindow):
 
         """
         self.ui.close()
+
+
+class privelege_error(QMainWindow):
+
+    def __init__(self, tables_dict, previous_screen):
+        """
+        Constructor for employee number alrady in use error
+
+        :param tables_dict dictionary: dictionary containing all tables
+        :param previous_screen class mangement_screen: previous screen from which the privelge error was caused
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
+        log.warning("Privelege error")
+        self.ui.LAB_ErrorTitle.setText("Privelege Error")
+        error_string = "Unable to change privelges as this user is the only admin"
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to previous screen")
+        self.ui.show()
+        self.ui.show()
+        self.tables_dict = tables_dict
+        self.previous_screen = previous_screen
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_previous_screen)
+
+    def return_to_previous_screen(self):
+        """
+        Method to return to the add user screen
+
+        """
+        self.ui.close()
+
+
+class incorrect_login(QMainWindow):
+
+    def __init__(self, tables_dict, add_user_screen, management_type):
+        """
+        Constructor for invalid input error screen
+
+        :param tables_dict dictionary: dictionary contain all tables
+        :param add_user_screen class add_user_screen: add_user_screen object
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Options.ui'), self)
+        log.warning("Invalid input. Showing popup")
+        self.ui.LAB_ErrorTitle.setText("Invalid input")
+        error_string = "Invalid input user input"
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to previous screen")
+        self.ui.show()
+        self.tables_dict = tables_dict
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_prev)
+
+    def return_to_prev(self):
+        """
+        Method to return to the previous screen
+
+        """
+        self.ui.close()

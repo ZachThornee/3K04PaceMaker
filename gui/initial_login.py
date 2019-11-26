@@ -4,7 +4,8 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 
 import connecting_screen as CON_SCREEN
-from specific_login import specific_login
+from specific_login as SPECIFIC_LOGIN
+import errors as ERRORS
 
 
 class login_screen(QMainWindow):
@@ -45,8 +46,8 @@ class login_screen(QMainWindow):
             self.ui.close()
             log.info("Connecting to DCM serial reader")
             CON_SCREEN.con_screen(self.tables_dict)
-            return
         else:
+            ERRORS.incorrect_login(self.tables_dict, self)
             log.info("Incorrect login")
 
     def manage_users_button(self):
@@ -54,7 +55,7 @@ class login_screen(QMainWindow):
         Method to open the login as admin screen before opening the user manager
 
         """
-        specific_login(self.tables_dict, "admin")
+        SPECIFIC_LOGIN.specific_login(self.tables_dict, "admin")
         self.ui.close()
 
     def manage_patients_button(self):
@@ -62,7 +63,7 @@ class login_screen(QMainWindow):
         Method to open the login as a doctor before opening the patient manager
 
         """
-        specific_login(self.tables_dict, "doctor")
+        SPECIFIC_LOGIN.specific_login(self.tables_dict, "doctor")
         self.ui.close()
 
     def forgot_password_button(self):
@@ -70,5 +71,5 @@ class login_screen(QMainWindow):
         Method to open the forgot password screen
 
         """
-        specific_login(self.tables_dict, "forgot_password")
+        SPECIFIC_LOGIN.specific_login(self.tables_dict, "forgot_password")
         self.ui.close()

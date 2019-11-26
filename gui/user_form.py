@@ -85,39 +85,52 @@ class user_form(QMainWindow):
         email = self.ui.TB_Email.text()
 
         # Change the data in the table
-        self.table.change_data("first_name", first_name, str)
-        self.table.change_data("last_name",  last_name,  str)
-        self.table.change_data("password",   password,   str)
-        self.table.change_data("user_login", user_login, str)
-        self.table.change_data("email",      email,      str)
+        try:
+            self.table.change_data("first_name", first_name, str)
+            self.table.change_data("last_name",  last_name,  str)
+            self.table.change_data("password",   password,   str)
+            self.table.change_data("user_login", user_login, str)
+            self.table.change_data("email",      email,      str)
 
-        # Get the value of the checkbox
-        if self.CB_Admin.isChecked():  # If check box is ticked
-            admin_priveleges = True
-        else:
-            admin_priveleges = False
+            # Get the value of the checkbox
+            if self.CB_Admin.isChecked():  # If check box is ticked
+                admin_priveleges = True
+            else:
+                admin_priveleges = False
 
-        self.table.change_data("admin_priveleges", admin_priveleges, bool)
+            # Verify employee number and changes
+            if self.edit_type == "edit":
 
-        # Verify employee number and changes
-        if self.edit_type == "edit":
-            # Retrieve the old employee number
-            old_employee_num = self.table.get_value(self.rn, "employee_number")
-            if str(employee_number) != str(old_employee_num):
-                valid_num = self.validate_employee_number(employee_number)
-                if not valid_num:
+                # Verify that there is another admin user
+                if self.table.ensure_admin(self.rn, "employee_number"):
+                    self.table.change_data("admin_priveleges", admin_priveleges, bool)
+                else:
+                    ERRORS.privelege_error(self.tables_dict, self)
                     return
-            else:
-                self.table.change_data("employee_number", employee_number, int)
 
-            self.table.edit_row(abs(int(old_employee_num)))
+                # Retrieve the old employee number
+                old_employee_num = self.table.get_value(self.rn, "employee_number")
+                if str(employee_number) != str(old_employee_num):
+                    valid_num = self.validate_employee_number(employee_number)
+                    if not valid_num:
+                        return
+                else:
+                    self.table.change_data("employee_number", employee_number, int)
 
-        elif self.edit_type == "add":
-            valid_num = self.validate_employee_number(employee_number)
-            if valid_num:
-                self.table.add_row()
-            else:
-                return
+                self.table.edit_row(abs(int(old_employee_num)))
+
+            elif self.edit_type == "add":
+                valid_num = self.validate_employee_number(employee_number)
+                self.table.change_data("admin_priveleges", admin_priveleges, bool)
+                if valid_num:
+                    self.table.change_data("employee_number", employee_number, int)
+                    self.table.add_row()
+                else:
+                    return
+
+        except ValueError:
+            ERRORS.invalid_input(self.tables_dict, self)
+            log.warning("Invalid input")
 
         self.return_to_user_manager()
 

@@ -108,7 +108,12 @@ class manager(QMainWindow):
 
         if self.management_type == "users":
             employee_number = self.table.get_value(row_number, "employee_number")
-            self.table.delete_row(employee_number)
+            if self.table.ensure_admin(row_number, "employee_number"):
+                log.info("Deleting user {}".format(employee_number))
+                self.table.delete_row(employee_number)
+            else:
+                ERRORS.privelege_error(self.tables_dict, self)
+                return
 
         elif self.management_type == "patients":
             patient_id = self.table.get_value(row_number, "patient_id")

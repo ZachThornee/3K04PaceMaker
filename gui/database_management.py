@@ -3,6 +3,7 @@ import sys
 
 import psycopg2
 from PyQt5.QtWidgets import QTableWidgetItem
+import errors as ERRORS
 
 
 class db_manager:
@@ -400,19 +401,14 @@ class table:
         if not self._validate_column_name(column_name):
             raise AttributeError("{} is not a column name".format(column_name))
 
-        try:
-            if entry_type == int:
-                entry = str(abs(int(entry)))
-            elif entry_type == str:
-                entry = "'{}'".format(entry)
-            elif entry_type == float:
-                entry = str(abs(float(entry)))
+        elif entry_type == int:
+            entry = str(abs(int(entry)))
+        elif entry_type == str:
+            entry = "'{}'".format(entry)
+        elif entry_type == float:
+            entry = str(abs(float(entry)))
 
-            self._selected_row[column_name] = str(entry)
-            return True
-
-        except ValueError:
-            return None
+        self._selected_row[column_name] = str(entry)
 
     def validate_entry(self, column_names, entries, entry_types):
         """
@@ -450,13 +446,12 @@ class table:
         except ValueError("Uniqueness: incorrect entry type"):
             return None
 
-    def get_value(self, row, column=None, is_row_number=False):
+    def get_value(self, row, column=None):
         """
         Method to return values from the table
 
         :param row string: the row to retrieve from the table
         :param column string: optional variable to specify the column
-        :param row_number string: optional variable to specify the column
         """
 
         if column is None:
@@ -510,3 +505,34 @@ class table:
                     return True
             else:
                 return False
+
+    def check_values(self, value, lower_lim, upper_lim):
+        """
+        Check to ensure values are within range
+
+        :param value float: value to check
+        :param lower_lim float: lower limit to check
+        :param upper_lim float: upper limit to check
+        """
+        value = float(value)
+        lower_lim = float(lower_lim)
+        upper_lim = float(upper_lim)
+        if lower_lim > upper_lim:
+            log.error("Lower lim > upper lim")
+            raise AttributeError
+        elif value < lower_lim or value > upper_lim:
+            raise ValueError
+
+    def ensure_admin(self, row_number, column):
+        print(row_number)
+        for i in range(len(self._table_dict)):
+            if i == row_number:
+                continue
+            elif self._table_dict[i][column] is True:
+                return True
+
+    def find_row_number(self, param, column):
+        for i in range(len(self._table_dict)):
+            if self._table_dict[i][column] == param:
+                return i
+
