@@ -11,28 +11,54 @@ class serial_reader:
         self.serial = None
         self.port = port
         self.baud = baud
-        t1 = threading.Thread(target=self.connect)
-        t1.start()
+        self.prev_msg = None
+        self.t1 = threading.Thread(target=self.connect)
+        self.t1.start()
 
     def connect(self):
         while self.serial is None:
             try:
-                self.serial = serial.Serial(self.port, self.baud)
+                tmp_serial = serial.Serial(self.port, self.baud, timeout=0.1)
+                time.sleep(1)
+                self.serial = tmp_serial
+
             except FileNotFoundError:
                 pass
             except serial.serialutil.SerialException:
                 pass
+        log.info("Serial connnected")
 
     def send(self, send_format, params):
+
         if self.serial is None:
-            return None
+            return False
+
         msg = struct.pack(send_format, *params)
+        self.prev_msg = msg
         self.serial.write(msg)
+        log.info("Serial message sent")
 
     def get_params_dict(self, byte_len, receive_format):
 
-        response = self.serial.read(byte_len)
+        if self.serial is None:
+            return False
+        log.info("Receiving serial")
+
+        start_time = time.time()
+        response = None
+        while response is None:
+            if self.serial.in_waiting == byte_len:
+                response = self.serial.read(byte_len)
+                log.info("Serial message received")
+                break
+
+            if time.time() - start_time > 0.5:
+                self.serial.write(self.prev_msg)
+                log.info("Resending previous message")
+                start_time = time.time()
+
         result = struct.unpack(receive_format, response)
+
 
         params_dict = {"lower_rate": int(result[0]),
                        "vent_pulse_width": int(result[1]),
@@ -55,7 +81,7 @@ class serial_reader:
                        "pacemaker_id": int(result[17])
                        }
 
-        if self.params_dict["rate_toggle"] == 1:
+        if params_dict["rate_toggle"] == 1:
             mode_dict = {1: "AOOR",
                          2: "VOOR",
                          3: "AAIR",
@@ -71,7 +97,6 @@ class serial_reader:
                          }
 
         params_dict["pace_mode"] = mode_dict[params_dict["pace_mode"]]
-        print(params_dict["pace_mode"])
 
         return params_dict
 

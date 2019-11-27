@@ -8,6 +8,7 @@ import home_screen as HOME
 import struct
 import serial_connect
 import threading
+import time
 
 
 class con_screen(QMainWindow):
@@ -41,18 +42,21 @@ class con_screen(QMainWindow):
         echo_msg.insert(0, send_bool)
         echo_msg.insert(0, start_byte)
 
-        log.info(echo_msg)
-
         value_sent = False
         while value_sent is False:
             value_sent = self.serial.send("4B13H2B", echo_msg)
 
-        params_dict = self.serial.get_params_dict(32, "13H6B")
+        params_dict = False
+        start_time = time.time()
+        while params_dict is False:
+            if time.time() - start_time > 1:
+                params_dict = self.serial.get_params_dict(32, "13H6B")
+                start_time = time.time()
 
         self.ui.close()
 
         patient_rn = self.table.find_row_number(params_dict["pacemaker_id"], "pacemaker_id")
 
         # Call the main DCM screen
-        HOME.home_screen(self.tables_dict, patient_rn, params_dict)
         self.received_bytes = True
+        HOME.home_screen(self.tables_dict, patient_rn, params_dict)

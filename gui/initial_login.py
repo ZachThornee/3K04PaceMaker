@@ -4,7 +4,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 
 import connecting_screen as CON_SCREEN
-from specific_login as SPECIFIC_LOGIN
+import specific_login as SPECIFIC_LOGIN
 import errors as ERRORS
 
 

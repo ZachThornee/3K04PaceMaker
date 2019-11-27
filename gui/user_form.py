@@ -129,7 +129,7 @@ class user_form(QMainWindow):
                     return
 
         except ValueError:
-            ERRORS.invalid_input(self.tables_dict, self)
+            ERRORS.invalid_input(self.tables_dict, self, self.management_type)
             log.warning("Invalid input")
 
         self.return_to_user_manager()
@@ -137,9 +137,7 @@ class user_form(QMainWindow):
     def validate_employee_number(self, employee_number):
         unique = self.table.check_unique("employee_number", employee_number, int)
         if unique is None:
-            ERRORS.invalid_input(self.tables_dict, self, self.management_type)
-            log.warning("Invalid input")
-            return False
+            raise ValueError
         elif not unique:
             ERRORS.employee_number_already_used(self.tables_dict, self, self.management_type)
             log.warning("Invalid input -> same employee number")

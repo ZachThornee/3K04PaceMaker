@@ -1347,7 +1347,7 @@ FONT-SIZE: 20px;</string>
        <item row="6" column="1">
         <widget class="QLabel" name="LAB_PacemakeID">
          <property name="text">
-          <string>TextLabel</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>

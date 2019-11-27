@@ -66,9 +66,9 @@ class patient_form(QMainWindow):
         # Determine if check box is checked or not
         if self.table.get_value(self.rn, "sex") == "male":
             self.ui.RB_Male.setChecked(True)
-            self.ui.RB_Female.setChecked(True)
+            self.ui.RB_Female.setChecked(False)
         else:
-            self.ui.RB_Male.setChecked(True)
+            self.ui.RB_Male.setChecked(False)
             self.ui.RB_Female.setChecked(True)
 
     def confirm_button(self):

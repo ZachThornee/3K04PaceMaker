@@ -19,13 +19,15 @@ class home_screen(QMainWindow):
         """
 
         super().__init__()
+        log.info("before ui file")
         self.ui = uic.loadUi(('ui_files/UF_PMConnected.ui'), self)
         log.info("Showing home screen")
         self.patient_num = patient_num
         self.tables_dict = tables_dict
         self.patient_table = tables_dict['patients_table']
         self.params_dict = params_dict
-        self.mode(self.params_dict["pace_mode"])
+        self.mode = (self.params_dict["pace_mode"])
+        self.change_mode(self.mode)
         self.ui.LAB_PacemakerID.setText(self.params_dict["pacemaker_id"])
 
         # When a mode is selected, call the internal change_mode method to perform the functionality of the PushButton
@@ -53,7 +55,6 @@ class home_screen(QMainWindow):
         :param mode string: mode to set the pacemaker to
         """
 
-        self.pace_table.change_data("mode", mode, str)
         log.info('Pacing mode set to {}'.format(mode))
         self.mode = mode
         self.reset_screen()
@@ -357,15 +358,16 @@ class home_screen(QMainWindow):
             # Upper and Lower
             self.table.check_value(upper_rate, 50, 175)
             self.table.check_value(lower_rate, 30, 175)
-            self.pace_table.change_data("upper_rate", upper_rate, int)
-            self.pace_table.change_data("lower_rate", lower_rate, int)
+            self.params_dict['upper_rate'] = upper_rate
+            self.para_dict['upper_rate'] = upper_rate
+            self.para_dict['lower_rate'] = lower_rate
 
             # Ventricle
             self.table.check_value(vent_pulse_width, 0.05, 1.9)
             self.table.check_value(vent_amplitude, 0.5, 5)
             self.table.check_value(vrp, 150, 500)
-            self.pace_table.change_data("vent_pulse_width", vent_pulse_width, float)
-            self.pace_table.change_data("vent_amplitude", vent_amplitude, float)
+            self.para_dict['vent_pulse_width'] = vent_pulse_width
+            self.para_dict['vent_amplitude'] = vent_amplitude
             self.pace_table.change_data("vrp", vrp, float)
 
             # Atrium
@@ -405,7 +407,7 @@ class home_screen(QMainWindow):
     def confirm_patient_changes(self):
 
         # Assign values from TextBoxes to variables
-        patient_num = self.ui.TB_PatientNum.text()
+        patient_id = self.ui.TB_PatientID.text()
         first_name = self.ui.TB_FirstName.text()
         last_name = self.ui.TB_LastName.text()
         healthcard = self.ui.TB_HealthCard.text()
@@ -414,12 +416,27 @@ class home_screen(QMainWindow):
 
         # Change the values in the patient table
         try:
+            unique = self.table.check_unique("patient_id", patient_id, int)
+            if unique is None:
+                ERRORS.invalid_input_patient(self.tables_dict, self, "edit")
+                log.warning("Invalid input")
+                return False
+            elif not unique:
+                ERRORS.employee_number_already_used(self.tables_dict, self, self.management_type)
+                log.warning("Invalid input -> same employee number")
+                return False
+            else:
+                self.table.change_data("employee_number", employee_number, int)
+                log.debug("Employee number is valid")
+                return True
+
             self.patient_table.change_data("patient_number", patient_num, str)
             self.patient_table.change_data("first_name", first_name, str)
             self.patient_table.change_data("last_name", last_name, str)
             self.patient_table.change_data("healthcard", healthcard, str)
             self.patient_table.change_data("sex", sex, str)
             self.patient_table.change_data("age", age, str)
+
         except ValueError:
             log.warning("Invalid input for patient data")
             ERRORS.invalid_input(self.tables_dict, self)
