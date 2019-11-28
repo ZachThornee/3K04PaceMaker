@@ -33,7 +33,6 @@ PATIENT_PARAMETERS = [
                 ["HEALTHCARD", "TEXT", "NOT", "NULL"],
                 ["SEX", "TEXT", "NOT", "NULL"],
                 ["AGE", "INT", "NOT", "NULL"],
-                ["PACEMAKER_ID", "INT", "NOT", "NULL"],
                 ]
 DEFAULT_PATIENT = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "0", "0"]
 

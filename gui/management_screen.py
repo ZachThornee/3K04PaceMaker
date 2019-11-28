@@ -117,9 +117,7 @@ class manager(QMainWindow):
 
         elif self.management_type == "patients":
             patient_id = self.table.get_value(row_number, "patient_id")
-            pacemaker_id = self.table.get_value(row_number, "pacemaker_id")
             self.table.delete_row(patient_id)
-            self.tables_dict['pacemaker_table'].delete_row(pacemaker_id)
 
         self.ui.close()
         self.update_table()

@@ -18,50 +18,6 @@
   </property>
   <widget class="QWidget" name="UF_PMConnected">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0" colspan="2">
-     <widget class="QLabel" name="LAB_ID">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(230, 230, 230)</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;ID: ___&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0">
-     <widget class="QPushButton" name="PB_Disconnect">
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change your password, create new users, and delete existing users&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(255, 175, 177);
-BORDER-COLOR: rgb(255, 175. 177);
-BORDER-RADIUS: 10px;
-BORDER-STYLE: outset;
-</string>
-      </property>
-      <property name="text">
-       <string>Disconnect</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="LAB_Title">
       <property name="sizePolicy">
@@ -91,8 +47,259 @@ BORDER-STYLE: outset;
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <spacer name="verticalSpacer_2">
+    <item row="4" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="title">
+       <string>Patient Info</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <property name="bottomMargin">
+        <number>19</number>
+       </property>
+       <item row="3" column="0">
+        <widget class="QLabel" name="LAB_HealthCard">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Health Card Number:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="TB_Sex">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="LAB_Sex">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Sex:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="LAB_Age">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Age:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="TB_Age">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="TB_HealthCard">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0" colspan="2">
+        <widget class="QPushButton" name="PB_ConfirmPatient">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>10</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(170, 255, 127);
+BORDER-COLOR: rgb(170, 255, 127);
+BORDER-RADIUS: 10px;
+BORDER-STYLE: outset;
+FONT-SIZE: 20px;</string>
+         </property>
+         <property name="text">
+          <string>Confirm Changes</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="TB_LastName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="TB_FirstName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="LAB_FirstName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>First Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="LAB_LastName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Last Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="LAB_PatientID">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Patient ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="LAB_UniquePatientID">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -107,7 +314,7 @@ BORDER-STYLE: outset;
       </property>
      </spacer>
     </item>
-    <item row="9" column="1">
+    <item row="8" column="1">
      <widget class="QPushButton" name="PB_ConfirmChanges">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -135,650 +342,29 @@ BORDER-STYLE: outset;
       </property>
      </widget>
     </item>
-    <item row="7" column="1">
-     <widget class="QGroupBox" name="GB_PMInfo">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
+    <item row="8" column="0">
+     <widget class="QPushButton" name="PB_Disconnect">
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>16</pointsize>
        </font>
       </property>
-      <property name="title">
-       <string>Pacemaker Info</string>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change your password, create new users, and delete existing users&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_3"/>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(255, 175, 177);
+BORDER-COLOR: rgb(255, 175. 177);
+BORDER-RADIUS: 10px;
+BORDER-STYLE: outset;
+</string>
+      </property>
+      <property name="text">
+       <string>Disconnect</string>
+      </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QGroupBox" name="GB_Parameters">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="title">
-       <string>Parameters</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="9" column="1">
-        <widget class="QLineEdit" name="TB_ActivityThreshold">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="LAB_RecoveryTime">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Recovery Time:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="LAB_AV_Delay">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>-1</pointsize>
-          </font>
-         </property>
-         <property name="mouseTracking">
-          <bool>true</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Fixed AV Delay:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="2">
-        <widget class="QLabel" name="LAB_AV_Delay_Units">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>ms</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0">
-        <widget class="QLabel" name="LAB_ActivityThreshold">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Activity Threshold:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QLineEdit" name="TB_AV_Delay">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="LAB_VentricularAmplitude">
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vent. Amplitude:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="TB_VentricularAmplitude">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="LAB_AtrialPulseWidth_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="TB_AtrialPulseWidth">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="TB_AtrialAmplitude">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="LAB_AtrialAmplitude">
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Amplitude:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="LAB_UpperRateLimit_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ppm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="LAB_AtrialPulseWidth">
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Pulse Width:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="LAB_AtrialAmplitude_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;V&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLineEdit" name="TB_VRP">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="LAB_ARP">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Refractory Period&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ARP:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2">
-        <widget class="QLabel" name="LAB_VRP_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="2">
-        <widget class="QLabel" name="LAB_ARP_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="QLineEdit" name="TB_ARP">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="LAB_LowerRateLimit">
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Lower Rate Limit:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="LAB_LowerRateLimit_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ppm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="TB_LowerRateLimit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="TB_UpperRateLimit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="LAB_UpperRateLimit">
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Upper Rate Limit:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="LAB_VentricularPulseWidth">
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vent. Pulse Width:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLabel" name="LAB_VentricularAmplitude_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;V&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="TB_VentricularPulseWidth">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QLabel" name="LAB_VentricularPulseWidth_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="LAB_VRP">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vetricular Refractory Period&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;VRP:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="LAB_ReactionTime">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Reaction Time:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="QLineEdit" name="TB_ReactionTime">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0">
-        <widget class="QLabel" name="LAB_ResponseFactor">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Response Factor:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="QLineEdit" name="TB_ResponseFactor">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="1">
-        <widget class="QLineEdit" name="TB_RecoveryTime">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="2">
-        <widget class="QLabel" name="LAB_ActivityThreshold_Units">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="2">
-        <widget class="QLabel" name="LAB_RecoveryTime_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>min</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="2">
-        <widget class="QLabel" name="LAB_ResponseFactor_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="2">
-        <widget class="QLabel" name="LAB_ReactionTime_Units">
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;
-FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>s</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="7" column="0">
+    <item row="6" column="0">
      <widget class="QGroupBox" name="GB_PacingModes">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -1033,7 +619,23 @@ FONT-SIZE: 20px;</string>
       </layout>
      </widget>
     </item>
-    <item row="8" column="0">
+    <item row="3" column="0">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>30</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="7" column="0">
      <spacer name="verticalSpacer_4">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -1049,40 +651,40 @@ FONT-SIZE: 20px;</string>
       </property>
      </spacer>
     </item>
-    <item row="6" column="0">
-     <spacer name="verticalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="2" column="0" colspan="2">
+     <widget class="QLabel" name="LAB_ID">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
+      <property name="font">
+       <font>
+        <pointsize>26</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>3</height>
-       </size>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(230, 230, 230)</string>
       </property>
-     </spacer>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;ID: ___&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </item>
-    <item row="1" column="0">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="4" column="1" rowspan="3">
+     <widget class="QGroupBox" name="GB_Parameters">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>30</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="4" column="0">
-     <widget class="QGroupBox" name="groupBox">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -1091,36 +693,11 @@ FONT-SIZE: 20px;</string>
        </font>
       </property>
       <property name="title">
-       <string>Patient Info</string>
+       <string>Parameters</string>
       </property>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="bottomMargin">
-        <number>19</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="LAB_PatientNum">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Patient Number:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="TB_PatientNum">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="2">
+        <widget class="QLabel" name="LAB_UpperRateLimit_Units">
          <property name="styleSheet">
           <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
 BORDER-COLOR: rgb(245, 245, 245);
@@ -1128,125 +705,13 @@ BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="LAB_FirstName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
          <property name="text">
-          <string>First Name:</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ppm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="TB_FirstName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="LAB_LastName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Last Name:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="TB_LastName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="LAB_HealthCard">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Health Card Number:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="TB_HealthCard">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="LAB_Sex">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">FONT-SIZE: 16px;</string>
-         </property>
-         <property name="text">
-          <string>Sex:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="TB_Sex">
+       <item row="12" column="1">
+        <widget class="QLineEdit" name="TB_RecoveryTime">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -1263,7 +728,43 @@ BORDER-STYLE: outset;</string>
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QLabel" name="LAB_Age">
+        <widget class="QLabel" name="LAB_VentricularPulseWidth">
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vent. Pulse Width:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="LAB_VRP">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vetricular Refractory Period&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;VRP:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="LAB_ARP">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Refractory Period&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ARP:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="LAB_ActivityThreshold">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -1274,12 +775,12 @@ BORDER-STYLE: outset;</string>
           <string notr="true">FONT-SIZE: 16px;</string>
          </property>
          <property name="text">
-          <string>Age:</string>
+          <string>Activity Threshold:</string>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLineEdit" name="TB_Age">
+        <widget class="QLineEdit" name="TB_VentricularPulseWidth">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -1295,8 +796,77 @@ BORDER-STYLE: outset;</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="LAB_PacemakerID">
+       <item row="1" column="0">
+        <widget class="QLabel" name="LAB_UpperRateLimit">
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Upper Rate Limit:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="QLabel" name="LAB_VentricularPulseWidth_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="TB_AV_Delay">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="LAB_LowerRateLimit">
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Lower Rate Limit:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="TB_AtrialPulseWidth">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="LAB_ReactionTime">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -1307,47 +877,422 @@ BORDER-STYLE: outset;</string>
           <string notr="true">FONT-SIZE: 16px;</string>
          </property>
          <property name="text">
-          <string>Pacemaker ID:</string>
+          <string>Reaction Time:</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
-        <widget class="QPushButton" name="PB_ConfirmPatient">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="TB_UpperRateLimit">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>10</width>
-           <height>30</height>
-          </size>
-         </property>
          <property name="styleSheet">
-          <string notr="true">BACKGROUND-COLOR: rgb(170, 255, 127);
-BORDER-COLOR: rgb(170, 255, 127);
-BORDER-RADIUS: 10px;
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="LAB_LowerRateLimit_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;
-FONT-SIZE: 20px;</string>
+FONT-SIZE: 16px;</string>
          </property>
          <property name="text">
-          <string>Confirm Changes</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ppm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="2">
+        <widget class="QLabel" name="LAB_RecoveryTime_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>min</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="2">
+        <widget class="QLabel" name="LAB_AV_Delay_Units">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>ms</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="LAB_AV_Delay">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="mouseTracking">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Fixed AV Delay:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="LAB_ResponseFactor">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Response Factor:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="LAB_AtrialAmplitude_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;V&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="LAB_AtrialPulseWidth_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="LAB_VentricularAmplitude_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;V&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="LAB_AtrialPulseWidth">
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Pulse Width:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QLabel" name="label">
+        <widget class="QLineEdit" name="TB_ARP">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QLineEdit" name="TB_ReactionTime">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="2">
+        <widget class="QLabel" name="LAB_ActivityThreshold_Units">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="2">
+        <widget class="QLabel" name="LAB_ARP_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="2">
+        <widget class="QLabel" name="LAB_ResponseFactor_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLabel" name="LAB_PacemakeID">
+        <widget class="QLineEdit" name="TB_VRP">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="2">
+        <widget class="QLabel" name="LAB_ReactionTime_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>s</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="LAB_AtrialAmplitude">
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Atrial Amplitude:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="TB_VentricularAmplitude">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="TB_LowerRateLimit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="LAB_RecoveryTime">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>Recovery Time:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLineEdit" name="TB_ResponseFactor">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="TB_AtrialAmplitude">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="LAB_VentricularAmplitude">
+         <property name="styleSheet">
+          <string notr="true">FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Vent. Amplitude:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="TB_ActivityThreshold">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="2">
+        <widget class="QLabel" name="LAB_VRP_Units">
+         <property name="styleSheet">
+          <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;
+FONT-SIZE: 16px;</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>

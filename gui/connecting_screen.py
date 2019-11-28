@@ -1,17 +1,16 @@
 import logging as log
 
-from PyQt5 import uic
+from PyQt5 import uic, QtCore
 from PyQt5.QtWidgets import QMainWindow
 
-import errors as ERRORS
 import home_screen as HOME
-import struct
 import serial_connect
-import threading
 import time
 
 
 class con_screen(QMainWindow):
+
+    thread_received = QtCore.pyqtSignal(object)
 
     def __init__(self, tables_dict):
         """
@@ -26,20 +25,35 @@ class con_screen(QMainWindow):
         self.tables_dict = tables_dict
         self.serial = serial_connect.serial_reader("/dev/ttyACM0", 115200)
         self.table = self.tables_dict['patients_table']
-        self.received_bytes = False
-        t1 = threading.Thread(target=self.read_serial)
-        t1.start()
+        self.thread_received.connect(self.connected)
+        self.reader_thread = read_serial(self.table, self.serial, self.thread_received, True)
+        self.reader_thread.start()
 
-    def read_serial(self):
-        """
-        Method to read serial port and look for unique id. Also check connectivity.
+    def connected(self, params_dict):
+        self.ui.close()
 
-        """
+        # Call the main DCM screen
+        HOME.home_screen(self.tables_dict, params_dict, self.serial)
 
+
+class read_serial(QtCore.QThread):
+
+    def __init__(self, table, serial, call_thread, echo_bool):
+        QtCore.QThread.__init__(self)
+        self.table = table
+        self.serial = serial
+        self.call_thread = call_thread
+        self.echo_bool = echo_bool
+
+    def run(self):
         start_byte = 22
-        send_bool = 34  # 85 is receive, 34 is echo
+        if self.echo_bool:
+            send_val = 34  # Echo params
+        else:
+            send_val = 85  # Send params
+
         echo_msg = [0] * 17
-        echo_msg.insert(0, send_bool)
+        echo_msg.insert(0, send_val)
         echo_msg.insert(0, start_byte)
 
         value_sent = False
@@ -53,10 +67,4 @@ class con_screen(QMainWindow):
                 params_dict = self.serial.get_params_dict(32, "13H6B")
                 start_time = time.time()
 
-        self.ui.close()
-
-        patient_rn = self.table.find_row_number(params_dict["pacemaker_id"], "pacemaker_id")
-
-        # Call the main DCM screen
-        self.received_bytes = True
-        HOME.home_screen(self.tables_dict, patient_rn, params_dict)
+        self.call_thread.emit(params_dict)

@@ -5,12 +5,12 @@ from PyQt5.QtWidgets import QMainWindow
 
 import errors as ERRORS
 import initial_login as LOGIN
-import random
+import time
 
 
 class home_screen(QMainWindow):
 
-    def __init__(self, tables_dict, patient_num, params_dict):
+    def __init__(self, tables_dict, params_dict, serial):
         """
         Initialization method for the DCM home screen
 
@@ -22,13 +22,16 @@ class home_screen(QMainWindow):
         log.info("before ui file")
         self.ui = uic.loadUi(('ui_files/UF_PMConnected.ui'), self)
         log.info("Showing home screen")
-        self.patient_num = patient_num
         self.tables_dict = tables_dict
-        self.patient_table = tables_dict['patients_table']
+        self.table = self.tables_dict['patients_table']
         self.params_dict = params_dict
         self.mode = (self.params_dict["pace_mode"])
         self.change_mode(self.mode)
-        self.ui.LAB_PacemakerID.setText(self.params_dict["pacemaker_id"])
+        self.id = self.params_dict['patient_id']
+        self.ui.LAB_UniquePatientID.setText(str(self.id))
+        self.ui.LAB_ID.setText("ID: " + str(self.id))
+        self.populate_patient_info()
+        self.serial = serial
 
         # When a mode is selected, call the internal change_mode method to perform the functionality of the PushButton
         self.ui.PB_VVI.clicked.connect(lambda: self.change_mode("VVI"))
@@ -368,15 +371,15 @@ class home_screen(QMainWindow):
             self.table.check_value(vrp, 150, 500)
             self.para_dict['vent_pulse_width'] = vent_pulse_width
             self.para_dict['vent_amplitude'] = vent_amplitude
-            self.pace_table.change_data("vrp", vrp, float)
+            self.para_dict['vrp'] = vrp
 
             # Atrium
             self.table.check_value(atrail_pulse_width, 0.05, 1.9)
             self.table.check_value(atrial_amplitude, 0.5, 5)
             self.table.check_value(arp, 150, 500)
-            self.pace_table.change_data("atrial_pulse_width", atrial_pulse_width, float)
-            self.pace_table.change_data("atrial_amplitude", atrial_amplitude, float)
-            self.pace_table.change_data("arp", atrial_amplitude, float)
+            self.para_dict['atrial_pulse_width'] = atrial_pulse_width
+            self.para_dict['atrial_amplitude'] = atrial_amplitude
+            self.para_dict['arp'] = atrial_amplitude
 
             # Other
             self.table.check_value(av_delay, 0.05, 1.9)
@@ -384,30 +387,52 @@ class home_screen(QMainWindow):
             self.table.check_value(response_factor, 0.05, 1.9)
             self.table.check_value(recovery_time, 0.05, 1.9)
             self.table.check_value(reaction_time, 0.05, 1.9)
-            self.pace_table.change_data("av_delay", av_delay, float)
-            self.pace_table.change_data("activity_threshold", activity_threshold, float)
-            self.pace_table.change_data("response_factor", response_factor, float)
-            self.pace_table.change_data("recovery_time", recovery_time, float)
-            self.pace_table.change_data("reaction_time", reaction_time, float)
+            self.para_dict['av_delay'] = av_delay
+            self.para_dict['activity_threshold'] = activity_threshold
+            self.para_dict['response_factor'] = response_factor
+            self.para_dict['recovery_time'] = recovery_time
+            self.para_dict['reaction_time'] = reaction_time
+
+            self.para_dict['pace_mode'] = self.mode
+
+            params = [0] * 17
+            self.serial_read_write(False, "4B13H2B", "13H6B", 32, params)
+            self.serial_read_write(True, "4B13H2B", "13H6B", 32, params)
 
         except ValueError:
             log.error("Upper and lower rate error")
             ERRORS.invalid_input(self.tables_dict, self)
             return
 
-        # If this is a new patient add a new patient
-        if self.patient_num is None:
-            self.pace_table.add_row()
+        log.info("Confirmed changes to patient")
 
+    def serial_read_write(self, echo_bool, send_format, rec_format, rec_size, params):
+        start_byte = 22
+        if echo_bool:
+            send_val = 34  # Echo params
         else:
-            self.pace_table.edit_row(self.patient_num)
+            send_val = 85  # Send params
 
-        log.info("Confirming changes to patient")
+        params.insert(0, send_val)
+        params.insert(0, start_byte)
+
+        value_sent = False
+        while value_sent is False:
+            value_sent = self.serial.send(send_format, params)
+
+        if echo_bool:
+            params_dict = False
+            start_time = time.time()
+            while params_dict is False:
+                if time.time() - start_time > 1:
+                    params_dict = self.serial.get_params_dict(rec_size, rec_format)
+                    start_time = time.time()
+
+            return params_dict
 
     def confirm_patient_changes(self):
 
         # Assign values from TextBoxes to variables
-        patient_id = self.ui.TB_PatientID.text()
         first_name = self.ui.TB_FirstName.text()
         last_name = self.ui.TB_LastName.text()
         healthcard = self.ui.TB_HealthCard.text()
@@ -417,26 +442,34 @@ class home_screen(QMainWindow):
         # Change the values in the patient table
         try:
             unique = self.table.check_unique("patient_id", patient_id, int)
-            if unique is None:
-                ERRORS.invalid_input_patient(self.tables_dict, self, "edit")
-                log.warning("Invalid input")
-                return False
-            elif not unique:
-                ERRORS.employee_number_already_used(self.tables_dict, self, self.management_type)
-                log.warning("Invalid input -> same employee number")
-                return False
-            else:
-                self.table.change_data("employee_number", employee_number, int)
-                log.debug("Employee number is valid")
-                return True
+            if unique is not True:
+                ERRORS.pacemaker_not_unique(self.tables_dict, self, self.management_type)
 
-            self.patient_table.change_data("patient_number", patient_num, str)
             self.patient_table.change_data("first_name", first_name, str)
             self.patient_table.change_data("last_name", last_name, str)
             self.patient_table.change_data("healthcard", healthcard, str)
             self.patient_table.change_data("sex", sex, str)
             self.patient_table.change_data("age", age, str)
 
+            self.patient_table.edit_row(self.id)
+
         except ValueError:
             log.warning("Invalid input for patient data")
             ERRORS.invalid_input(self.tables_dict, self)
+
+    def populate_patient_info(self):
+
+        rn = self.table.get_value(None, "patient_id", self.id)
+
+        if rn is not None:
+            first_name = self.table.get_value(rn, 'first_name')
+            last_name = self.table.get_value(rn, 'last_name')
+            healthcard = self.table.get_value(rn, 'healthcard')
+            sex = self.table.get_value(rn, 'sex')
+            age = self.table.get_value(rn, 'age')
+
+            self.ui.TB_FirstName.setText(first_name)
+            self.ui.TB_LastName.setText(last_name)
+            self.ui.TB_HealthCard.setText(healthcard)
+            self.ui.TB_Sex.setText(sex)
+            self.ui.TB_Age.setText(age)

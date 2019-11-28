@@ -78,7 +78,7 @@ class serial_reader:
                        "activity_thres": int(result[14]),
                        "vent_detect": int(result[15]),
                        "atr_detect": int(result[16]),
-                       "pacemaker_id": int(result[17])
+                       "patient_id": int(result[17])
                        }
 
         if params_dict["rate_toggle"] == 1:

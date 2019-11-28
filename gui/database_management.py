@@ -446,18 +446,28 @@ class table:
         except ValueError("Uniqueness: incorrect entry type"):
             return None
 
-    def get_value(self, row, column=None):
+    def get_value(self, row, column=None, param=None):
         """
         Method to return values from the table
 
         :param row string: the row to retrieve from the table
         :param column string: optional variable to specify the column
         """
+        if param is not None:
+            for i in range(len(self._table_dict)):
+                if self._table_dict[i][column] == param:
+                    return i
+            else:
+                return None
+
+        if row is None:
+            return None
 
         if column is None:
             return self._table_dict[row]
         else:
             return self._table_dict[row][column]
+
 
     def populate(self, qt_table):
         """
@@ -530,9 +540,4 @@ class table:
                 continue
             elif self._table_dict[i][column] is True:
                 return True
-
-    def find_row_number(self, param, column):
-        for i in range(len(self._table_dict)):
-            if self._table_dict[i][column] == param:
-                return i
 
