@@ -92,6 +92,9 @@ BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item row="7" column="1">
@@ -119,6 +122,9 @@ BORDER-COLOR: rgb(245, 245, 245);
 BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -208,6 +214,9 @@ BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item row="8" column="0">
@@ -243,6 +252,9 @@ BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
     <item row="6" column="1">
@@ -270,6 +282,9 @@ BORDER-COLOR: rgb(245, 245, 245);
 BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -334,18 +349,12 @@ BORDER-STYLE: outset;</string>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="TB_EmployeeID">
+     <widget class="QSpinBox" name="SB_EmployeeID">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>41</height>
-       </size>
       </property>
       <property name="font">
        <font>
@@ -359,13 +368,18 @@ BORDER-RADIUS: 7px;
 BORDER-WIDTH: 1px;
 BORDER-STYLE: outset;</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="maximum">
+       <number>20000</number>
+      </property>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>TB_EmployeeID</tabstop>
   <tabstop>TB_UserLogin</tabstop>
   <tabstop>TB_Password</tabstop>
   <tabstop>TB_FirstName</tabstop>

@@ -452,6 +452,7 @@ class table:
 
         :param row string: the row to retrieve from the table
         :param column string: optional variable to specify the column
+        :param param string: parameter to try and match in the table
         """
         if param is not None:
             for i in range(len(self._table_dict)):
@@ -467,7 +468,6 @@ class table:
             return self._table_dict[row]
         else:
             return self._table_dict[row][column]
-
 
     def populate(self, qt_table):
         """
@@ -534,10 +534,14 @@ class table:
             raise ValueError
 
     def ensure_admin(self, row_number, column):
-        print(row_number)
+        """
+        Ensure that a user is an admin
+
+        :param row_number int: Row number to verify
+        :param column string: Row to check
+        """
         for i in range(len(self._table_dict)):
             if i == row_number:
-                continue
-            elif self._table_dict[i][column] is True:
+                log.debug("Skipping row {}".format(i))
+            elif bool(self._table_dict[i][column]) is False:
                 return True
-

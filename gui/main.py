@@ -34,7 +34,7 @@ PATIENT_PARAMETERS = [
                 ["SEX", "TEXT", "NOT", "NULL"],
                 ["AGE", "INT", "NOT", "NULL"],
                 ]
-DEFAULT_PATIENT = ["0", "'admin'", "'admin'", "'admin'", "'admin'", "0", "0"]
+DEFAULT_PATIENT = ["0", "'admin'", "'admin'", "'admin'", "'male'", "0"]
 
 
 # Setup log style
@@ -51,6 +51,7 @@ def main():
     database = DBM.db_manager(USER, DB_NAME)  # Connect to the database
 
     # Connect to all tables
+    database.delete_table(LOGINS_TABLE)
     users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS, ADMIN_CREDS)
     patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS, DEFAULT_PATIENT)
 

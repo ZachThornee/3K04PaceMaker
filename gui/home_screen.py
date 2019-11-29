@@ -1,6 +1,6 @@
 import logging as log
 
-from PyQt5 import uic
+from PyQt5 import uic, QtCore
 from PyQt5.QtWidgets import QMainWindow
 
 import errors as ERRORS
@@ -25,12 +25,15 @@ class home_screen(QMainWindow):
         self.tables_dict = tables_dict
         self.table = self.tables_dict['patients_table']
         self.params_dict = params_dict
+        self.rate_toggle = None
         self.mode = (self.params_dict["pace_mode"])
+        self.mode_number = None
         self.change_mode(self.mode)
         self.id = self.params_dict['patient_id']
         self.ui.LAB_UniquePatientID.setText(str(self.id))
         self.ui.LAB_ID.setText("ID: " + str(self.id))
         self.populate_patient_info()
+        self.populate_params()
         self.serial = serial
 
         # When a mode is selected, call the internal change_mode method to perform the functionality of the PushButton
@@ -63,11 +66,28 @@ class home_screen(QMainWindow):
         self.reset_screen()
         self.set_button_colour(mode)
 
+        if self.mode in ["AOOR", "AAIR", "VVIR", "VOOR", "DOOR"]:
+            self.rate_toggle = 1
+            mode_dict = {"AOOR": 1,
+                         "VOOR": 2,
+                         "AAIR": 3,
+                         "VVIR": 4,
+                         "DOOR": 5}
+        else:
+            self.rate_toggle = 0
+            mode_dict = {"AOO": 1,
+                         "VOO": 2,
+                         "AAI": 3,
+                         "VVI": 4,
+                         "DOO": 5}
+
+        self.mode_number = mode_dict[mode]
+
         if self.mode == "VVI" or mode == "VOO":
             # Entries
-            self.ui.TB_AtrialPulseWidth.hide()
-            self.ui.TB_AtrialAmplitude.hide()
-            self.ui.TB_ARP.hide()
+            self.ui.SB_AtrialPulseWidth.hide()
+            self.ui.SB_AtrialAmplitude.hide()
+            self.ui.SB_ARP.hide()
 
             # Labels
             self.ui.LAB_AtrialAmplitude.hide()
@@ -80,7 +100,7 @@ class home_screen(QMainWindow):
 
             if mode == "VOO":
                 # In addition to VVI, hide the VRP entry box
-                self.ui.TB_VRP.hide()
+                self.ui.SB_VRP.hide()
 
                 # In addition to VVI, hide the VRP labels
                 self.ui.LAB_VRP.hide()
@@ -93,9 +113,9 @@ class home_screen(QMainWindow):
 
         elif mode == "AAI" or mode == "AOO":
             # Entries
-            self.ui.TB_VentricularAmplitude.hide()
-            self.ui.TB_VentricularPulseWidth.hide()
-            self.ui.TB_VRP.hide()
+            self.ui.SB_VentricularAmplitude.hide()
+            self.ui.SB_VentricularPulseWidth.hide()
+            self.ui.SB_VRP.hide()
 
             # Labels
             self.ui.LAB_VentricularAmplitude.hide()
@@ -108,7 +128,7 @@ class home_screen(QMainWindow):
 
             if self.mode == "AOO":
                 # In addition to AAI, hide the ARP entry box
-                self.ui.TB_ARP.hide()
+                self.ui.SB_ARP.hide()
 
                 # In addition to AAI, hide the ARP labels
                 self.ui.LAB_ARP.hide()
@@ -121,8 +141,8 @@ class home_screen(QMainWindow):
 
         elif mode == "DOO" or mode == "DOOR":
             # Entries
-            self.ui.TB_VRP.hide()
-            self.ui.TB_ARP.hide()
+            self.ui.SB_VRP.hide()
+            self.ui.SB_ARP.hide()
 
             # Labels
             self.ui.LAB_VRP.hide()
@@ -132,7 +152,7 @@ class home_screen(QMainWindow):
 
             if self.mode == "DOO":
                 self.rate_adaptive_hiding()
-                self.ui.TB_AV_Delay.show()
+                self.ui.SB_AV_Delay.show()
                 self.ui.LAB_AV_Delay.show()
                 self.ui.LAB_AV_Delay_Units.show()
 
@@ -143,10 +163,10 @@ class home_screen(QMainWindow):
 
         elif mode == "AOOR" or mode == "AAIR":
             # Entries
-            self.ui.TB_VentricularAmplitude.hide()
-            self.ui.TB_VentricularPulseWidth.hide()
-            self.ui.TB_VRP.hide()
-            self.ui.TB_AV_Delay.hide()
+            self.ui.SB_VentricularAmplitude.hide()
+            self.ui.SB_VentricularPulseWidth.hide()
+            self.ui.SB_VRP.hide()
+            self.ui.SB_AV_Delay.hide()
 
             # Labels
             self.ui.LAB_VentricularAmplitude.hide()
@@ -160,7 +180,7 @@ class home_screen(QMainWindow):
 
             if self.mode == "AOOR":
                 # Entries
-                self.ui.TB_ARP.hide()
+                self.ui.SB_ARP.hide()
 
                 # Labels
                 self.ui.LAB_ARP.hide()
@@ -173,10 +193,10 @@ class home_screen(QMainWindow):
 
         elif mode == "VVIR" or mode == "VOOR":
             # Entries
-            self.ui.TB_AtrialAmplitude.hide()
-            self.ui.TB_AtrialPulseWidth.hide()
-            self.ui.TB_ARP.hide()
-            self.ui.TB_AV_Delay.hide()
+            self.ui.SB_AtrialAmplitude.hide()
+            self.ui.SB_AtrialPulseWidth.hide()
+            self.ui.SB_ARP.hide()
+            self.ui.SB_AV_Delay.hide()
 
             # Labels
             self.ui.LAB_AtrialAmplitude.hide()
@@ -190,7 +210,7 @@ class home_screen(QMainWindow):
 
             if self.mode == "VOOR":
                 # In addition to VVIR, hide the VRP entry box
-                self.ui.TB_VRP.hide()
+                self.ui.SB_VRP.hide()
 
                 # In addition to VVIR, hide the VRP labels
                 self.ui.LAB_VRP.hide()
@@ -206,19 +226,19 @@ class home_screen(QMainWindow):
     def reset_screen(self):
 
         # Text Boxes
-        self.ui.TB_VentricularPulseWidth.show()
-        self.ui.TB_VentricularAmplitude.show()
-        self.ui.TB_AtrialPulseWidth.show()
-        self.ui.TB_AtrialAmplitude.show()
-        self.ui.TB_ARP.show()
-        self.ui.TB_VRP.show()
-        self.ui.TB_AV_Delay.show()
-        self.ui.TB_ActivityThreshold.show()
-        self.ui.TB_ResponseFactor.show()
-        self.ui.TB_RecoveryTime.show()
-        self.ui.TB_ReactionTime.show()
-        self.ui.TB_UpperRateLimit.show()
-        self.ui.TB_LowerRateLimit.show()
+        self.ui.SB_VentricularPulseWidth.show()
+        self.ui.SB_VentricularAmplitude.show()
+        self.ui.SB_AtrialPulseWidth.show()
+        self.ui.SB_AtrialAmplitude.show()
+        self.ui.SB_ARP.show()
+        self.ui.SB_VRP.show()
+        self.ui.SB_AV_Delay.show()
+        self.ui.SB_ActivityThreshold.show()
+        self.ui.SB_ResponseFactor.show()
+        self.ui.SB_RecoveryTime.show()
+        self.ui.SB_ReactionTime.show()
+        self.ui.SB_UpperRateLimit.show()
+        self.ui.SB_LowerRateLimit.show()
 
         # Labels
         self.ui.LAB_LowerRateLimit.show()
@@ -265,11 +285,11 @@ class home_screen(QMainWindow):
         self.ui.LAB_ResponseFactor.hide()
 
         # Entries
-        self.ui.TB_AV_Delay.hide()
-        self.ui.TB_ActivityThreshold.hide()
-        self.ui.TB_ResponseFactor.hide()
-        self.ui.TB_RecoveryTime.hide()
-        self.ui.TB_ReactionTime.hide()
+        self.ui.SB_AV_Delay.hide()
+        self.ui.SB_ActivityThreshold.hide()
+        self.ui.SB_ResponseFactor.hide()
+        self.ui.SB_RecoveryTime.hide()
+        self.ui.SB_ReactionTime.hide()
         log.debug("Rate adaptive hiding complete")
 
     def set_button_colour(self, mode):
@@ -343,92 +363,100 @@ class home_screen(QMainWindow):
 
         """
 
-        vent_pulse_width = self.ui.TB_VentricularPulseWidth.text()
-        vent_amplitude = self.ui.TB_VentricularAmplitude.text()
-        atrial_pulse_width = self.ui.TB_AtrialPulseWidth.text()
-        atrial_amplitude = self.ui.TB_AtrialAmplitude.text()
-        arp = self.ui.TB_ARP.text()
-        vrp = self.ui.TB_VRP.text()
-        av_delay = self.ui.TB_AV_Delay.text()
-        activity_threshold = self.ui.TB_ActivityThreshold.text()
-        response_factor = self.ui.TB_ResponseFactor.text()
-        recovery_time = self.ui.TB_RecoveryTime.text()
-        reaction_time = self.ui.TB_ReactionTime.text()
-        upper_rate = self.ui.TB_UpperRateLimit.text()
-        lower_rate = self.ui.TB_LowerRateLimit.text()
-
         try:
+
+            vent_pulse_width = self.ui.SB_VentricularPulseWidth.value()
+            vent_amplitude = self.ui.SB_VentricularAmplitude.value()
+            atrial_pulse_width = self.ui.SB_AtrialPulseWidth.value()
+            atrial_amplitude = self.ui.SB_AtrialAmplitude.value()
+            arp = self.ui.SB_ARP.value()
+            vrp = self.ui.SB_VRP.value()
+            av_delay = self.ui.SB_AV_Delay.value()
+            activity_thres = self.ui.SB_ActivityThreshold.value()
+            response_factor = self.ui.SB_ResponseFactor.value()
+            recovery_time = self.ui.SB_RecoveryTime.value()
+            reaction_time = self.ui.SB_ReactionTime.value()
+            upper_rate = self.ui.SB_UpperRateLimit.value()
+            lower_rate = self.ui.SB_LowerRateLimit.value()
+            msr = self.ui.SB_MSR.value()
+
             # Upper and Lower
-            self.table.check_value(upper_rate, 50, 175)
-            self.table.check_value(lower_rate, 30, 175)
+            self.table.check_values(upper_rate, 50, 175)
+            self.table.check_values(lower_rate, 30, 175)
             self.params_dict['upper_rate'] = upper_rate
-            self.para_dict['upper_rate'] = upper_rate
-            self.para_dict['lower_rate'] = lower_rate
+            self.params_dict['lower_rate'] = lower_rate
 
             # Ventricle
-            self.table.check_value(vent_pulse_width, 0.05, 1.9)
-            self.table.check_value(vent_amplitude, 0.5, 5)
-            self.table.check_value(vrp, 150, 500)
-            self.para_dict['vent_pulse_width'] = vent_pulse_width
-            self.para_dict['vent_amplitude'] = vent_amplitude
-            self.para_dict['vrp'] = vrp
+            self.table.check_values(vent_pulse_width, 5, 40)
+            self.table.check_values(vent_amplitude, 1250, 5000)
+            self.table.check_values(vrp, 150, 500)
+            self.params_dict['vent_pulse_width'] = vent_pulse_width
+            self.params_dict['vent_pulse_amp'] = vent_amplitude
+            self.params_dict['vrp'] = vrp
 
             # Atrium
-            self.table.check_value(atrail_pulse_width, 0.05, 1.9)
-            self.table.check_value(atrial_amplitude, 0.5, 5)
-            self.table.check_value(arp, 150, 500)
-            self.para_dict['atrial_pulse_width'] = atrial_pulse_width
-            self.para_dict['atrial_amplitude'] = atrial_amplitude
-            self.para_dict['arp'] = atrial_amplitude
+
+            self.table.check_values(atrial_pulse_width, 5, 40)
+            self.table.check_values(atrial_amplitude, 1250, 5000)
+            self.table.check_values(arp, 150, 500)
+            self.params_dict['atr_pulse_width'] = atrial_pulse_width
+            self.params_dict['atr_pulse_amp'] = atrial_amplitude
+            self.params_dict['arp'] = arp
 
             # Other
-            self.table.check_value(av_delay, 0.05, 1.9)
-            self.table.check_value(activity_threshold, 0.05, 1.9)
-            self.table.check_value(response_factor, 0.05, 1.9)
-            self.table.check_value(recovery_time, 0.05, 1.9)
-            self.table.check_value(reaction_time, 0.05, 1.9)
-            self.para_dict['av_delay'] = av_delay
-            self.para_dict['activity_threshold'] = activity_threshold
-            self.para_dict['response_factor'] = response_factor
-            self.para_dict['recovery_time'] = recovery_time
-            self.para_dict['reaction_time'] = reaction_time
+            self.table.check_values(av_delay, 70, 300)
+            self.table.check_values(activity_thres, 1, 7)
+            self.table.check_values(response_factor, 1, 16)
+            self.table.check_values(recovery_time, 2, 16)
+            self.table.check_values(reaction_time, 10, 50)
+            self.table.check_values(msr, 10, 50)  #TODO fix msr
+            self.params_dict['fixed_av_delay'] = av_delay
+            self.params_dict['activity_thres'] = activity_thres
+            self.params_dict['response_factor'] = response_factor
+            self.params_dict['recovery_time'] = recovery_time
+            self.params_dict['reaction_time'] = reaction_time
+            self.params_dict['msr'] = msr
 
-            self.para_dict['pace_mode'] = self.mode
 
-            params = [0] * 17
-            self.serial_read_write(False, "4B13H2B", "13H6B", 32, params)
-            self.serial_read_write(True, "4B13H2B", "13H6B", 32, params)
+            # Mode based info
+            self.params_dict['pace_mode'] = self.mode_number
+            self.params_dict['rate_toggle'] = self.rate_toggle
+
+            start_byte = 22  # Start of serial msg
+            echo_bool = 85  # Write params
+            params = [start_byte,
+                      echo_bool,
+                      self.params_dict['pace_mode'],
+                      self.params_dict['activity_thres'],
+                      self.params_dict['lower_rate'],
+                      self.params_dict['upper_rate'],
+                      self.params_dict['msr'],
+                      self.params_dict['fixed_av_delay'],
+                      self.params_dict['atr_pulse_amp'],
+                      self.params_dict['vent_pulse_amp'],
+                      self.params_dict['atr_pulse_width'],
+                      self.params_dict['vent_pulse_width'],
+                      self.params_dict['arp'],
+                      self.params_dict['vrp'],
+                      self.params_dict['reaction_time'],
+                      self.params_dict['response_factor'],
+                      self.params_dict['recovery_time'],
+                      self.params_dict['rate_toggle'],
+                      0]
+            for _ in range(5):
+                self.serial.send("4B13H2B", params)  # Write
+            params[1] = 34  # Echo params
+            self.serial.send("4B13H2B", params)  # Echo
+
+            self.params_dict = self.serial.get_params_dict(32, "13H6B")
+            log.info("Confirmed changes to patient")
+            self.populate_params()
+            self.update()
 
         except ValueError:
-            log.error("Upper and lower rate error")
-            ERRORS.invalid_input(self.tables_dict, self)
+            log.error("Invalid serial input")
+            ERRORS.invalid_serial()
             return
-
-        log.info("Confirmed changes to patient")
-
-    def serial_read_write(self, echo_bool, send_format, rec_format, rec_size, params):
-        start_byte = 22
-        if echo_bool:
-            send_val = 34  # Echo params
-        else:
-            send_val = 85  # Send params
-
-        params.insert(0, send_val)
-        params.insert(0, start_byte)
-
-        value_sent = False
-        while value_sent is False:
-            value_sent = self.serial.send(send_format, params)
-
-        if echo_bool:
-            params_dict = False
-            start_time = time.time()
-            while params_dict is False:
-                if time.time() - start_time > 1:
-                    params_dict = self.serial.get_params_dict(rec_size, rec_format)
-                    start_time = time.time()
-
-            return params_dict
 
     def confirm_patient_changes(self):
 
@@ -436,26 +464,33 @@ class home_screen(QMainWindow):
         first_name = self.ui.TB_FirstName.text()
         last_name = self.ui.TB_LastName.text()
         healthcard = self.ui.TB_HealthCard.text()
-        sex = self.ui.TB_Sex.text()
-        age = self.ui.TB_Age.text()
+        if self.ui.RB_Male.isChecked():
+            sex = "Male"
+        else:
+            sex = "Female"
+
+        age = self.ui.SB_Age.value()
 
         # Change the values in the patient table
         try:
-            unique = self.table.check_unique("patient_id", patient_id, int)
-            if unique is not True:
-                ERRORS.pacemaker_not_unique(self.tables_dict, self, self.management_type)
+            unique = self.table.check_unique("patient_id", self.id, int)
+            self.table.change_data("patient_id", self.id, int)
+            self.table.change_data("first_name", first_name, str)
+            self.table.change_data("last_name", last_name, str)
+            self.table.change_data("healthcard", healthcard, str)
+            self.table.change_data("sex", sex, str)
+            self.table.change_data("age", age, int)
 
-            self.patient_table.change_data("first_name", first_name, str)
-            self.patient_table.change_data("last_name", last_name, str)
-            self.patient_table.change_data("healthcard", healthcard, str)
-            self.patient_table.change_data("sex", sex, str)
-            self.patient_table.change_data("age", age, str)
-
-            self.patient_table.edit_row(self.id)
+            if unique:
+                self.table.add_row()
+            else:
+                self.table.edit_row(self.id)
 
         except ValueError:
             log.warning("Invalid input for patient data")
             ERRORS.invalid_input(self.tables_dict, self)
+
+        log.info("Changes made to patient info")
 
     def populate_patient_info(self):
 
@@ -468,8 +503,31 @@ class home_screen(QMainWindow):
             sex = self.table.get_value(rn, 'sex')
             age = self.table.get_value(rn, 'age')
 
-            self.ui.TB_FirstName.setText(first_name)
-            self.ui.TB_LastName.setText(last_name)
-            self.ui.TB_HealthCard.setText(healthcard)
-            self.ui.TB_Sex.setText(sex)
-            self.ui.TB_Age.setText(age)
+            self.ui.TB_FirstName.setText(str(first_name))
+            self.ui.TB_LastName.setText(str(last_name))
+            self.ui.TB_HealthCard.setText(str(healthcard))
+            self.ui.SB_Age.setValue(age)
+            if sex.lower() == "male":
+                self.ui.RB_Male.setChecked(True)
+                self.ui.RB_Female.setChecked(False)
+            else:
+                self.ui.RB_Male.setChecked(False)
+                self.ui.RB_Female.setChecked(True)
+
+        log.info("Populated patient info")
+
+    def populate_params(self):
+        self.ui.SB_VentricularPulseWidth.setValue(self.params_dict['vent_pulse_width'])
+        self.ui.SB_VentricularAmplitude.setValue(self.params_dict['vent_pulse_amp'])
+        self.ui.SB_AtrialPulseWidth.setValue(self.params_dict['atr_pulse_width'])
+        self.ui.SB_AtrialAmplitude.setValue(self.params_dict['atr_pulse_amp'])
+        self.ui.SB_ARP.setValue(self.params_dict['arp'])
+        self.ui.SB_VRP.setValue(self.params_dict['vrp'])
+        self.ui.SB_AV_Delay.setValue(self.params_dict['fixed_av_delay'])
+        self.ui.SB_ActivityThreshold.setValue(self.params_dict['activity_thres'])
+        self.ui.SB_ResponseFactor.setValue(self.params_dict['response_factor'])
+        self.ui.SB_RecoveryTime.setValue(self.params_dict['recovery_time'])
+        self.ui.SB_ReactionTime.setValue(self.params_dict['reaction_time'])
+        self.ui.SB_UpperRateLimit.setValue(self.params_dict['upper_rate'])
+        self.ui.SB_LowerRateLimit.setValue(self.params_dict['lower_rate'])
+        self.ui.SB_MSR.setValue(self.params_dict['msr'])

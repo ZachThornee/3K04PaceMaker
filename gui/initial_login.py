@@ -22,7 +22,6 @@ class login_screen(QMainWindow):
         self.tables_dict = tables_dict
         self.table = self.tables_dict['users_table']
         self.ui.PB_Confirm.clicked.connect(self.login_button)
-        self.ui.PB_ForgotPassword.clicked.connect(self.forgot_password_button)
         self.ui.PB_UserManager.clicked.connect(self.manage_users_button)
         self.ui.PB_PatientManager.clicked.connect(self.manage_patients_button)
         self.ui.show()
@@ -64,12 +63,4 @@ class login_screen(QMainWindow):
 
         """
         SPECIFIC_LOGIN.specific_login(self.tables_dict, "doctor")
-        self.ui.close()
-
-    def forgot_password_button(self):
-        """
-        Method to open the forgot password screen
-
-        """
-        SPECIFIC_LOGIN.specific_login(self.tables_dict, "forgot_password")
         self.ui.close()

@@ -55,8 +55,9 @@ class invalid_input(QMainWindow):
         """
         Constructor for invalid input error screen
 
-        :param tables_dict dictionary: dictionary contain all tables
-        :param add_user_screen class add_user_screen: add_user_screen object
+        :param tables_dict dict: dictionary containing all tables in db
+        :param add_user_screen QMainWindow: previous add user screen instance
+        :param management_type string: Specifies whether managing users or patients
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_Error_2_Options.ui'), self)
@@ -100,6 +101,7 @@ class employee_number_already_used(QMainWindow):
 
         :param tables_dict dictionary: dictionary containing all tables
         :param add_user_screen class add_user_screen: add_user_screen object
+        :param management_type string: whether we are managing users or patients
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_Error_2_Options.ui'), self)
@@ -201,12 +203,9 @@ class privelege_error(QMainWindow):
 
 class incorrect_login(QMainWindow):
 
-    def __init__(self, tables_dict, add_user_screen, management_type):
+    def __init__(self):
         """
-        Constructor for invalid input error screen
-
-        :param tables_dict dictionary: dictionary contain all tables
-        :param add_user_screen class add_user_screen: add_user_screen object
+        Constructor for incorrect login screen
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_Error_1_Options.ui'), self)
@@ -224,6 +223,32 @@ class incorrect_login(QMainWindow):
     def return_to_prev(self):
         """
         Method to return to the previous screen
+
+        """
+        self.ui.close()
+
+
+class invalid_serial(QMainWindow):
+
+    def __init__(self):
+        """
+        Constructor for invalid serial input error screen
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
+        log.warning("Invalid input. Showing popup")
+        self.ui.LAB_ErrorTitle.setText("Invalid input")
+        error_string = "Invalid serial input"
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to DCM")
+        self.ui.show()
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_DCM)
+
+    def return_to_DCM(self):
+        """
+        Method to return to the DCM
 
         """
         self.ui.close()

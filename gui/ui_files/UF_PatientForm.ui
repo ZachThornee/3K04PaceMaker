@@ -18,36 +18,67 @@
   </property>
   <widget class="QWidget" name="Widget_AddUser">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="7" column="0">
-     <widget class="QLabel" name="LAB_Admin">
+    <item row="5" column="2">
+     <widget class="QRadioButton" name="RB_Female">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Pacemaker ID:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>Female</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="LAB_EmployeeID">
+    <item row="2" column="1" colspan="2">
+     <widget class="QLineEdit" name="TB_FirstName">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>41</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>16</pointsize>
        </font>
       </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Patient ID:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="LAB_UserLogin">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;First Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <item row="0" column="0" colspan="3">
+     <widget class="QLabel" name="LAB_Title">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="LAB_LastName">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
+</string>
+      </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Sex:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -58,8 +89,8 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_Age">
+    <item row="3" column="1" colspan="2">
+     <widget class="QLineEdit" name="TB_LastName">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -93,226 +124,7 @@ BORDER-STYLE: outset;</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_FirstName">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_LastName">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_PatientID">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="LAB_FirstName">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Healthcard:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
-     <widget class="QPushButton" name="PB_Cancel">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change your password, create new users, and delete existing users&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(255, 175, 177);
-BORDER-COLOR: rgb(255, 175. 177);
-BORDER-RADIUS: 10px;
-BORDER-STYLE: outset;
-</string>
-      </property>
-      <property name="text">
-       <string>Cancel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="LAB_Title">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(208, 248, 255);
-</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_Healthcard">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QRadioButton" name="RB_Male">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Male</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="2">
-     <widget class="QRadioButton" name="RB_Female">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Female</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1" colspan="2">
-     <widget class="QLineEdit" name="TB_PacemakerID">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
-BORDER-COLOR: rgb(245, 245, 245);
-BORDER-RADIUS: 7px;
-BORDER-WIDTH: 1px;
-BORDER-STYLE: outset;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="2">
+    <item row="7" column="2">
      <widget class="QPushButton" name="PB_Confirm">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -346,18 +158,169 @@ BORDER-STYLE: outset;
       </property>
      </widget>
     </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="LAB_FirstName">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Healthcard:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="PB_Cancel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change your password, create new users, and delete existing users&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(255, 175, 177);
+BORDER-COLOR: rgb(255, 175. 177);
+BORDER-RADIUS: 10px;
+BORDER-STYLE: outset;
+</string>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="LAB_EmployeeID">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Patient ID:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QRadioButton" name="RB_Male">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Male</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="LAB_LastName">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Sex:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="LAB_UserLogin">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;First Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" colspan="2">
+     <widget class="QLineEdit" name="TB_Healthcard">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1" colspan="2">
+     <widget class="QSpinBox" name="SB_Age">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="maximum">
+       <number>200</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QSpinBox" name="SB_PatientID">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">BACKGROUND-COLOR: rgb(245, 245, 245);
+BORDER-COLOR: rgb(245, 245, 245);
+BORDER-RADIUS: 7px;
+BORDER-WIDTH: 1px;
+BORDER-STYLE: outset;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="maximum">
+       <number>20000</number>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>TB_PatientID</tabstop>
   <tabstop>TB_FirstName</tabstop>
   <tabstop>TB_LastName</tabstop>
   <tabstop>TB_Healthcard</tabstop>
   <tabstop>RB_Male</tabstop>
   <tabstop>RB_Female</tabstop>
-  <tabstop>TB_Age</tabstop>
-  <tabstop>TB_PacemakerID</tabstop>
   <tabstop>PB_Confirm</tabstop>
   <tabstop>PB_Cancel</tabstop>
  </tabstops>

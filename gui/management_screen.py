@@ -16,6 +16,7 @@ class manager(QMainWindow):
         Constructor for user manager screen
 
         :param tables_dict dictionary: A dictionary containing all tables
+        :param management_type string: Whether we are managing users or patients
         """
         super().__init__()
         self.ui = uic.loadUi(('ui_files/UF_ManagementScreen.ui'), self)
@@ -103,22 +104,29 @@ class manager(QMainWindow):
             log.error("No user selected")
             return False
 
+        # Get the selected range
         selected = self.ui.TAB_Table.selectedRanges()[0]
+        # Get the top row from range and get the number
         row_number = selected.topRow()
 
         if self.management_type == "users":
+            # Get the unique identifier
             employee_number = self.table.get_value(row_number, "employee_number")
+
             if self.table.ensure_admin(row_number, "employee_number"):
                 log.info("Deleting user {}".format(employee_number))
                 self.table.delete_row(employee_number)
             else:
+                # Make sure we aren't deleting the only admin user
                 ERRORS.privelege_error(self.tables_dict, self)
                 return
 
         elif self.management_type == "patients":
+            # Delete a patient
             patient_id = self.table.get_value(row_number, "patient_id")
             self.table.delete_row(patient_id)
 
+        # Close ui and update the table (re-opens ui) to reflect the changes
         self.ui.close()
         self.update_table()
 

@@ -59,7 +59,7 @@ class user_form(QMainWindow):
         # Insert the values into the form
         self.ui.TB_FirstName.insert(first_name)
         self.ui.TB_LastName.insert(last_name)
-        self.ui.TB_EmployeeID.insert(str(employee_number))
+        self.ui.SB_EmployeeID.setValue(employee_number)
         self.ui.TB_Email.insert(email)
         self.ui.TB_UserLogin.insert(user_login)
         self.ui.TB_Password.insert(password)
@@ -77,7 +77,7 @@ class user_form(QMainWindow):
 
         """
         # Get all fields from text boxes
-        employee_number = self.ui.TB_EmployeeID.text()
+        employee_number = self.ui.SB_EmployeeID.value()
         first_name = self.ui.TB_FirstName.text()
         last_name = self.ui.TB_LastName.text()
         password = self.ui.TB_Password.text()
@@ -101,15 +101,9 @@ class user_form(QMainWindow):
             # Verify employee number and changes
             if self.edit_type == "edit":
 
-                # Verify that there is another admin user
-                if self.table.ensure_admin(self.rn, "employee_number"):
-                    self.table.change_data("admin_priveleges", admin_priveleges, bool)
-                else:
-                    ERRORS.privelege_error(self.tables_dict, self)
-                    return
-
                 # Retrieve the old employee number
                 old_employee_num = self.table.get_value(self.rn, "employee_number")
+
                 if str(employee_number) != str(old_employee_num):
                     valid_num = self.validate_employee_number(employee_number)
                     if not valid_num:
@@ -117,12 +111,20 @@ class user_form(QMainWindow):
                 else:
                     self.table.change_data("employee_number", employee_number, int)
 
+                    # Verify there is another admin user if removing priveleges
+                    if admin_priveleges is False:
+                        if self.table.ensure_admin(self.rn, "employee_number"):
+                            self.table.change_data("admin_priveleges", admin_priveleges, bool)
+                        else:
+                            ERRORS.privelege_error(self.tables_dict, self)
+                            return
+
                 self.table.edit_row(abs(int(old_employee_num)))
 
             elif self.edit_type == "add":
                 valid_num = self.validate_employee_number(employee_number)
                 self.table.change_data("admin_priveleges", admin_priveleges, bool)
-                if valid_num:
+                if valid_num:  # If we have a valid employee number
                     self.table.change_data("employee_number", employee_number, int)
                     self.table.add_row()
                 else:
@@ -135,15 +137,19 @@ class user_form(QMainWindow):
         self.return_to_user_manager()
 
     def validate_employee_number(self, employee_number):
+        """
+        Method to verify that an employee number is valid
+
+        :param employee_number int: Employee number to verify
+        """
         unique = self.table.check_unique("employee_number", employee_number, int)
-        if unique is None:
+        if unique is None:  # None is returned if there is a type error
             raise ValueError
-        elif not unique:
+        elif not unique:  # False is returned if value is not unique
             ERRORS.employee_number_already_used(self.tables_dict, self, self.management_type)
             log.warning("Invalid input -> same employee number")
             return False
-        else:
-            self.table.change_data("employee_number", employee_number, int)
+        else:  # True is return if the value is unique
             log.debug("Employee number is valid")
             return True
 
