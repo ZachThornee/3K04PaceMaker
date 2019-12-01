@@ -133,6 +133,7 @@ class patient_form(QMainWindow):
         except ValueError:  # If we receive an invalid number
             ERRORS.invalid_input(self.tables_dict, self, "patients")
             log.warning("Invalid input")
+            return
 
         self.return_to_patient_manager()
 
@@ -147,7 +148,7 @@ class patient_form(QMainWindow):
             log.debug("Invalid entry for patient id")
             raise ValueError
         elif not unique:  # If we have a value that has already been used
-            ERRORS.employee_number_already_used(self.tables_dict, self)
+            ERRORS.patient_number_already_used(self.tables_dict, self, "patient")
             log.warning("Invalid input -> same patient id")
             return False
         else:  # If the number is valid

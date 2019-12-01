@@ -67,10 +67,15 @@ class invalid_input(QMainWindow):
         self.ui.LAB_ErrorMessage.setText(error_string)
         self.ui.PB_Option1.setText("Return to form")
         self.ui.PB_Option2.setText("Return to user manager")
-        self.ui.show()
+
         self.tables_dict = tables_dict
         self.add_user_screen = add_user_screen
         self.management_type = management_type
+
+        if self.management_type == "patients":
+            self.ui.PB_Option2.setText("Return to patient manager")
+
+        self.ui.show()
 
         # Buttons
         self.ui.PB_Option1.clicked.connect(self.return_to_form)
@@ -208,14 +213,13 @@ class incorrect_login(QMainWindow):
         Constructor for incorrect login screen
         """
         super().__init__()
-        self.ui = uic.loadUi(('ui_files/UF_Error_1_Options.ui'), self)
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
         log.warning("Invalid input. Showing popup")
-        self.ui.LAB_ErrorTitle.setText("Invalid input")
-        error_string = "Invalid input user input"
+        self.ui.LAB_ErrorTitle.setText("Invalid login")
+        error_string = "Invalid login credentials"
         self.ui.LAB_ErrorMessage.setText(error_string)
         self.ui.PB_Option1.setText("Return to previous screen")
         self.ui.show()
-        self.tables_dict = tables_dict
 
         # Buttons
         self.ui.PB_Option1.clicked.connect(self.return_to_prev)
@@ -227,6 +231,31 @@ class incorrect_login(QMainWindow):
         """
         self.ui.close()
 
+
+class insufficent_priveleges(QMainWindow):
+
+    def __init__(self):
+        """
+        Constructor for incorrect login screen
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
+        log.warning("Insufficient priveleges. Showing popup")
+        self.ui.LAB_ErrorTitle.setText("Insufficient Privileges")
+        error_string = "You have insufficient privileges"
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to previous screen")
+        self.ui.show()
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_prev)
+
+    def return_to_prev(self):
+        """
+        Method to return to the previous screen
+
+        """
+        self.ui.close()
 
 class invalid_serial(QMainWindow):
 
@@ -252,3 +281,102 @@ class invalid_serial(QMainWindow):
 
         """
         self.ui.close()
+
+
+class patient_number_already_used(QMainWindow):
+
+    def __init__(self, tables_dict, add_patient_screen, management_type,):
+        """
+        Constructor for employee number alrady in use error
+
+        :param tables_dict dictionary: dictionary containing all tables
+        :param add_user_screen class add_user_screen: add_user_screen object
+        :param management_type string: whether we are managing users or patients
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_2_Options.ui'), self)
+        log.warning("Patient number already exists. Showing popup")
+        self.ui.LAB_ErrorTitle.setText("Patient Number Already Used")
+        error_string = "The patient number has already been used. What would you like to do?"
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to form")
+        self.ui.PB_Option2.setText("Return to patient manager")
+        self.ui.show()
+        self.tables_dict = tables_dict
+        self.add_patient_screen = add_patient_screen
+        self.management_type = management_type
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_form)
+        self.ui.PB_Option2.clicked.connect(self.return_to_patient_manager)
+
+    def return_to_form(self):
+        """
+        Method to return to the add user screen
+
+        """
+        self.ui.close()
+
+    def return_to_patient_manager(self):
+        """
+        Method to return to the user_manager_screen
+
+        """
+        self.ui.close()
+        self.add_patient_screen.ui.close()
+        MANAGER.manager(self.tables_dict, self.management_type)
+
+
+class no_selection(QMainWindow):
+
+    def __init__(self):
+        """
+        Constructor for incorrect login screen
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
+        log.warning("No selection, showing popup.")
+        self.ui.LAB_ErrorTitle.setText("No Selection")
+        error_string = "Please select a row of the table."
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to previous screen")
+        self.ui.show()
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_prev)
+
+    def return_to_prev(self):
+        """
+        Method to return to the previous screen
+
+        """
+        self.ui.close()
+
+
+class no_serial_connected(QMainWindow):
+
+    def __init__(self, tables_dict, DCM):
+        """
+        Constructor for incorrect login screen
+        """
+        super().__init__()
+        self.ui = uic.loadUi(('ui_files/UF_Error_1_Option.ui'), self)
+        DCM.ui.close()
+        log.warning("No serial conncted")
+        self.ui.LAB_ErrorTitle.setText("No Serial Connected")
+        error_string = "Pacemaker has unexpectedly disconnected. You will be returned to the main login screen."
+        self.ui.LAB_ErrorMessage.setText(error_string)
+        self.ui.PB_Option1.setText("Return to main login screen")
+        self.ui.show()
+        self.tables_dict = tables_dict
+
+        # Buttons
+        self.ui.PB_Option1.clicked.connect(self.return_to_login)
+
+    def return_to_login(self):
+        """
+        Method to return to the previous screen
+
+        """
+        self.ui.close()
+        LOGIN_SCREEN.login_screen(self.tables_dict)

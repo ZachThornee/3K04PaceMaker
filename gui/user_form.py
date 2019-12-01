@@ -133,6 +133,7 @@ class user_form(QMainWindow):
         except ValueError:
             ERRORS.invalid_input(self.tables_dict, self, self.management_type)
             log.warning("Invalid input")
+            return
 
         self.return_to_user_manager()
 

@@ -15,10 +15,10 @@ class serial_reader:
         :param baud int: Baud rate to use to read serial
         """
         self.serial = None
-        self.port = port
         self.baud = baud
         self.prev_msg = None
-        self.alternate_port_list = ["/dev/ttyACM0", "/dev/ttyACM1"]
+        self.port_list = ["/dev/ttyACM0", "/dev/ttyACM1"]
+        self.port_list.insert(0, port)  # Try passed port first
         self.t1 = threading.Thread(target=self.connect)
         self.t1.start()
 
@@ -27,30 +27,17 @@ class serial_reader:
         Method to connnect to a new serial device
 
         """
-        count = 0
         while self.serial is None:
-            try:
-                # Increment a counter
-                count = count + 1
+            for port in self.port_list:  # Try all our ports
+                try:
+                    tmp_serial = serial.Serial(port, self.baud, timeout=0.1)
+                    time.sleep(1)
+                    self.serial = tmp_serial
+                except FileNotFoundError:
+                    pass
+                except serial.serialutil.SerialException:
+                    pass
 
-                if count > 100:
-                    for port in self.alternate_port_list:
-                        try:
-                            tmp_serial = serial.Serial(port, self.baud, timeout=0.1)
-                            time.sleep(1)
-                            self.serial = tmp_serial
-                            break
-                        except FileNotFoundError:
-                            pass
-
-                tmp_serial = serial.Serial(self.port, self.baud, timeout=0.1)
-                time.sleep(1)
-                self.serial = tmp_serial
-
-            except FileNotFoundError:
-                pass
-            except serial.serialutil.SerialException:
-                pass
         log.info("Serial connnected")
 
     def send(self, send_format, params):
@@ -67,8 +54,15 @@ class serial_reader:
         # *list unpacks the list into seperate args
         msg = struct.pack(send_format, *params)  # Pack into string
         self.prev_msg = msg  # Set previous message to current msg
-        self.serial.write(msg)  # Write the messsage
-        log.info("Serial message sent")
+        log.debug("Just before message send")
+        try:
+            self.serial.write(msg)  # Write the messsage
+            log.info("Serial message sent")
+            return True
+        except serial.serialutil.SerialException:
+            log.error("No device connnected")
+            raise SystemError
+
 
     def get_params_dict(self, byte_len, receive_format):
         """

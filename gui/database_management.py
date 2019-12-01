@@ -401,6 +401,9 @@ class table:
         if not self._validate_column_name(column_name):
             raise AttributeError("{} is not a column name".format(column_name))
 
+        if entry == "":
+            raise ValueError
+
         elif entry_type == int:
             entry = str(abs(int(entry)))
         elif entry_type == str:

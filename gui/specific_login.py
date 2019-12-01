@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMainWindow
 
 import management_screen as MANAGER
 import initial_login as LOGIN
+import errors as ERRORS
 
 
 class specific_login(QMainWindow):
@@ -58,23 +59,24 @@ class specific_login(QMainWindow):
         entries = [username, password]
         entry_types = [str, str]
 
-        # If the required login is admin
-        if self.login_type == "admin":
-            column_names.append("admin_priveleges")
-            entries.append(True)
-            entry_types.append(bool)
-
         # If the username and password are valid
         if self.table.validate_entry(column_names, entries, entry_types):
-            self.ui.close()
             if self.login_type == "admin":
-                MANAGER.manager(self.tables_dict, "users")
+                column_names.append("admin_priveleges")
+                entries.append(True)
+                entry_types.append(bool)
+                if self.table.validate_entry(column_names, entries, entry_types):
+                    self.ui.close()
+                    MANAGER.manager(self.tables_dict, "users")
+                else:
+                    ERRORS.insufficent_priveleges()
             elif self.login_type == "doctor":
+                self.ui.close()
                 MANAGER.manager(self.tables_dict, "patients")
-
             return
         else:
-            log.info("Incorrect login or insufficient priveleges")
+            ERRORS.incorrect_login()
+            log.debug("Incorrect login or insufficient priveleges")
 
     def return_to_login_screen(self):
         """

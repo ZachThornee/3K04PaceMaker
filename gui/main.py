@@ -51,7 +51,6 @@ def main():
     database = DBM.db_manager(USER, DB_NAME)  # Connect to the database
 
     # Connect to all tables
-    database.delete_table(LOGINS_TABLE)
     users_table = database.con_table(LOGINS_TABLE, LOGINS_PARAMETERS, ADMIN_CREDS)
     patient_table = database.con_table(PATIENT_TABLE, PATIENT_PARAMETERS, DEFAULT_PATIENT)
 

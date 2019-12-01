@@ -46,7 +46,7 @@ class login_screen(QMainWindow):
             log.info("Connecting to DCM serial reader")
             CON_SCREEN.con_screen(self.tables_dict)
         else:
-            ERRORS.incorrect_login(self.tables_dict, self)
+            ERRORS.incorrect_login()
             log.info("Incorrect login")
 
     def manage_users_button(self):

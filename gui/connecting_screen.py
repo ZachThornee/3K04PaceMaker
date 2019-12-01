@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMainWindow
 import home_screen as HOME
 import serial_connect
 import time
+import errors as ERRORS
 
 
 class con_screen(QMainWindow):
@@ -26,7 +27,7 @@ class con_screen(QMainWindow):
         self.serial = serial_connect.serial_reader("/dev/ttyACM1", 115200)
         self.table = self.tables_dict['patients_table']
         self.thread_received.connect(self.connected)
-        self.reader_thread = read_serial(self.serial, self.thread_received, True)
+        self.reader_thread = read_serial(self.serial, self.thread_received, True, self, self.tables_dict)
         self.reader_thread.start()
 
     def connected(self, params_dict):
@@ -43,7 +44,7 @@ class con_screen(QMainWindow):
 
 class read_serial(QtCore.QThread):
 
-    def __init__(self, serial, call_thread, echo_bool):
+    def __init__(self, serial, call_thread, echo_bool, con_screen, tables_dict):
         """
         Initialization for serial read sub thread
 
@@ -51,16 +52,20 @@ class read_serial(QtCore.QThread):
         :param call_thread pyqtSignal: Callback to emit to
         :param echo_bool boolean: Whether to read or echo
         """
+        log.debug("Initializing the read serial thread")
         QtCore.QThread.__init__(self)
         self.serial = serial
         self.call_thread = call_thread
         self.echo_bool = echo_bool
+        self.tables_dict = tables_dict
+        self.con_screen = con_screen
 
     def run(self):
         """
         Run funciton for the QThread
 
         """
+        log.debug("Run function started")
         start_byte = 22  # Initial start byte
 
         if self.echo_bool:
@@ -72,16 +77,16 @@ class read_serial(QtCore.QThread):
         echo_msg.insert(0, send_val)  # Insert to front of list
         echo_msg.insert(0, start_byte)  # Insert in front of the send_val
 
-        value_sent = False
-        while value_sent is False:
-            # Keep trying to send our custom echo message until we know its been sent
-            value_sent = self.serial.send("4B13H2B", echo_msg)
+        try:
+            value_sent = False
+            while value_sent is False:
+                # Keep trying to send our custom echo message until we know its been sent
+                value_sent = self.serial.send("4B13H2B", echo_msg)
 
-        params_dict = False
-        start_time = time.time()
-        while params_dict is False:
-            if time.time() - start_time > 1:  # Try to get params every second
-                params_dict = self.serial.get_params_dict(32, "13H6B")
-                start_time = time.time()
+            params_dict = self.serial.get_params_dict(32, "13H6B")
+            self.call_thread.emit(params_dict)  # Once we have params send to main thread
 
-        self.call_thread.emit(params_dict)  # Once we have params send to main thread
+        except SystemError:  # If there is an issue with the pacemaker connection
+            ERRORS.no_serial_connected(self.tables_dict, self.con_screen)
+            return
+

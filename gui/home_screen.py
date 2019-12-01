@@ -239,6 +239,7 @@ class home_screen(QMainWindow):
         self.ui.SB_ReactionTime.show()
         self.ui.SB_UpperRateLimit.show()
         self.ui.SB_LowerRateLimit.show()
+        self.ui.SB_MSR.show()
 
         # Labels
         self.ui.LAB_LowerRateLimit.show()
@@ -267,6 +268,8 @@ class home_screen(QMainWindow):
         self.ui.LAB_RecoveryTime.show()
         self.ui.LAB_ReactionTime.show()
         self.ui.LAB_ResponseFactor.show()
+        self.ui.LAB_MSR.show()
+        self.ui.LAB_MSR_Units.show()
 
         self.update()
         log.info("Resetting Screen Successful")
@@ -283,6 +286,8 @@ class home_screen(QMainWindow):
         self.ui.LAB_RecoveryTime.hide()
         self.ui.LAB_ReactionTime.hide()
         self.ui.LAB_ResponseFactor.hide()
+        self.ui.LAB_MSR.hide()
+        self.ui.LAB_MSR_Units.hide()
 
         # Entries
         self.ui.SB_AV_Delay.hide()
@@ -290,6 +295,7 @@ class home_screen(QMainWindow):
         self.ui.SB_ResponseFactor.hide()
         self.ui.SB_RecoveryTime.hide()
         self.ui.SB_ReactionTime.hide()
+        self.ui.SB_MSR.hide()
         log.debug("Rate adaptive hiding complete")
 
     def set_button_colour(self, mode):
@@ -409,7 +415,7 @@ class home_screen(QMainWindow):
             self.table.check_values(response_factor, 1, 16)
             self.table.check_values(recovery_time, 2, 16)
             self.table.check_values(reaction_time, 10, 50)
-            self.table.check_values(msr, 10, 50)  #TODO fix msr
+            self.table.check_values(msr, 50, 175)  #TODO fix msr
             self.params_dict['fixed_av_delay'] = av_delay
             self.params_dict['activity_thres'] = activity_thres
             self.params_dict['response_factor'] = response_factor
@@ -453,10 +459,15 @@ class home_screen(QMainWindow):
             self.populate_params()
             self.update()
 
-        except ValueError:
+        except ValueError:  # If there is an error with serial params
             log.error("Invalid serial input")
             ERRORS.invalid_serial()
             return
+
+        except SystemError:  # If there is an error with the pacemaker connection
+            log.error("No serial device connected")
+            ERRORS.no_serial_connected(self.tables_dict, self)
+
 
     def confirm_patient_changes(self):
 

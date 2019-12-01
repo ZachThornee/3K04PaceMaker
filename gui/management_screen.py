@@ -81,7 +81,7 @@ class manager(QMainWindow):
         """
 
         if len(self.ui.TAB_Table.selectedRanges()) == 0:
-            log.error("No user selected")
+            ERRORS.no_selection()
             return False
 
         selected = self.ui.TAB_Table.selectedRanges()[0]
@@ -101,7 +101,7 @@ class manager(QMainWindow):
         """
 
         if len(self.ui.TAB_Table.selectedRanges()) == 0:
-            log.error("No user selected")
+            ERRORS.no_selection()
             return False
 
         # Get the selected range
